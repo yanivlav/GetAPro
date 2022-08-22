@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/item_attachment"
+            android:checked="true"
+            android:icon="@drawable/ic_attachment"
+            android:title="Attach File"/>
+
+        <item
+            android:id="@+id/item_images"
+            android:icon="@drawable/ic_image"
+            android:title="Show Images"/>
+
+    </group>
+
+    <item android:title="submenu">
+        <menu>
+            <item android:title="item1"
+                android:icon="@drawable/ic_emoticon"/>
+            <item android:title="item2"
+                android:icon="@drawable/ic_emoticon"/>
+        </menu>
+    </item>
+
+</menu>

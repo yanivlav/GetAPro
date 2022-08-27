@@ -1,4 +1,4 @@
-package com.example.getapro;
+package com.example.getapro.Common.Auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -13,11 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.getapro.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-public class UserDashboard extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -26,7 +27,7 @@ public class UserDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_dashboard);
+        setContentView(R.layout.activity_login);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -44,7 +45,7 @@ public class UserDashboard extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(false);
                 drawerLayout.closeDrawers();
-                Toast.makeText(UserDashboard.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -57,7 +58,7 @@ public class UserDashboard extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,"im a Snackbar",Snackbar.LENGTH_LONG).setAction("action", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                                        Toast.makeText(UserDashboard.this, "sneakbar action pressed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "sneakbar action pressed", Toast.LENGTH_SHORT).show();
 
                     }
                 }).show();

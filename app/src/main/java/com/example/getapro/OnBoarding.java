@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.getapro.Common.Auth.LoginActivity;
+
 public class OnBoarding extends AppCompatActivity {
 
     //Variables
@@ -48,7 +50,7 @@ public class OnBoarding extends AppCompatActivity {
     }
 
     public void skip(View view) {
-        startActivity(new Intent(this, UserDashboard.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
@@ -99,7 +101,7 @@ public class OnBoarding extends AppCompatActivity {
                 letsGetStarted.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(OnBoarding.this,UserDashboard.class);
+                        Intent intent = new Intent(OnBoarding.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     }

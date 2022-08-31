@@ -20,7 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="5dp"
-            android:src="@drawable/general_back_icon"
+            android:src="@drawable/ic_back"
             android:transitionName="transition_back_arrow_btn" />
 
 

@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.getapro.Common.Auth.LoginActivity;
-import com.example.getapro.OnBoarding;
+import com.example.getapro.MainActivity;
 import com.example.getapro.R;
 
 public class SplashScreen extends AppCompatActivity {
@@ -61,7 +60,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    Intent intent = new Intent(SplashScreen.this,  LoginActivity.class);
+                    Intent intent = new Intent(SplashScreen.this,  MainActivity.class);
 //                    Intent intent = new Intent(SplashScreen.this,  OnBoarding.class);
 
                     startActivity(intent);

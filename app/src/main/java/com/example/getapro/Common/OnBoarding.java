@@ -1,4 +1,4 @@
-package com.example.getapro;
+package com.example.getapro.Common;
 //https://www.youtube.com/watch?v=nG7y1NiCTxA&t=7s
 //https://www.youtube.com/watch?v=aitFkLdHr3o
 
@@ -16,7 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.getapro.Common.Auth.LoginActivity;
+import com.example.getapro.MainActivity;
+import com.example.getapro.R;
 
 public class OnBoarding extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class OnBoarding extends AppCompatActivity {
     }
 
     public void skip(View view) {
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
@@ -101,7 +102,7 @@ public class OnBoarding extends AppCompatActivity {
                 letsGetStarted.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(OnBoarding.this, LoginActivity.class);
+                        Intent intent = new Intent(OnBoarding.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }

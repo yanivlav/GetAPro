@@ -20,14 +20,6 @@
         android:theme="@style/Theme.GetAPro"
         tools:targetApi="31" >
         <activity
-        tools:targetApi="31">
-        <activity
-            android:name=".Common.Location"
-            android:exported="false" />
-        <activity
-            android:name=".Common.Auth.SignUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".Common.OnBoarding"
             android:exported="false" />
         <activity
@@ -38,6 +30,7 @@
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

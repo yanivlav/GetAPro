@@ -24,7 +24,7 @@ public class ClientContact extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    Button proceedB, changeServiceB;
+    Button proceedB, changeServiceB, locationB;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -82,6 +82,14 @@ public class ClientContact extends Fragment {
                 changeServiceB.setText("Change " + getArguments().getString("Selected_Handyman"));
                 Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientDashboard);
 
+            }
+        });
+
+        locationB = view.findViewById(R.id.locationBtn);
+        locationB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_blankFragment);
             }
         });
 

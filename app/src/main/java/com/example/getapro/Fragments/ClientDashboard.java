@@ -31,19 +31,13 @@ import java.util.ArrayList;
  * Use the {@link ClientDashboard#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClientDashboard extends Fragment implements DialogFragment.OnInputListener{
+public class ClientDashboard extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String CLIENT_DASHBOARD_TAG = "ClientDashboard";
-
-    @Override public void sendInput(String input)
-    {
-        mInput = input;
-        setInputToTextView();
-    }
 
     public TextView mInputDisplay;
     public String mInput;
@@ -133,7 +127,7 @@ public class ClientDashboard extends Fragment implements DialogFragment.OnInputL
 //                bundle.putString("serviceName", searchBtn.getText().toString());
                 bundle.putString("serviceName", "Shiputznik");
 //                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact, bundle);
-                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_handyMan_Dialog, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact, bundle);
             }
         });
 

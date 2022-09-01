@@ -3,26 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_location_manager.xml" value="0.215625" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_login.xml" value="0.2109375" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_on_boarding.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_sign_up.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_user_dashboard.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/header_layout.xml" value="0.3625" />
-        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/menu/drawer_menu.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_on_boarding.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_user_dashboard.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/client_contact.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/client_contact_fragment.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/client_dashboard.xml" value="0.24018570167430933" />
-        <entry key="app/src/main/res/layout/client_finel_form.xml" value="0.10552536231884058" />
-        <entry key="app/src/main/res/layout/client_inquiries.xml" value="0.159375" />
-        <entry key="app/src/main/res/layout/fragment_client_contact2.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/fragment_client_finel_form.xml" value="0.10552536231884058" />
-        <entry key="app/src/main/res/layout/fragment_handy_man__dialog.xml" value="0.10552536231884058" />
-        <entry key="app/src/main/res/layout/handyman_spinner.xml" value="0.10552536231884058" />
-        <entry key="app/src/main/res/layout/header_layout.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/slides_layout.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/splash_screen.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/user_dashboard.xml" value="0.21819778663524686" />
-        <entry key="app/src/main/res/layout/user_login.xml" value="0.10552536231884058" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/sign_dialog.xml" value="0.18" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/slides_layout.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/splash_screen.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/menu/drawer_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/activity_location.xml" value="0.12222222222222222" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/client_contact.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/client_dashboard.xml" value="0.18" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/fragment_blank.xml" value="0.22" />
       </map>
     </option>
   </component>

@@ -81,6 +81,7 @@ public class OnBoarding extends AppCompatActivity {
     ViewPager.OnPageChangeListener changeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        
         }
 
         @Override
@@ -101,6 +102,7 @@ public class OnBoarding extends AppCompatActivity {
                 letsGetStarted.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         Intent intent = new Intent(OnBoarding.this,MainActivity.class);
                         startActivity(intent);
                         finish();

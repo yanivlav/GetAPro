@@ -4,6 +4,11 @@
     <!--Splash Screen-->
     <string name="slogan">GetAPro</string>
 
+    <!--    UserDashboard-->
+    <string name="hi_client">Hello dear customer how can we assist you?</string>
+    <string name="searchView">Search for your spetz?</string>
+    <string name="inquiriesButton">My inquiries?</string>
+
 
     <!--Titles-->
     <string name="first_slide_title">Search Your Location</string>
@@ -21,5 +26,16 @@
     <string name="skip_btn">Skip</string>
     <string name="next_btn">Next</string>
     <string name="let_get_started">Lets Get Started</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+<!--    Jobs-->
+    <string-array name="jobs">
+        <item>constractor</item>
+        <item>painter</item>
+        <item>carpenter</item>
+        <item>psycologit</item>
+        <item>yoga teacher</item>
+        <item>kitesurfing guide</item>
+    </string-array>
 </resources>

@@ -12,13 +12,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.getapro.OnBoarding;
+import com.example.getapro.MainActivity;
 import com.example.getapro.R;
-import com.example.getapro.UserDashboard;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_TIMER = 3000;
+    private static int SPLASH_TIMER = 1500;
 
     //Variables
     ImageView backgroundImage;
@@ -61,7 +60,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 }
                 else{
-                    Intent intent = new Intent(SplashScreen.this,  UserDashboard.class);
+                    Intent intent = new Intent(SplashScreen.this,  MainActivity.class);
 //                    Intent intent = new Intent(SplashScreen.this,  OnBoarding.class);
 
                     startActivity(intent);

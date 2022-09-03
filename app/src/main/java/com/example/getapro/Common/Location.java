@@ -10,7 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -21,9 +23,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getapro.R;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Location extends AppCompatActivity implements LocationListener {
@@ -33,6 +37,8 @@ public class Location extends AppCompatActivity implements LocationListener {
     LocationManager locationManager;
     TextView coordinateTv, addressTv;
 
+    Geocoder geocoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,8 @@ public class Location extends AppCompatActivity implements LocationListener {
 
         coordinateTv = findViewById(R.id.location_coordinates_tv);
         addressTv = findViewById(R.id.location_address);
+
+        geocoder = new Geocoder(this);
 
         if(Build.VERSION.SDK_INT>=23){
             int hasLocationPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -74,11 +82,11 @@ public class Location extends AppCompatActivity implements LocationListener {
                     if (hasLocationPermission != PackageManager.PERMISSION_GRANTED){
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_PERMISSION_REQUEST);
                     }
-                    else locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,100,Location.this);
+                    else locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,100,Location.this);
 
                 }
                 else
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,100,Location.this);
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,100,Location.this);
             }
         });
 
@@ -117,6 +125,25 @@ public class Location extends AppCompatActivity implements LocationListener {
     @Override
     public void onLocationChanged(@NonNull android.location.Location location) {
         coordinateTv.setText(location.getLatitude() + "," + location.getLongitude());
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
+                    Address bestAddr = addresses.get(0);
+                    addressTv.setText(bestAddr.getFeatureName()+","+bestAddr.getThoroughfare()+","+bestAddr.getSubThoroughfare()+","+bestAddr.getAdminArea());
+                    Toast.makeText(Location.this, "test", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
     }
 
     @Override

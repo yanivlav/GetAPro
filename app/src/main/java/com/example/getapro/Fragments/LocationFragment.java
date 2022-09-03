@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 
 import com.example.getapro.R;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -44,6 +48,10 @@ public class LocationFragment extends Fragment implements LocationListener {
 
     LocationManager locationManager;
     TextView coordinateTv, addressTv;
+
+    Geocoder geocoder;
+
+    Handler handler = new Handler();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -88,6 +96,10 @@ public class LocationFragment extends Fragment implements LocationListener {
 
         coordinateTv = rootview.findViewById(R.id.location_coordinates_tv);
         addressTv = rootview.findViewById(R.id.location_address);
+
+        geocoder = new Geocoder(getContext());
+        Handler handler = new Handler();
+
 
         if (Build.VERSION.SDK_INT >= 23) {
             int hasLocationPermission = getContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -166,6 +178,35 @@ public class LocationFragment extends Fragment implements LocationListener {
     @Override
     public void onLocationChanged(@NonNull android.location.Location location) {
         coordinateTv.setText(location.getLatitude() + "," + location.getLongitude());
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
+                    final Address bestAddr = addresses.get(0);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+//                            addressTv.setText(bestAddr.getFeatureName()+","+bestAddr.getThoroughfare()+","+bestAddr.getSubThoroughfare()+","+bestAddr.getAdminArea());
+                            String address = bestAddr.getAddressLine(0);
+                            String state = bestAddr.getAdminArea();
+                            String city = bestAddr.getLocality();
+                            String country = bestAddr.getCountryName();
+
+                            addressTv.setText("Address: "+address+", \nDistrict: "+state);
+                        }
+                    });
+//                    Toast.makeText(Location.this, "test", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     @Override

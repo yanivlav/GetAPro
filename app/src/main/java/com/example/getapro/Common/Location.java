@@ -18,6 +18,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,8 @@ public class Location extends AppCompatActivity implements LocationListener {
     TextView coordinateTv, addressTv;
 
     Geocoder geocoder;
+
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +85,11 @@ public class Location extends AppCompatActivity implements LocationListener {
                     if (hasLocationPermission != PackageManager.PERMISSION_GRANTED){
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_PERMISSION_REQUEST);
                     }
-                    else locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,100,Location.this);
+                    else locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,100,Location.this);
 
                 }
                 else
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,100,Location.this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,100,Location.this);
             }
         });
 
@@ -135,9 +138,14 @@ public class Location extends AppCompatActivity implements LocationListener {
 
                 try {
                     List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
-                    Address bestAddr = addresses.get(0);
-                    addressTv.setText(bestAddr.getFeatureName()+","+bestAddr.getThoroughfare()+","+bestAddr.getSubThoroughfare()+","+bestAddr.getAdminArea());
-                    Toast.makeText(Location.this, "test", Toast.LENGTH_SHORT).show();
+                    final Address bestAddr = addresses.get(0);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            addressTv.setText(bestAddr.getFeatureName()+","+bestAddr.getThoroughfare()+","+bestAddr.getSubThoroughfare()+","+bestAddr.getAdminArea());
+                        }
+                    });
+//                    Toast.makeText(Location.this, "test", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

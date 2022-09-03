@@ -21,8 +21,8 @@
             app:popUpTo="@id/clientDashboard"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_clientContact_to_clientFinelForm2"
-            app:destination="@id/clientFinelForm2" />
+            android:id="@+id/action_clientContact_to_clientFinelForm"
+            app:destination="@id/clientFinelForm" />
         <action
             android:id="@+id/action_clientContact_to_blankFragment"
             app:destination="@id/blankFragment" />
@@ -43,13 +43,16 @@
             app:destination="@id/clientContact" />
     </fragment>
     <fragment
-        android:id="@+id/clientFinelForm2"
+        android:id="@+id/clientFinelForm"
         android:name="com.example.getapro.Fragments.ClientFinelForm"
         android:label="client_finel_form"
         tools:layout="@layout/client_finel_form" >
         <action
-            android:id="@+id/action_clientFinelForm2_to_clientContact"
+            android:id="@+id/action_clientFinelForm_to_clientContact"
             app:destination="@id/clientContact" />
+        <action
+            android:id="@+id/action_clientFinelForm_to_spetzList"
+            app:destination="@id/spetzList" />
     </fragment>
     <action
         android:id="@+id/action_my_nav_pop_including_clientDashboard"
@@ -62,11 +65,19 @@
         <action
             android:id="@+id/action_handyMan_Dialog_to_clientContact"
             app:destination="@id/clientContact" />
+        <action
+            android:id="@+id/action_handyMan_Dialog_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
     </dialog>
     <fragment
         android:id="@+id/blankFragment"
         android:name="com.example.getapro.Fragments.LocationFragment"
         android:label="BlankFragment"
         tools:layout="@layout/fragment_location" />
+    <fragment
+        android:id="@+id/spetzList"
+        android:name="com.example.getapro.Fragments.SpetzList"
+        android:label="spetz_list"
+        tools:layout="@layout/spetz_list" />
 
 </navigation>

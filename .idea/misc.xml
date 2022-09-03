@@ -14,10 +14,11 @@
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/slides_layout.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/splash_screen.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/menu/drawer_menu.xml" value="0.25" />
-        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/activity_location.xml" value="0.12222222222222222" />
-        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/client_contact.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/client_dashboard.xml" value="0.18" />
-        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/fragment_blank.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.13677536231884058" />
+        <entry key="app/src/main/res/layout/client_finel_form.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/form_cell.xml" value="0.14336372847011145" />
+        <entry key="app/src/main/res/layout/header_layout.xml" value="0.1381340579710145" />
+        <entry key="app/src/main/res/layout/spetz_list.xml" value="0.14336372847011145" />
       </map>
     </option>
   </component>

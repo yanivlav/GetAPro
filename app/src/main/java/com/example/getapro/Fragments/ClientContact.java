@@ -3,6 +3,8 @@ package com.example.getapro.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -12,11 +14,6 @@ import android.widget.Button;
 
 import com.example.getapro.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ClientContact#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ClientContact extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -26,7 +23,6 @@ public class ClientContact extends Fragment {
 
     Button proceedB, changeServiceB, locationB;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -34,15 +30,6 @@ public class ClientContact extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClientContactFragment2.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ClientContact newInstance(String param1, String param2) {
         ClientContact fragment = new ClientContact();
         Bundle args = new Bundle();
@@ -62,16 +49,16 @@ public class ClientContact extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
 
         View  view = inflater.inflate(R.layout.client_contact, container, false);
         proceedB = view.findViewById(R.id.proceedButton);
         proceedB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm2);
+                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm);
 
             }
         });

@@ -3,15 +3,22 @@
 package com.example.getapro.Fragments;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +86,18 @@ public class ClientDashboard extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+        getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                // We use a String here, but any type that can be put in a Bundle is supported
+                String result = bundle.getString("bundleKey");
+                // Do something with the result
+                handymAnTV.setText("change "+result+"?");
+
+            }
+        });
     }
 
     @Override
@@ -88,23 +107,25 @@ public class ClientDashboard extends Fragment{
 //        NavHostFragment.findNavController(this).navigate(); without view
         View  view = inflater.inflate(R.layout.client_dashboard, container, false);
 
+
+
         inquiriesBtn = view.findViewById(R.id.inquiries);
         searchBtn = view.findViewById(R.id.search_button);
         handymAnTV = view.findViewById(R.id.handyMAnTV);
 
-        if(getArguments() != null) //        changeServiceB.setText("Change " + getArguments().getString("serviceName"));
-        {
-            handymAnTV.setText(getArguments().getString("Selected_Handyman"));
-        }
+//        String spetz = getArguments().getString("Selected_Handyman", "def");
+//        String spetz = getArguments().getString("Selected_Handyman","");
+//        Navigation.findNavController(view).addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+//            @Override
+//            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+//                Log.e("TAG", "onDestinationChanged: "+navDestination.getLabel());
+//            }
+//        });
 
-
-
+//        handymAnTV.setText("" + getArguments().get("Selected_Handyman") );
         handymAnTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Bundle bundle = new Bundle();
-//                bundle.putStringArrayList("serviceName", arrayList);
-//                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_handyMan_Dialog, bundle);
                 Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_handyMan_Dialog);
 
             }
@@ -114,28 +135,16 @@ public class ClientDashboard extends Fragment{
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientInquiries);
-                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_handyMan_Dialog);
-
             }
         });
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Bundle bundle = new Bundle();
-//                bundle.putString("serviceName", searchBtn.getText().toString());
-                bundle.putString("serviceName", "Shiputznik");
-//                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact, bundle);
-                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact);
             }
         });
 
         return view;
-    }
-
-    private void setInputToTextView()
-    {
-        mInputDisplay.setText(mInput);
     }
 }

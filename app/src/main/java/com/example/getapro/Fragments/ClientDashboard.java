@@ -2,10 +2,13 @@
 
 package com.example.getapro.Fragments;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -53,6 +56,8 @@ public class ClientDashboard extends Fragment{
     Button inquiriesBtn, searchBtn;
     TextView handymAnTV;
 
+    final int LOCATION_PERMISSION_REQUEST = 1;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -87,6 +92,12 @@ public class ClientDashboard extends Fragment{
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        if (Build.VERSION.SDK_INT >= 23) {
+            int hasLocationPermission = getContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+            if (hasLocationPermission != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+            }
+        }
 
         getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
             @Override

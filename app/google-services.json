@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "305929733256",
+    "project_id": "getapro-6103b",
+    "storage_bucket": "getapro-6103b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305929733256:android:0d404429f2e35a66364b3d",
+        "android_client_info": {
+          "package_name": "com.example.getapro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305929733256-76lq7l8gb6ncvh3e3if7dnk5m452o213.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx20MZs5Ui6o56VpvJUXotzv-gj5jY0Y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305929733256-76lq7l8gb6ncvh3e3if7dnk5m452o213.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

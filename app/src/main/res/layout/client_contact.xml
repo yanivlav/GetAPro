@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+
+    <EditText
+        android:id="@+id/loc_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background"
+        android:drawableEnd="@drawable/ic_location"
+        android:gravity="center_vertical"
+        android:hint="Enter your address"
+        android:padding="12dp" />
+
+    <Button
+        android:id="@+id/locationBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="choose location"
+        android:layout_below="@+id/loc_et"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/changeServiceBtn"
+        android:text="change service"
+        android:layout_below="@id/locationBtn"/>
+
+
+    <Button
+        android:layout_below="@+id/changeServiceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="When to call"
+        android:id="@+id/timeToCallBtn"/>
+
+    <Button
+        android:id="@+id/proceedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeToCallBtn"
+        android:text="proceed" />
+
+
+
+
+
+</RelativeLayout>

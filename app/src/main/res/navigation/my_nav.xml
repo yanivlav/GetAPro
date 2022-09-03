@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/clientDashboard">
+
+    <fragment
+        android:id="@+id/clientInquiries"
+        android:name="com.example.getapro.Fragments.ClientInquiries"
+        android:label="fragment_client_inquiries"
+        tools:layout="@layout/client_inquiries" />
+    <fragment
+        android:id="@+id/clientContact"
+        android:name="com.example.getapro.Fragments.ClientContact"
+        android:label="ClientContact"
+        tools:layout="@layout/client_contact">
+        <action
+            android:id="@+id/action_clientContact_to_clientDashboard"
+            app:destination="@id/clientDashboard"
+            app:popUpTo="@id/clientDashboard"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_clientContact_to_clientFinelForm"
+            app:destination="@id/clientFinelForm" />
+        <action
+            android:id="@+id/action_clientContact_to_blankFragment"
+            app:destination="@id/blankFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientDashboard"
+        android:name="com.example.getapro.Fragments.ClientDashboard"
+        android:label="ClientDashboard"
+        tools:layout="@layout/client_dashboard">
+        <action
+            android:id="@+id/action_clientDashboard_to_clientInquiries"
+            app:destination="@id/clientInquiries" />
+        <action
+            android:id="@+id/action_clientDashboard_to_handyMan_Dialog"
+            app:destination="@id/handyMan_Dialog" />
+        <action
+            android:id="@+id/action_clientDashboard_to_clientContact"
+            app:destination="@id/clientContact" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientFinelForm"
+        android:name="com.example.getapro.Fragments.ClientFinelForm"
+        android:label="client_finel_form"
+        tools:layout="@layout/client_finel_form" >
+        <action
+            android:id="@+id/action_clientFinelForm_to_clientContact"
+            app:destination="@id/clientContact" />
+        <action
+            android:id="@+id/action_clientFinelForm_to_spetzList"
+            app:destination="@id/spetzList" />
+    </fragment>
+    <action
+        android:id="@+id/action_my_nav_pop_including_clientDashboard"
+        app:popUpTo="@id/clientDashboard" />
+    <dialog
+        android:id="@+id/handyMan_Dialog"
+        android:name="com.example.getapro.Fragments.HandyMan_Dialog"
+        android:label="handyman_spinner"
+        tools:layout="@layout/handyman_spinner" >
+        <action
+            android:id="@+id/action_handyMan_Dialog_to_clientContact"
+            app:destination="@id/clientContact" />
+        <action
+            android:id="@+id/action_handyMan_Dialog_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
+    </dialog>
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.getapro.Fragments.LocationFragment"
+        android:label="BlankFragment"
+        tools:layout="@layout/fragment_location" />
+    <fragment
+        android:id="@+id/spetzList"
+        android:name="com.example.getapro.Fragments.SpetzList"
+        android:label="spetz_list"
+        tools:layout="@layout/spetz_list" />
+
+</navigation>

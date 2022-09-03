@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--             android:layout_width="match_parent"-->
+<!--             android:layout_height="match_parent"-->
+
+<!--    android:id="@+id/root_container">-->
+    <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/root_container">
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textSize="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_below="@+id/appName"
+        android:textAlignment="center"
+        android:hint="@string/hi_client"
+        android:textSize="18dp"
+        android:id="@+id/hiClient"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/handyMAnTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hiClient"
+        android:background="@android:drawable/editbox_background"
+        android:drawableEnd="@drawable/handyman_icon"
+        android:gravity="center_vertical"
+        android:hint="Find a spetz"
+        android:padding="12dp" />
+
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/handyMAnTV"
+        android:layout_centerHorizontal="true"
+        android:text="@string/searchView" />
+
+        <Button
+            android:id="@+id/inquiries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:text="@string/inquiriesButton" />
+
+
+    </RelativeLayout>

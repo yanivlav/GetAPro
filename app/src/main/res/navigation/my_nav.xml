@@ -78,6 +78,15 @@
         android:id="@+id/spetzList"
         android:name="com.example.getapro.Fragments.SpetzList"
         android:label="spetz_list"
-        tools:layout="@layout/spetz_list" />
+        tools:layout="@layout/spetz_list" >
+        <action
+            android:id="@+id/action_spetzList_to_spetzCard"
+            app:destination="@id/spetzCard" />
+    </fragment>
+    <fragment
+        android:id="@+id/spetzCard"
+        android:name="com.example.getapro.Helpers.SpetzCard"
+        android:label="fragment_spetz_card"
+        tools:layout="@layout/spetz_cell" />
 
 </navigation>

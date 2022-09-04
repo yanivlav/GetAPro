@@ -199,31 +199,31 @@ public class ClientContact extends Fragment {
 
     private void updateLoc(Location location) {
 
-                double lat = location.getLatitude();
-                double lng = location.getLongitude();
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
 
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
 
-                        try {
-                            List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
-                            final Address bestAddr = addresses.get(0);
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String address = bestAddr.getAddressLine(0);
-                                    String state = bestAddr.getAdminArea();
-                                    String city = bestAddr.getLocality();
-                                    String country = bestAddr.getCountryName();
-                                    locEt.setText(address);
-                                }
-                            });
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(lat,lng,1);
+                    final Address bestAddr = addresses.get(0);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            String address = bestAddr.getAddressLine(0);
+                            String state = bestAddr.getAdminArea();
+                            String city = bestAddr.getLocality();
+                            String country = bestAddr.getCountryName();
+                            locEt.setText(address);
                         }
-                    }
-                }.start();
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }

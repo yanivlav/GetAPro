@@ -166,17 +166,6 @@ public class ClientContact extends Fragment {
 
                 Location location = locationResult.getLastLocation();
 
-//                List<Address> addresses;
-//                try {
-//                    addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-//                    final Address bestAddr = addresses.get(0);
-//                    String address = bestAddr.getAddressLine(0);
-//                    locEt.setText("Address: "+ address);
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
                 updateLoc(location);
 
             }

@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                item.setChecked(false);
+                item.setChecked(true);
                 drawerLayout.closeDrawers();
 //                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
@@ -120,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.sign_dialog,null);
 
+
+                DialogFragment dialog = new DialogFragment();
+                View dialogView1 = getLayoutInflater().inflate(R.layout.sign_dialog,null);
+//
 
                 EditText usernameEt = dialogView.findViewById(R.id.username_input);
                 EditText fullnameEt = dialogView.findViewById(R.id.fullname_input);

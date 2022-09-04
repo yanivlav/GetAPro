@@ -65,7 +65,7 @@ public class ClientFinelForm extends Fragment {
         spetzBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //add save to database all the details of the form
+//                add save to database all the details of the form
 //                String nameS = name.getText().toString();
 //                String linkS = link.getText().toString();
 //

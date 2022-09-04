@@ -1,0 +1,61 @@
+{
+  "project_info": {
+<<<<<<< HEAD
+    "project_number": "1031106328683",
+    "project_id": "getapro-2e8fa",
+    "storage_bucket": "getapro-2e8fa.appspot.com"
+=======
+    "project_number": "305929733256",
+    "project_id": "getapro-6103b",
+    "storage_bucket": "getapro-6103b.appspot.com"
+>>>>>>> origin/userDashboard_develop
+  },
+  "client": [
+    {
+      "client_info": {
+<<<<<<< HEAD
+        "mobilesdk_app_id": "1:1031106328683:android:5bff965cb1984c8a42592e",
+=======
+        "mobilesdk_app_id": "1:305929733256:android:0d404429f2e35a66364b3d",
+>>>>>>> origin/userDashboard_develop
+        "android_client_info": {
+          "package_name": "com.example.getapro"
+        }
+      },
+      "oauth_client": [
+        {
+<<<<<<< HEAD
+          "client_id": "1031106328683-vqn1obe9q87tnlp88j88hgj5qj22iag2.apps.googleusercontent.com",
+=======
+          "client_id": "305929733256-76lq7l8gb6ncvh3e3if7dnk5m452o213.apps.googleusercontent.com",
+>>>>>>> origin/userDashboard_develop
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+<<<<<<< HEAD
+          "current_key": "AIzaSyBz-pIvlors8k7p17Jqg_xRc_vBJQtzfdc"
+=======
+          "current_key": "AIzaSyDx20MZs5Ui6o56VpvJUXotzv-gj5jY0Y8"
+>>>>>>> origin/userDashboard_develop
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+<<<<<<< HEAD
+              "client_id": "1031106328683-vqn1obe9q87tnlp88j88hgj5qj22iag2.apps.googleusercontent.com",
+=======
+              "client_id": "305929733256-76lq7l8gb6ncvh3e3if7dnk5m452o213.apps.googleusercontent.com",
+>>>>>>> origin/userDashboard_develop
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

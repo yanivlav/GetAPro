@@ -1,28 +1,21 @@
-package com.example.getapro.Fragments;
+package com.example.getapro.Helpers;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.getapro.MyObjects.Form;
 import com.example.getapro.R;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ClientInquiries#newInstance} factory method to
+ * Use the {@link SpetzCard#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClientInquiries extends Fragment {
-
-    ArrayList<Form> forms;
+public class SpetzCard extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,13 +26,21 @@ public class ClientInquiries extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ClientInquiries() {
+    public SpetzCard() {
         // Required empty public constructor
     }
 
-
-    public static ClientInquiries newInstance(String param1, String param2) {
-        ClientInquiries fragment = new ClientInquiries();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment SpetzCard.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static SpetzCard newInstance(String param1, String param2) {
+        SpetzCard fragment = new SpetzCard();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,15 +58,9 @@ public class ClientInquiries extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.spetz_list, container, false);
-
-        RecyclerView recyclerView = view.findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        final SpetzAdapter spetzAdapter = new SpetzAdapter(spetsz);
-
-        return view;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_spetz_card, container, false);
     }
 }

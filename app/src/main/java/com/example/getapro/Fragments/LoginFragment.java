@@ -115,24 +115,22 @@ public class LoginFragment extends Fragment {
                 String username = usernameEt.getText().toString();
                 String password = passwordEt.getText().toString();
 
-                if (username == null && password == null) {
-                    //tell user to fill fields
+                if (username == null || password == null ) {
+                    Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                                //move data of user using bundle
-                                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-                }
-
-
+//                else {
+//                    firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if(task.isSuccessful())
+//                                //move data of user using bundle
+//                                Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
+//                            else
+//                                Toast.makeText(getContext(), "Login failed, wrong email/password", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    });
+//                }//else
             }
         });//loginBtn
 

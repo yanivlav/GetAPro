@@ -23,9 +23,6 @@
         <action
             android:id="@+id/action_clientContact_to_clientFinelForm"
             app:destination="@id/clientFinelForm" />
-        <action
-            android:id="@+id/action_clientContact_to_blankFragment"
-            app:destination="@id/blankFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientDashboard"
@@ -69,11 +66,6 @@
             android:id="@+id/action_handyMan_Dialog_to_clientDashboard"
             app:destination="@id/clientDashboard" />
     </dialog>
-    <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.getapro.Fragments.LocationFragment"
-        android:label="BlankFragment"
-        tools:layout="@layout/fragment_location" />
     <fragment
         android:id="@+id/spetzList"
         android:name="com.example.getapro.Fragments.SpetzList"

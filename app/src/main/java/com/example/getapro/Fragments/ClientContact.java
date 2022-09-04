@@ -148,7 +148,7 @@ public class ClientContact extends Fragment {
         locationB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_blankFragment);
+
             }
         });
 

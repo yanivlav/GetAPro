@@ -32,6 +32,12 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
@@ -53,6 +59,10 @@ public class ClientContact extends Fragment {
     Geocoder geocoder;
 
     Handler handler = new Handler();
+
+    SupportMapFragment mapFragment;
+    double lat ;
+    double lng;
 
 
     private String mParam1;
@@ -104,6 +114,13 @@ public class ClientContact extends Fragment {
         else startLocation();
     }
 
+//    @Override
+//    public void onMapReady(@NonNull GoogleMap googleMap) {
+//        googleMap.addMarker(new MarkerOptions()
+//                .position(new LatLng(0, 0))
+//                .title("Marker"));
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -131,6 +148,15 @@ public class ClientContact extends Fragment {
             startLocation();
         }
 
+        mapFragment = SupportMapFragment.newInstance();
+        getParentFragmentManager()
+                .beginTransaction()
+                .add(R.id.map_frame, mapFragment)
+                .commit();
+
+        // Get a handle to the fragment and register the callback.
+
+//        mapFragment.getMapAsync(this);
 
 
         proceedB = view.findViewById(R.id.proceedButton);
@@ -141,23 +167,23 @@ public class ClientContact extends Fragment {
 
             }
         });
-        changeServiceB = view.findViewById(R.id.changeServiceBtn);
-        changeServiceB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeServiceB.setText("Change " + getArguments().getString("Selected_Handyman"));
-                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientDashboard);
-
-            }
-        });
-
-        locationB = view.findViewById(R.id.locationBtn);
-        locationB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        changeServiceB = view.findViewById(R.id.changeServiceBtn);
+//        changeServiceB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                changeServiceB.setText("Change " + getArguments().getString("Selected_Handyman"));
+//                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientDashboard);
+//
+//            }
+//        });
+//
+//        locationB = view.findViewById(R.id.locationBtn);
+//        locationB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
 
 
@@ -172,17 +198,17 @@ public class ClientContact extends Fragment {
                 super.onLocationResult(locationResult);
 
                 Location location = locationResult.getLastLocation();
-
                 updateLoc(location);
+
 
             }
         };
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setNumUpdates(1);
-        locationRequest.setInterval(1000);
-        locationRequest.setFastestInterval(500);
+        locationRequest.setNumUpdates(2);
+        locationRequest.setInterval(3000);
+        locationRequest.setFastestInterval(2000);
 
 
         if(Build.VERSION.SDK_INT >= 23 && getContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==  PackageManager.PERMISSION_GRANTED)
@@ -195,8 +221,8 @@ public class ClientContact extends Fragment {
 
     private void updateLoc(Location location) {
 
-        double lat = location.getLatitude();
-        double lng = location.getLongitude();
+        lat = location.getLatitude();
+        lng = location.getLongitude();
 
         new Thread(){
             @Override
@@ -214,6 +240,16 @@ public class ClientContact extends Fragment {
                             String city = bestAddr.getLocality();
                             String country = bestAddr.getCountryName();
                             locEt.setText(address);
+                            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                                @Override
+                                public void onMapReady(@NonNull GoogleMap googleMap) {
+                                    googleMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(lat, lng))
+                                            .title("Marker"));
+                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 18));
+                                }
+                            });
+
                         }
                     });
                 } catch (IOException e) {

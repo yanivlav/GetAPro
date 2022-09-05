@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -39,7 +40,7 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
-    EditText usernameEt,passwordEt;
+    TextInputLayout usernameEt,passwordEt;
     Button signupBtn, skipBtn, loginBtn;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -104,33 +105,44 @@ public class LoginFragment extends Fragment {
 //        };
 
 
-        usernameEt = view.findViewById(R.id.email_et_text);
-        passwordEt = view.findViewById(R.id.pass_et_text);
+        usernameEt = view.findViewById(R.id.email_et);
+        passwordEt = view.findViewById(R.id.pass_et);
+
+//        String username = usernameEt.getText().toString();
+//        String password = passwordEt.getText().toString();
+//
+//        if (username.length() == 0 || password.length() == 0) {
+//            Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
+//        }
 
         loginBtn = view.findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String username = usernameEt.getText().toString();
-                String password = passwordEt.getText().toString();
+                String username = usernameEt.getEditText().getText().toString();
+                String password = passwordEt.getEditText().getText().toString();
 
-                if (username == null || password == null ) {
+                if (username.length() == 0 || password.length() == 0) {
                     Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
                 }
-//                else {
-//                    firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if(task.isSuccessful())
-//                                //move data of user using bundle
-//                                Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
-//                            else
-//                                Toast.makeText(getContext(), "Login failed, wrong email/password", Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    });
-//                }//else
+                else {
+                    firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                //move data of user using bundle
+                                Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard);
+                            }
+
+
+                            else
+                                Toast.makeText(getContext(), "Login failed, wrong email/password", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }//else
             }
         });//loginBtn
 

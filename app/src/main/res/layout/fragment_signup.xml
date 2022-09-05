@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="60dp">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -36,37 +36,37 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_username"
-            android:layout_below="@+id/signup_fullname"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="enter_username"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/field_username_icon"
-            app:startIconTint="@color/black">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/signup_username"-->
+<!--            android:layout_below="@+id/signup_fullname"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="enter_username"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            app:boxStrokeColor="@color/black"-->
+<!--            app:boxStrokeWidthFocused="2dp"-->
+<!--            app:endIconMode="clear_text"-->
+<!--            app:endIconTint="@color/black"-->
+<!--            app:hintTextColor="@color/black"-->
+<!--            app:startIconDrawable="@drawable/field_username_icon"-->
+<!--            app:startIconTint="@color/black">-->
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:inputType="text"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textCursorDrawable="@null" />-->
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/signup_email"
-            android:layout_below="@+id/signup_username"
+            android:layout_below="@+id/signup_fullname"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,11 +122,11 @@
 
         <Button
             android:id="@+id/signup_complete_btn"
-            android:layout_below="@+id/signup_password"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="complete signup"/>
+            android:layout_below="@+id/signup_password"
+            android:layout_marginTop="10dp"
+            android:text="complete signup" />
 
         <Button
             android:id="@+id/signup_back_btn"

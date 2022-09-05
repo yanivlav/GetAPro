@@ -112,6 +112,7 @@ public class ClientContact extends Fragment {
 
         locEt = view.findViewById(R.id.loc_et);
 
+
         geocoder = new Geocoder(getContext());
         Handler handler = new Handler();
 
@@ -120,9 +121,15 @@ public class ClientContact extends Fragment {
             if (hasLocationPermission != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
             }
-            else startLocation();
+            else {
+                locEt.setHint("Wait while we get your address...");
+                startLocation();
+            }
         }
-        else startLocation();
+        else {
+            locEt.setHint("Wait while we get your address...");
+            startLocation();
+        }
 
 
 

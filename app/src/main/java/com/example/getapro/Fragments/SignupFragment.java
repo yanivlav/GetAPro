@@ -2,13 +2,22 @@ package com.example.getapro.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.getapro.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +38,11 @@ public class SignupFragment extends Fragment {
     public SignupFragment() {
         // Required empty public constructor
     }
+
+    TextInputLayout fullnameTiEt,emailTiet,passwordTiEt;
+    Button completeSignupBtn, backBtn;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseAuth.AuthStateListener authStateListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -61,6 +75,56 @@ public class SignupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup, container, false);
+        View view = inflater.inflate(R.layout.fragment_signup, container, false);
+
+//        fullnameTiEt = view.findViewById(R.id.signup_fullname);
+        emailTiet = view.findViewById(R.id.signup_email);
+        passwordTiEt = view.findViewById(R.id.signup_password);
+
+
+
+
+        completeSignupBtn = view.findViewById(R.id.signup_complete_btn);
+        completeSignupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                String fullname = fullnameTiEt.getEditText().getText().toString();
+                String username = emailTiet.getEditText().getText().toString();
+                String password = passwordTiEt.getEditText().getText().toString();
+
+
+                if (username.length() == 0 || password.length() == 0) {
+                    Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+
+                    firebaseAuth.createUserWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){//                signup to user
+//                    Snackbar.make(coordinatorLayout,"Signup success",Snackbar.LENGTH_SHORT);
+                                Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_clientDashboard);
+                            }//email is already in use
+                            else
+                                Toast.makeText(getContext(), "Email is already in use.", Toast.LENGTH_SHORT).show();
+                            //                    Snackbar.make(coordinatorLayout,"Signup failed",Snackbar.LENGTH_SHORT);
+                        }
+                    });
+                }
+
+
+            }
+        });
+
+        backBtn = view.findViewById(R.id.signup_back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment);
+            }
+        });
+
+        return view;
     }
 }

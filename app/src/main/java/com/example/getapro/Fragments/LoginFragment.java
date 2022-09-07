@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,29 +81,34 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-//        authStateListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-////                View headerView = navigationView.getHeaderView(0);
-////                TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                View headerView = navigationView.getHeaderView(0);
+//                TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
 //
+//                //if logged on
 //                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null){
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("username",user.getEmail());
+//                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
+//                }
+
+//                if (user != null){//logon
+//                    if(fullname!= null) {//signin = update profile with full name
 //
-////                if (user != null){//logon
-////                    if(fullname!= null) {//signin = update profile with full name
-////
-////                        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
-////                            @Override
-////                            public void onComplete(@NonNull Task<Void> task) {
-////                                fullname = null;
-////                                if (task.isSuccessful())
-////                                    Snackbar.make(coordinatorLayout,user.getDisplayName() + "welcome", Snackbar.LENGTH_SHORT).show();
-////                            }
-////                        });
-////                    }
-//
-//            }
-//        };
+//                        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                fullname = null;
+//                                if (task.isSuccessful())
+//                                    Snackbar.make(coordinatorLayout,user.getDisplayName() + "welcome", Snackbar.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+            }
+        };
 
 
         usernameEt = view.findViewById(R.id.email_et);
@@ -133,7 +139,9 @@ public class LoginFragment extends Fragment {
                             if(task.isSuccessful()){
                                 //move data of user using bundle
                                 Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
-                                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("username",username);
+                                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
                             }
 
 

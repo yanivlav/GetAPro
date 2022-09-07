@@ -104,10 +104,16 @@ public class SignupFragment extends Fragment {
                             if(task.isSuccessful()){//                signup to user
 //                    Snackbar.make(coordinatorLayout,"Signup success",Snackbar.LENGTH_SHORT);
                                 Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
-                                Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_clientDashboard);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("username",username);
+                                Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_clientDashboard,bundle);
+//                                getActivity().                TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
+
                             }//email is already in use
-                            else
+                            else{
                                 Toast.makeText(getContext(), "Email is already in use.", Toast.LENGTH_SHORT).show();
+                            }
+
                             //                    Snackbar.make(coordinatorLayout,"Signup failed",Snackbar.LENGTH_SHORT);
                         }
                     });

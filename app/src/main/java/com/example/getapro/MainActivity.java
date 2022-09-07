@@ -9,6 +9,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -79,8 +80,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
+//                    FragmentManager fragmentManager ;//???????????????
 
-                    userTv.setText(user.getDisplayName() + "logged in");
+                    userTv.setText(user.getDisplayName() + "logged in as " + user.getEmail());
 
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(false);
@@ -117,14 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
 //                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
-                //try to change to fragmentDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.sign_dialog,null);
 
-
-                DialogFragment dialog = new DialogFragment();
-                View dialogView1 = getLayoutInflater().inflate(R.layout.sign_dialog,null);
-//
 
                 EditText usernameEt = dialogView.findViewById(R.id.username_input);
                 EditText fullnameEt = dialogView.findViewById(R.id.fullname_input);

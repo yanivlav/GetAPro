@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -78,8 +80,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
+//                    FragmentManager fragmentManager ;//???????????????
 
-                    userTv.setText(user.getDisplayName() + "logged in");
+                    userTv.setText(user.getDisplayName() + "logged in as " + user.getEmail());
 
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(false);
@@ -112,11 +115,10 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                item.setChecked(false);
+                item.setChecked(true);
                 drawerLayout.closeDrawers();
 //                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
-                //try to change to fragmentDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.sign_dialog,null);
 

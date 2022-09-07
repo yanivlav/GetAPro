@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/clientDashboard">
+    app:startDestination="@id/loginFragment"
+    >
 
     <fragment
         android:id="@+id/clientInquiries"
@@ -80,5 +81,30 @@
         android:name="com.example.getapro.Helpers.SpetzCard"
         android:label="fragment_spetz_card"
         tools:layout="@layout/spetz_cell" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.getapro.Fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.getapro.Fragments.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
+    </fragment>
+
 
 </navigation>

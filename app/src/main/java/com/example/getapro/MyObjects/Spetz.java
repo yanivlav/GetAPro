@@ -16,8 +16,6 @@ public class Spetz extends User implements Parcelable {
         this.occupation = occupation;
     }
 
-
-
     public String getOccupation() {
         return occupation;
     }

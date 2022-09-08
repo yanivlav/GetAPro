@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -102,7 +103,8 @@ public class SignupFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){//                signup to user
-//                    Snackbar.make(coordinatorLayout,"Signup success",Snackbar.LENGTH_SHORT);
+//                                Snackbar.make(view,"Signup success\nWelcome \"+username+\"!",Snackbar.LENGTH_SHORT);
+                                //
                                 Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("username",username);

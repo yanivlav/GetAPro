@@ -57,6 +57,7 @@ public class ClientDashboard extends Fragment{
     TextView handymAnTV;
 
     final int LOCATION_PERMISSION_REQUEST = 1;
+    final int POST_NOTIFICATIONS = 2;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -98,6 +99,25 @@ public class ClientDashboard extends Fragment{
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
             }
         }
+
+
+
+
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            int hasNotificationsPermission = getContext().checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS);
+//            if (getContext().checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+//                    PackageManager.PERMISSION_GRANTED) {
+//                // FCM SDK (and your app) can post notifications.
+//            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+//                // TODO: display an educational UI explaining to the user the features that will be enabled
+//                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+//                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+//                //       If the user selects "No thanks," allow the user to continue without notifications.
+//            } else {
+//                // Directly ask for the permission
+//                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+//            }
+//        }
 
         getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
             @Override

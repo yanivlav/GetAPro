@@ -16,10 +16,12 @@ import android.widget.Toast;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,6 +78,21 @@ public class LoginFragment extends Fragment {
 
 
     @Override
+    public void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
+
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -87,90 +104,86 @@ public class LoginFragment extends Fragment {
 //                View headerView = navigationView.getHeaderView(0);
 //                TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
 //
-//                //if logged on
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user != null){
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("username",user.getEmail());
-//                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
-//                }
+                //if logged on
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {//logon
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", user.getEmail());
+                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard, bundle);
+                }
 
-//                if (user != null){//logon
-//                    if(fullname!= null) {//signin = update profile with full name
-//
-//                        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
+                if (user != null){
+                    if(user.getEmail()!= null) {//signin = update profile with full name
+                        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(user.getEmail()).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 //                                fullname = null;
-//                                if (task.isSuccessful())
-//                                    Snackbar.make(coordinatorLayout,user.getDisplayName() + "welcome", Snackbar.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
+                                if (task.isSuccessful())
+                                    Snackbar.make(view,user.getEmail() + "welcome", Snackbar.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
             }
         };
-
-
-        usernameEt = view.findViewById(R.id.email_et);
-        passwordEt = view.findViewById(R.id.pass_et);
-
-//        String username = usernameEt.getText().toString();
-//        String password = passwordEt.getText().toString();
 //
-//        if (username.length() == 0 || password.length() == 0) {
-//            Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
-//        }
-
-        loginBtn = view.findViewById(R.id.login_btn);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String username = usernameEt.getEditText().getText().toString();
-                String password = passwordEt.getEditText().getText().toString();
-
-                if (username.length() == 0 || password.length() == 0) {
-                    Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                //move data of user using bundle
-                                Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
-                                Bundle bundle = new Bundle();
-                                bundle.putString("username",username);
-                                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
-                            }
 
 
-                            else
-                                Toast.makeText(getContext(), "Login failed, wrong email/password", Toast.LENGTH_SHORT).show();
 
+                usernameEt = view.findViewById(R.id.email_et);
+                passwordEt = view.findViewById(R.id.pass_et);
+
+                loginBtn = view.findViewById(R.id.login_btn);
+                loginBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        String username = usernameEt.getEditText().getText().toString();
+                        String password = passwordEt.getEditText().getText().toString();
+
+                        if (username.length() == 0 || password.length() == 0) {
+                            Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }//else
-            }
-        });//loginBtn
-
-        signupBtn = view.findViewById(R.id.signup_btn);
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signupFragment);
-            }
-        });
-
-        skipBtn = view.findViewById(R.id.login_skip_btn);
-        skipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard);
-            }
-        });
+                        else {
+                            firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        //move data of user using bundle
+                                        Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("username",username);
+                                        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
+                                    }
 
 
-        return view;
+                                    else
+                                        Toast.makeText(getContext(), "Login failed, wrong email/password", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        }//else
+                    }
+                });//loginBtn
+
+                signupBtn = view.findViewById(R.id.signup_btn);
+                signupBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signupFragment);
+                    }
+                });
+
+                skipBtn = view.findViewById(R.id.login_skip_btn);
+                skipBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard);
+                    }
+                });
+
+
+                return view;
+
     }
 }

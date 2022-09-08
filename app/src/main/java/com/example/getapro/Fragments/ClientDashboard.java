@@ -36,11 +36,6 @@ import com.example.getapro.R;
 import android.text.TextWatcher;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ClientDashboard#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ClientDashboard extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
@@ -53,7 +48,7 @@ public class ClientDashboard extends Fragment{
     public String mInput;
 
     final String CLIENT_CONTACT_FRAGMENT_TAG = "client_contact_fragemnt";
-    Button inquiriesBtn, searchBtn;
+    Button inquiriesBtn, searchBtn, requestsBtn;
     TextView handymAnTV;
 
     final int LOCATION_PERMISSION_REQUEST = 1;
@@ -62,27 +57,6 @@ public class ClientDashboard extends Fragment{
     private String mParam1;
     private String mParam2;
 
-    public ClientDashboard() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClientDashboard2.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ClientDashboard newInstance(String param1, String param2) {
-        ClientDashboard fragment = new ClientDashboard();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,6 +97,7 @@ public class ClientDashboard extends Fragment{
         inquiriesBtn = view.findViewById(R.id.inquiries);
         searchBtn = view.findViewById(R.id.search_button);
         handymAnTV = view.findViewById(R.id.handyMAnTV);
+        requestsBtn = view.findViewById(R.id.spetsRequests);
 
 //        String spetz = getArguments().getString("Selected_Handyman", "def");
 //        String spetz = getArguments().getString("Selected_Handyman","");
@@ -134,6 +109,13 @@ public class ClientDashboard extends Fragment{
 //        });
 
 //        handymAnTV.setText("" + getArguments().get("Selected_Handyman") );
+        requestsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_spetsRequests);
+
+            }
+        });
         handymAnTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_clientDashboard_to_clientContact"
             app:destination="@id/clientContact" />
+        <action
+            android:id="@+id/action_clientDashboard_to_spetsRequests"
+            app:destination="@id/spetsRequests" />
     </fragment>
     <fragment
         android:id="@+id/clientFinelForm"
@@ -105,6 +108,11 @@
             android:id="@+id/action_signupFragment_to_clientDashboard"
             app:destination="@id/clientDashboard" />
     </fragment>
+    <fragment
+        android:id="@+id/spetsRequests"
+        android:name="com.example.getapro.SpetsRequests"
+        android:label="fragment_spets_requests"
+        tools:layout="@layout/spets_requests" />
 
 
 </navigation>

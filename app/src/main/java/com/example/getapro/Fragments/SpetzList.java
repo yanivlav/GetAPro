@@ -117,8 +117,11 @@ public class SpetzList extends Fragment {
             @Override
             public void onSpetzClicked(int position, View view) {
 //                Open Chat
-                messaging.unsubscribeFromTopic(spetzs.get(position).getUserName());
-                messaging.subscribeToTopic(spetzs.get(position).getUserName());
+//                messaging.unsubscribeFromTopic(spetzs.get(position).getUserName());
+//                messaging.subscribeToTopic(spetzs.get(position).getUserName());
+
+                messaging.unsubscribeFromTopic("Yaniv");
+                messaging.subscribeToTopic("Yaniv");
 
 
                 //Form

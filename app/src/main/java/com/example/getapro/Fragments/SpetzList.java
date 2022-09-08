@@ -47,7 +47,7 @@ public class SpetzList extends Fragment {
 
     ArrayList<Spetz> spetzs;
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
-//    BroadcastReceiver receiver;
+    BroadcastReceiver receiver;
     String TAG = "MyFirebaseInstanceIdService";
     String token;
 
@@ -181,6 +181,18 @@ public class SpetzList extends Fragment {
 
             }
         });
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                Toast.makeText(context,intent.getStringExtra("message"), Toast.LENGTH_SHORT).show();
+//                messageTv.setText(intent.getStringExtra("message"));
+            }
+        };
+
+        IntentFilter filter = new IntentFilter("message_received");
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
 
         recyclerView.setAdapter(formAdapter);
 

@@ -21,6 +21,8 @@ import java.util.ArrayList;
 public class SpetzList extends Fragment {
 
     ArrayList<Spetz> spetzs;
+    private String username;
+
 
 
     public static SpetzList newInstance(String param1, String param2) {
@@ -33,6 +35,8 @@ public class SpetzList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        username = getArguments().getString("username");
+
     }
 
     @Override

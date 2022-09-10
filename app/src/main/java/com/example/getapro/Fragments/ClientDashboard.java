@@ -13,9 +13,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -23,6 +26,9 @@ import androidx.navigation.Navigation;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,17 +42,17 @@ import com.example.getapro.R;
 import android.text.TextWatcher;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ClientDashboard#newInstance} factory method to
- * create an instance of this fragment.
- */
+///**
+// * A simple {@link Fragment} subclass.
+// * Use the {@link ClientDashboard#newInstance} factory method to
+// * create an instance of this fragment.
+// */
 public class ClientDashboard extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
     private static final String CLIENT_DASHBOARD_TAG = "ClientDashboard";
 
     public TextView mInputDisplay;
@@ -60,37 +66,41 @@ public class ClientDashboard extends Fragment{
     final int POST_NOTIFICATIONS = 2;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String username;
+//    private String mParam2;
 
     public ClientDashboard() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClientDashboard2.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ClientDashboard newInstance(String param1, String param2) {
-        ClientDashboard fragment = new ClientDashboard();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    /**
+//     * Use this factory method to create a new instance of
+//     * this fragment using the provided parameters.
+//     *
+//     * @param param1 Parameter 1.
+//     * @param param2 Parameter 2.
+//     * @return A new instance of fragment ClientDashboard2.
+//     */
+//    // TODO: Rename and change types and number of parameters
+//    public static ClientDashboard newInstance(String param1, String param2) {
+//        ClientDashboard fragment = new ClientDashboard();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+//        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
         if (Build.VERSION.SDK_INT >= 23) {
@@ -136,9 +146,26 @@ public class ClientDashboard extends Fragment{
         // Inflate the layout for this fragment
 
 //        NavHostFragment.findNavController(this).navigate(); without view
-        View  view = inflater.inflate(R.layout.client_dashboard, container, false);
+        View view = inflater.inflate(R.layout.client_dashboard, container, false);
 
 
+//            requireActivity().addMenuProvider(new MenuProvider() {
+//                @Override
+//                public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+//                    menuInflater.inflate(R.menu.drawer_menu, menu);
+//
+//                    // Add option Menu Here
+//
+//                }
+//
+//                @Override
+//                public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+//
+//                    // Handle option Menu Here
+//                    return false;
+//                }
+//            }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+//
 
         inquiriesBtn = view.findViewById(R.id.inquiries);
         searchBtn = view.findViewById(R.id.search_button);
@@ -178,4 +205,16 @@ public class ClientDashboard extends Fragment{
 
         return view;
     }
+
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        inflater.inflate(R.menu.drawer_menu,menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//        //handle menu item clicks
+//    }
 }

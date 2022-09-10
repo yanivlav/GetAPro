@@ -49,6 +49,20 @@ public class ClientFinelForm extends Fragment {
     final int CAMERA_REQUEST = 1;
     final int WRITE_PERMISSION_REQUEST = 1;
 
+    private String username;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+        if (getArguments() != null) {
+            username = getArguments().getString("username");
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

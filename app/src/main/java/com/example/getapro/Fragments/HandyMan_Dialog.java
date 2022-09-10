@@ -33,11 +33,11 @@ import com.example.getapro.R;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HandyMan_Dialog#newInstance} factory method to
- * create an instance of this fragment.
- */
+///**
+// * A simple {@link Fragment} subclass.
+// * Use the {@link HandyMan_Dialog#newInstance} factory method to
+// * create an instance of this fragment.
+// */
 public class HandyMan_Dialog extends DialogFragment {
 
     private static final String TAG = "DialogFragment";
@@ -51,6 +51,7 @@ public class HandyMan_Dialog extends DialogFragment {
 
     private ArrayList<String> mOfficeListItems = new ArrayList<String>();
 
+    private String username;
 
 
     // TODO: Rename and change types and number of parameters
@@ -64,10 +65,10 @@ public class HandyMan_Dialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
+        if (getArguments() != null) {
+            username = getArguments().getString("username");
 //            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
+        }
     }
 
     @NonNull

@@ -105,10 +105,11 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     }
                     FragmentManager fragmentManager;//???????????????
 
-                    userTv.setText(user.getDisplayName() + "logged in as " + user.getEmail());
+                    userTv.setText("loggen in as " + user.getDisplayName());
 
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(true);
 //
 //                    read the user database
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     //collapsing?
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(false);
 
 //                    adapter.notifyDataSetChanged();
@@ -141,58 +143,56 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                 drawerLayout.closeDrawers();
 //                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                View dialogView = getLayoutInflater().inflate(R.layout.sign_dialog, null);
-
-
-                EditText usernameEt = dialogView.findViewById(R.id.username_input);
-                EditText fullnameEt = dialogView.findViewById(R.id.fullname_input);
-                EditText passwordEt = dialogView.findViewById(R.id.password_input);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                View dialogView = getLayoutInflater().inflate(R.layout.sign_dialog, null);
+//                EditText usernameEt = dialogView.findViewById(R.id.username_input);
+//                EditText fullnameEt = dialogView.findViewById(R.id.fullname_input);
+//                EditText passwordEt = dialogView.findViewById(R.id.password_input);
 
                 switch (item.getItemId()) {
                     case R.id.item_signup:
-                        builder.setView(dialogView).setPositiveButton("Register", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String username = usernameEt.getText().toString();
-                                fullname = fullnameEt.getText().toString();
-                                String password = passwordEt.getText().toString();
-
-                                //signup to user
-                                firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful())
-                                            Snackbar.make(coordinatorLayout, "Signup success", Snackbar.LENGTH_SHORT);
-                                        else
-                                            Snackbar.make(coordinatorLayout, "Signup failed", Snackbar.LENGTH_SHORT);
-                                    }
-                                });
-                            }
-                        }).show();
+//                        builder.setView(dialogView).setPositiveButton("Register", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                String username = usernameEt.getText().toString();
+//                                fullname = fullnameEt.getText().toString();
+//                                String password = passwordEt.getText().toString();
+//
+//                                //signup to user
+//                                firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                                        if (task.isSuccessful())
+//                                            Snackbar.make(coordinatorLayout, "Signup success", Snackbar.LENGTH_SHORT);
+//                                        else
+//                                            Snackbar.make(coordinatorLayout, "Signup failed", Snackbar.LENGTH_SHORT);
+//                                    }
+//                                });
+//                            }
+//                        }).show();
                         break;
 
                     case R.id.item_login:
-                        fullnameEt.setVisibility(View.GONE);
-                        builder.setView(dialogView).setPositiveButton("Login", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                String username = usernameEt.getText().toString();
-                                String password = passwordEt.getText().toString();
-
-                                //login to user
-                                firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful())
-                                            Snackbar.make(coordinatorLayout, "Signup success", Snackbar.LENGTH_SHORT);
-                                        else
-                                            Snackbar.make(coordinatorLayout, "Signup failed", Snackbar.LENGTH_SHORT);
-                                    }
-                                });
-                            }
-
-                        }).show();
+//                        fullnameEt.setVisibility(View.GONE);
+//                        builder.setView(dialogView).setPositiveButton("Login", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                String username = usernameEt.getText().toString();
+//                                String password = passwordEt.getText().toString();
+//
+//                                //login to user
+//                                firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                                        if (task.isSuccessful())
+//                                            Snackbar.make(coordinatorLayout, "Signup success", Snackbar.LENGTH_SHORT);
+//                                        else
+//                                            Snackbar.make(coordinatorLayout, "Signup failed", Snackbar.LENGTH_SHORT);
+//                                    }
+//                                });
+//                            }
+//
+//                        }).show();
                         break;
 
                     case R.id.item_logout:
@@ -230,6 +230,15 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         return super.onOptionsItemSelected(item);
     }
 
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.item_logout:
+//                firebaseAuth.signOut();
+//                break;
+//        }
+//            return true;
+//    }
 }
 
 

@@ -19,6 +19,11 @@ public class Form extends User implements Serializable {
         this.issueImageResID = issueImageResID;
     }
 
+    public Form(String description, int issueImageResID) {
+        this.description = description;
+        this.issueImageResID = issueImageResID;
+    }
+
 
     public String getDescription() {
         return description;

@@ -4,9 +4,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,10 +19,12 @@ import android.widget.Toast;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,18 +73,49 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
+
+    }
+
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        // setHasOptionsMenu(true);
+
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+//        // Replace the contents of the container with the new fragment
+//        ft.replace(R.id.fragment_container, new LoginFragment());
+//        // or ft.add(R.id.your_placeholder, new FooFragment());
+//        // Complete the changes added above
+//        ft.commit();
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -87,39 +123,34 @@ public class LoginFragment extends Fragment {
 //                View headerView = navigationView.getHeaderView(0);
 //                TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
 //
-//                //if logged on
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if (user != null){
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("username",user.getEmail());
-//                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
-//                }
+                //if logged on
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {//logon
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", user.getEmail());
+                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard, bundle);
+                }
 
-//                if (user != null){//logon
-//                    if(fullname!= null) {//signin = update profile with full name
-//
-//                        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
+                if (user != null){
+                    if(user.getEmail()!= null) {//signin = update profile with full name
+                        user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(user.getEmail()).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 //                                fullname = null;
-//                                if (task.isSuccessful())
-//                                    Snackbar.make(coordinatorLayout,user.getDisplayName() + "welcome", Snackbar.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
+                                if (task.isSuccessful())
+                                    Snackbar.make(view,user.getEmail() + "welcome", Snackbar.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
             }
         };
+//
+
 
 
         usernameEt = view.findViewById(R.id.email_et);
         passwordEt = view.findViewById(R.id.pass_et);
-
-//        String username = usernameEt.getText().toString();
-//        String password = passwordEt.getText().toString();
-//
-//        if (username.length() == 0 || password.length() == 0) {
-//            Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
-//        }
 
         loginBtn = view.findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -172,5 +203,6 @@ public class LoginFragment extends Fragment {
 
 
         return view;
+
     }
 }

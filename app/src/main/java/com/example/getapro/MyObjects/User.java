@@ -27,6 +27,9 @@ public class User {
         this.resID = resID;
     }
 
+    public User() {
+    }
+
     public String getUserName() {
         return userName;
     }

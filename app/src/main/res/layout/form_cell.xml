@@ -25,16 +25,16 @@
 
 
         <TextView
-            android:id="@+id/spetz_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/description"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:layout_toEndOf="@id/fix_image"
-            android:text="Spetz name"
+            android:text="Description"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />

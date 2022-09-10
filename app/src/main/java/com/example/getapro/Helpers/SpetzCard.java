@@ -61,6 +61,6 @@ public class SpetzCard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_spetz_card, container, false);
+        return inflater.inflate(R.layout.spetz_info_card, container, false);
     }
 }

@@ -9,45 +9,38 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.getapro.MyObjects.Spetz;
+import com.example.getapro.MyObjects.Form;
 import com.example.getapro.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by erankatsav on 19/03/2018.
- */
+public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder> {
 
-public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHolder> {
+    private List<Form> forms;
+    private IFormListener listener;
 
-    private List<Spetz> spetzs;
-    private ISpetzListener listener;
-
-    public interface ISpetzListener {
+    public interface IFormListener {
         void onInfoClicked(int position, View view);
-        void onSpetzClicked(int position, View view);
-        void onSpetzLongClicked(int position,View view);
+        void onFormClicked(int position, View view);
+        void onFormLongClicked(int position,View view);
     }
 
-    public void setListener(ISpetzListener listener) {
-        this.listener = listener;
-    }
+    public void setListener(IFormListener listener) {this.listener = listener;}
 
-    public SpetzAdapter(ArrayList<Spetz> spetzs) {
-        this.spetzs = spetzs;
-    }
+    public FormAdapter(ArrayList<Form> forms) {this.forms = forms;}
 
 
-    public class SpetzViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTv;
+    public class FormViewHolder extends RecyclerView.ViewHolder {
+        TextView descriptionTv;
         ImageView picIv;
         ImageButton infoIB;
 
-        public SpetzViewHolder(View itemView) {
+        public FormViewHolder(View itemView) {
             super(itemView);
-            nameTv = itemView.findViewById(R.id.spetz_name);
+            descriptionTv = itemView.findViewById(R.id.description);
             picIv = itemView.findViewById(R.id.fix_image);
+
             infoIB = itemView.findViewById(R.id.formInfo);
             infoIB.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,7 +56,7 @@ public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHol
                 public void onClick(View view) {
 
                     if(listener!=null)
-                        listener.onSpetzClicked(getAdapterPosition(),view);
+                        listener.onFormClicked(getAdapterPosition(),view);
                 }
             });
 
@@ -71,7 +64,7 @@ public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHol
                 @Override
                 public boolean onLongClick(View view) {
                     if(listener!=null)
-                        listener.onSpetzLongClicked(getAdapterPosition(),view);
+                        listener.onFormLongClicked(getAdapterPosition(),view);
                     return false;
                 }
             });
@@ -79,25 +72,25 @@ public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHol
     }
 
     @Override
-    public SpetzViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.spetz_cell,parent,false);
-        SpetzViewHolder spetzViewHolder = new SpetzViewHolder(view);
-        return spetzViewHolder;
+    public FormViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.form_cell,parent,false);
+        FormViewHolder formViewHolder = new FormViewHolder(view);
+        return formViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(SpetzViewHolder holder, int position) {
-        Spetz Spetz = spetzs.get(position);
-        holder.nameTv.setText(Spetz.getUserName());
-        if(Spetz.getPhotoPath()!= null)
-            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(Spetz.getPhotoPath()));
+    public void onBindViewHolder(FormViewHolder holder, int position) {
+        Form form = forms.get(position);
+        holder.descriptionTv.setText(form.getDescription());
+        if(form.getPhotoPath()!= null)
+            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
         else
-            holder.picIv.setImageResource(Spetz.getResID());
+            holder.picIv.setImageResource(form.getResID());
     }
 
     @Override
     public int getItemCount() {
-        return spetzs.size();
+        return forms.size();
     }
 
     @Override
@@ -107,7 +100,3 @@ public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHol
 
 
 }
-
-
-
-

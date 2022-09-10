@@ -7,12 +7,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -30,7 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {//implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -52,10 +56,37 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.removeAuthStateListener(authStateListener);
     }
 
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == android.R.id.home){
+//            Toast.makeText(this, "On item pressed", Toast.LENGTH_SHORT).show();
+//            drawerLayout.openDrawer(GravityCompat.START);
+//        }
+//        return false;
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        // Add menu items without overriding methods in the Activity
+//        addMenuProvider(new MenuProvider() {
+//            @Override
+//            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+//                menuInflater.inflate(R.menu.drawer_menu, menu);
+//
+//                // Add option Menu Here
+//
+//            }
+//
+//            @Override
+//            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+//
+//                // Handle option Menu Here
+//                return false;
+//            }
+//        });
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -68,37 +99,36 @@ public class MainActivity extends AppCompatActivity {
                 TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null){//logon
-                    if(fullname!= null) {//signup = update profile with full name
+                if (user != null) {//logon
+                    if (fullname != null) {//signup = update profile with full name
 
                         user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 fullname = null;
                                 if (task.isSuccessful())
-                                    Snackbar.make(coordinatorLayout,user.getDisplayName() + "welcome", Snackbar.LENGTH_SHORT).show();
+                                    Snackbar.make(coordinatorLayout, user.getDisplayName() + "welcome", Snackbar.LENGTH_SHORT).show();
                             }
                         });
                     }
-//                    FragmentManager fragmentManager ;//???????????????
+                    FragmentManager fragmentManager;//???????????????
 
                     userTv.setText(user.getDisplayName() + "logged in as " + user.getEmail());
 
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(true);
+//
+//                    read the user database
 
-                    //read the user database
-
-                }
-                else{
-                    userTv.setText("please Login");
+                } else {
+//                    userTv.setText("please Login");
                     //collapsing?
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(false);
 
-                    //adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
 
                 }
             }
@@ -120,14 +150,14 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                View dialogView = getLayoutInflater().inflate(R.layout.sign_dialog,null);
+                View dialogView = getLayoutInflater().inflate(R.layout.sign_dialog, null);
 
 
                 EditText usernameEt = dialogView.findViewById(R.id.username_input);
                 EditText fullnameEt = dialogView.findViewById(R.id.fullname_input);
                 EditText passwordEt = dialogView.findViewById(R.id.password_input);
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.item_signup:
                         builder.setView(dialogView).setPositiveButton("Register", new DialogInterface.OnClickListener() {
                             @Override
@@ -137,13 +167,13 @@ public class MainActivity extends AppCompatActivity {
                                 String password = passwordEt.getText().toString();
 
                                 //signup to user
-                                firebaseAuth.createUserWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful())
-                                            Snackbar.make(coordinatorLayout,"Signup success",Snackbar.LENGTH_SHORT);
+                                        if (task.isSuccessful())
+                                            Snackbar.make(coordinatorLayout, "Signup success", Snackbar.LENGTH_SHORT);
                                         else
-                                            Snackbar.make(coordinatorLayout,"Signup failed",Snackbar.LENGTH_SHORT);
+                                            Snackbar.make(coordinatorLayout, "Signup failed", Snackbar.LENGTH_SHORT);
                                     }
                                 });
                             }
@@ -159,13 +189,13 @@ public class MainActivity extends AppCompatActivity {
                                 String password = passwordEt.getText().toString();
 
                                 //login to user
-                                firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful())
-                                            Snackbar.make(coordinatorLayout,"Signup success",Snackbar.LENGTH_SHORT);
+                                        if (task.isSuccessful())
+                                            Snackbar.make(coordinatorLayout, "Signup success", Snackbar.LENGTH_SHORT);
                                         else
-                                            Snackbar.make(coordinatorLayout,"Signup failed",Snackbar.LENGTH_SHORT);
+                                            Snackbar.make(coordinatorLayout, "Signup failed", Snackbar.LENGTH_SHORT);
                                     }
                                 });
                             }
@@ -177,9 +207,6 @@ public class MainActivity extends AppCompatActivity {
                         firebaseAuth.signOut();
                         break;
                 }
-
-
-
                 return true;
             }
         });
@@ -190,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(MainActivity.this, "pressed", Toast.LENGTH_SHORT).show();
-                Snackbar.make(coordinatorLayout,"im a Snackbar",Snackbar.LENGTH_LONG).setAction("action", new View.OnClickListener() {
+                Snackbar.make(coordinatorLayout, "im a Snackbar", Snackbar.LENGTH_LONG).setAction("action", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(MainActivity.this, "sneakbar action pressed", Toast.LENGTH_SHORT).show();
@@ -199,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
             }
         });
-
 
     }
 

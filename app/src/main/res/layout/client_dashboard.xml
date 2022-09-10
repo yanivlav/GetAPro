@@ -54,6 +54,14 @@
         android:text="@string/searchView" />
 
     <Button
+        android:id="@+id/spetsRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/inquiries"
+        android:layout_centerHorizontal="true"
+        android:text="Spetz Requests" />
+
+    <Button
         android:id="@+id/inquiries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

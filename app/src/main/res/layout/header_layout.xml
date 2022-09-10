@@ -8,10 +8,19 @@
     android:gravity="bottom"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher_round" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GetAPro"
+        android:paddingTop="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/navigation_header_text_view"
-        android:text="Drawer header text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:text="Drawer header text" />
 </LinearLayout>

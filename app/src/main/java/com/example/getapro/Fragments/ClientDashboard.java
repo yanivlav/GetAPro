@@ -39,7 +39,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.getapro.R;
+import com.google.android.material.navigation.NavigationView;
+
 import android.text.TextWatcher;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 
@@ -63,7 +67,6 @@ public class ClientDashboard extends Fragment{
 
     // TODO: Rename and change types of parameters
     private String username;
-//    private String mParam2;
 
 
     @Override
@@ -122,24 +125,6 @@ public class ClientDashboard extends Fragment{
         View view = inflater.inflate(R.layout.client_dashboard, container, false);
 
 
-//            requireActivity().addMenuProvider(new MenuProvider() {
-//                @Override
-//                public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-//                    menuInflater.inflate(R.menu.drawer_menu, menu);
-//
-//                    // Add option Menu Here
-//
-//                }
-//
-//                @Override
-//                public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-//
-//                    // Handle option Menu Here
-//                    return false;
-//                }
-//            }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-//
-
         inquiriesBtn = view.findViewById(R.id.inquiries);
         searchBtn = view.findViewById(R.id.search_button);
         handymAnTV = view.findViewById(R.id.handyMAnTV);
@@ -186,6 +171,7 @@ public class ClientDashboard extends Fragment{
 
         return view;
     }
+
 
 //    @Override
 //    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.getapro.Fragments.LoginFragment;
 import com.example.getapro.Fragments.SignupFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -62,29 +63,23 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+//        if (savedInstanceState == null){
+//            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,new LoginFragment()).commit();
+//            navigationView.setCheckedItem(R.id.login_btn);
+//        }
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
-//                drawerLayout.closeDrawers();
+                drawerLayout.closeDrawers();
                 Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-//                switch (item.getItemId()) {
-//                    case R.id.item_signup:
-////                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SignupFragment()).commit();
-//                        break;
-//
-//                    case R.id.item_login:
-//
-//                        break;
-//
-//                    case R.id.item_logout:
-//                        firebaseAuth.signOut();
-//                        Toast.makeText(MainActivity.this, "sdadasdas", Toast.LENGTH_SHORT).show();
-//                        break;
-//                }
-                return false;
+                return true;
             }
         });
+
+
+
 
 
         authStateListener = new FirebaseAuth.AuthStateListener() {

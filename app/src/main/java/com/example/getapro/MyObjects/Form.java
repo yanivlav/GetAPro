@@ -1,5 +1,8 @@
 package com.example.getapro.MyObjects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 public class Form extends User implements Serializable {
@@ -55,6 +58,7 @@ public class Form extends User implements Serializable {
     public void setIssueImageResID(int issueImageResID) {
         this.issueImageResID = issueImageResID;
     }
+
 }
 
 

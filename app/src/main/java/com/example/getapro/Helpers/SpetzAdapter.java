@@ -46,9 +46,9 @@ public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHol
 
         public SpetzViewHolder(View itemView) {
             super(itemView);
-            nameTv = itemView.findViewById(R.id.spetz_name);
-            picIv = itemView.findViewById(R.id.album_image);
-            infoIB = itemView.findViewById(R.id.spetzInfo);
+            nameTv = itemView.findViewById(R.id.problem_description);
+            picIv = itemView.findViewById(R.id.problem_image);
+            infoIB = itemView.findViewById(R.id.formInfo);
             infoIB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

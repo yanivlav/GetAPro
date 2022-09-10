@@ -1,8 +1,5 @@
 package com.example.getapro.MyObjects;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 public class Form extends User implements Serializable {
@@ -10,14 +7,14 @@ public class Form extends User implements Serializable {
     private String issueImage;
     private int issueImageResID;
 
-    public Form(String userName, String address, String email, String password, long number, String photoPath, String description, String issueImage) {
-        super(userName, address, email, password, number, photoPath);
+    public Form(String userName, String address, String email, String number, String photoPath, String description, String issueImage) {
+        super(userName, address, email, number, photoPath);
         this.description = description;
         this.issueImage = issueImage;
     }
 
-    public Form(String userName, String address, String email, String password, long number, int resID, String description, int issueImageResID) {
-        super(userName, address, email, password, number, resID);
+    public Form(String userName, String address, String email, String number, int resID, String description, int issueImageResID) {
+        super(userName, address, email, number, resID);
         this.description = description;
         this.issueImageResID = issueImageResID;
     }
@@ -60,5 +57,3 @@ public class Form extends User implements Serializable {
     }
 
 }
-
-

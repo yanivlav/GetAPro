@@ -74,6 +74,17 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                 item.setChecked(true);
                 drawerLayout.closeDrawers();
                 Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                switch (item.getItemId()) {
+//                    case R.id.item_signup:
+//                        break;
+//                    case R.id.item_login:
+//                        break;
+                    case R.id.item_logout:
+                        firebaseAuth.signOut();
+                        break;
+
+
+                }
                 return true;
             }
         });

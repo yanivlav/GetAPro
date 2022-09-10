@@ -33,6 +33,7 @@ import com.example.getapro.Helpers.SpetzAdapter;
 import com.example.getapro.MainActivity;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
+import com.example.getapro.MyObjects.User;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,9 +72,10 @@ public class SpetzList extends Fragment {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    //name of the instance of the Forms table
+    ArrayList<Spetz> spetzs_local = new ArrayList<>();
+    DatabaseReference users_fire = database.getReference("Users");
     DatabaseReference forms_fire = database.getReference("Forms");
-
+    SpetzAdapter spetzAdapter;
 
     public static SpetzList newInstance(String param1, String param2) {
         SpetzList fragment = new SpetzList();
@@ -115,20 +117,43 @@ public class SpetzList extends Fragment {
 //        messaging.unsubscribeFromTopic("A");
 //        messaging.unsubscribeFromTopic("B");
 
-        if (spetzs==null) {
-            spetzs = new ArrayList<>();
-            spetzs.add(new Spetz("Bar", "North", "B@gmail.com", "123", 022346543, R.drawable.person_icon, "Foundations"));
-            spetzs.add(new Spetz("Yaniv", "North", "Y@gmail.com", "123", 022234543, R.drawable.person_icon, "Cleaner"));
-            spetzs.add(new Spetz("Eran", "North", "E@gmail.com", "123", 02765543, R.drawable.person_icon, "Shiatsu"));
-            spetzs.add(new Spetz("John", "North", "J@gmail.com", "123", 05454567, R.drawable.person_icon, "Surf instructor"));
-        }
+//        if (spetzs==null) {
+//            spetzs = new ArrayList<>();
+//            spetzs.add(new Spetz("Bar", "North", "B@gmail.com", "022346543", R.drawable.person_icon, "Foundations"));
+//            spetzs.add(new Spetz("Yaniv", "south", "Y@gmail.com", "022346543", R.drawable.person_icon, "Cleaner"));
+//            spetzs.add(new Spetz("Eran", "North", "E@gmail.com", "022346543", R.drawable.person_icon, "Shiatsu"));
+//            spetzs.add(new Spetz("John", "North", "J@gmail.com", "022346543", R.drawable.person_icon, "Surf instructor"));
+//        }
+
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+            users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    spetzs_local.clear();
+
+                    if(dataSnapshot.exists()) {
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Spetz spetz1 = snapshot.getValue(Spetz.class);
+                            spetzs_local.add(spetz1);
+                        }
+                        spetzAdapter.notifyDataSetChanged();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+            });
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        final SpetzAdapter formAdapter = new SpetzAdapter(spetzs);
-        formAdapter.setListener(new SpetzAdapter.ISpetzListener() {
+        spetzAdapter = new SpetzAdapter(spetzs_local);
+        spetzAdapter.setListener(new SpetzAdapter.ISpetzListener() {
             @Override
             public void onInfoClicked(int position, View view) {
                 Bundle bundle =  new Bundle();
@@ -150,9 +175,7 @@ public class SpetzList extends Fragment {
                 forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
                         forms_local.clear();
-
                         if(dataSnapshot.exists()) {
                             for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 Form form = snapshot.getValue(Form.class);
@@ -198,7 +221,7 @@ public class SpetzList extends Fragment {
         IntentFilter filter = new IntentFilter("message_received");
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
 
-        recyclerView.setAdapter(formAdapter);
+        recyclerView.setAdapter(spetzAdapter);
 
 
         return view;

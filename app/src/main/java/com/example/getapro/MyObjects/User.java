@@ -2,34 +2,31 @@ package com.example.getapro.MyObjects;
 
 public class User {
     private String userName;
-    private String address;
+    private String district;
     private String email;
-    private String password;
-    private long number;
+    private String number;
     private String photoPath;
     private int resID;
 
-    public User(String userName, String address, String email, String password, long number, String photoPath) {
+    public User(String userName, String district, String email, String number, String photoPath) {
         this.userName = userName;
-        this.address = address;
+        this.district = district;
         this.email = email;
-        this.password = password;
         this.number = number;
         this.photoPath = photoPath;
     }
 
-    public User(String userName, String address, String email, String password, long number, int resID) {
+    public User(String userName, String district, String email, String number, int resID) {
         this.userName = userName;
-        this.address = address;
+        this.district = district;
         this.email = email;
-        this.password = password;
         this.number = number;
         this.resID = resID;
     }
 
-    public User () {
-
+    public User() {
     }
+
 
     public String getUserName() {
         return userName;
@@ -40,11 +37,11 @@ public class User {
     }
 
     public String getAddress() {
-        return address;
+        return district;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String district) {
+        this.district = district;
     }
 
     public String getEmail() {
@@ -55,19 +52,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public long getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(long number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -87,6 +76,3 @@ public class User {
         this.resID = resID;
     }
 }
-
-
-

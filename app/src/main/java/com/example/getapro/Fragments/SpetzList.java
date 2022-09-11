@@ -75,7 +75,8 @@ public class SpetzList extends Fragment {
     ArrayList<Spetz> spetzs_local = new ArrayList<>();
     DatabaseReference users_fire = database.getReference("Users");
     DatabaseReference forms_fire = database.getReference("Forms");
-    SpetzAdapter spetzAdapter;
+    SpetzAdapter adapter;
+    final FirebaseUser user = firebaseAuth.getCurrentUser();
 
     public static SpetzList newInstance(String param1, String param2) {
         SpetzList fragment = new SpetzList();
@@ -94,71 +95,18 @@ public class SpetzList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.spetz_list, container, false);
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @SuppressLint("LongLogTag")
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            System.out.println("Fetching FCM registration token failed");
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        token = task.getResult();
-
-                        // Log and toast
-                        System.out.println(token);
-                        Log.d(TAG, "Refreshed token: " + token);
-                        Toast.makeText(getContext(), "Device Token is: " + token, Toast.LENGTH_SHORT).show();
-//                        mtv.setText(token);
-                    }
-                });
-//        messaging.unsubscribeFromTopic("A");
-//        messaging.unsubscribeFromTopic("B");
-
-//        if (spetzs==null) {
-//            spetzs = new ArrayList<>();
-//            spetzs.add(new Spetz("Bar", "North", "B@gmail.com", "022346543", R.drawable.person_icon, "Foundations"));
-//            spetzs.add(new Spetz("Yaniv", "south", "Y@gmail.com", "022346543", R.drawable.person_icon, "Cleaner"));
-//            spetzs.add(new Spetz("Eran", "North", "E@gmail.com", "022346543", R.drawable.person_icon, "Shiatsu"));
-//            spetzs.add(new Spetz("John", "North", "J@gmail.com", "022346543", R.drawable.person_icon, "Surf instructor"));
-//        }
-
-        final FirebaseUser user = firebaseAuth.getCurrentUser();
-            users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    spetzs_local.clear();
-
-                    if(dataSnapshot.exists()) {
-                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Spetz spetz1 = snapshot.getValue(Spetz.class);
-                            spetzs_local.add(spetz1);
-                        }
-                        spetzAdapter.notifyDataSetChanged();
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-
-            });
-
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
-
+        adapter = new SpetzAdapter(spetzs_local);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        spetzAdapter = new SpetzAdapter(spetzs_local);
-        spetzAdapter.setListener(new SpetzAdapter.ISpetzListener() {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setListener(new SpetzAdapter.ISpetzListener() {
             @Override
             public void onInfoClicked(int position, View view) {
-                Bundle bundle =  new Bundle();
-                bundle.putParcelable("spetzs", spetzs.get(position));//maybe the form class should implement parceble
-                Navigation.findNavController(view).navigate(R.id.action_spetzList_to_spetzCard);
+//                Bundle bundle =  new Bundle();
+//                bundle.putParcelable("spetzs", spetzs.get(position));//maybe the form class should implement parceble
+//                Navigation.findNavController(view).navigate(R.id.action_spetzList_to_spetzCard);
 
             }
 
@@ -170,7 +118,7 @@ public class SpetzList extends Fragment {
 
                 //Add form--------------        //Add form--------------        //Add form--------------
                 //pass with bundle the real user form to here
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
+
 
                 forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -209,19 +157,76 @@ public class SpetzList extends Fragment {
             }
         });
 
-        receiver = new BroadcastReceiver() {
+
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @SuppressLint("LongLogTag")
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed");
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        token = task.getResult();
+
+                        // Log and toast
+                        System.out.println(token);
+                        Log.d(TAG, "Refreshed token: " + token);
+                        Toast.makeText(getContext(), "Device Token is: " + token, Toast.LENGTH_SHORT).show();
+//                        mtv.setText(token);
+                    }
+                });
+
+
+        //Read users from DB
+//        final FirebaseUser user = firebaseAuth.getCurrentUser();
+//        final FirebaseUser user = firebaseAuth.getCurrentUser();
+//            users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+        users_fire.addListenerForSingleValueEvent(new ValueEventListener() {
+//        users_fire.getDatabase().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                spetzs_local.clear();
+                if(dataSnapshot.exists()) {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Spetz spetz = snapshot.child("0").getValue(Spetz.class);
+//                        Spetz spetz = snapshot.getValue(Spetz.class);
+                        //if occupation exists?
+                        if (spetz.getOccupation() != null)
+                            spetzs_local.add(spetz);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
 
-                Toast.makeText(context,intent.getStringExtra("message"), Toast.LENGTH_SHORT).show();
-//                messageTv.setText(intent.getStringExtra("message"));
             }
-        };
 
-        IntentFilter filter = new IntentFilter("message_received");
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        recyclerView.setAdapter(spetzAdapter);
+            }
+        });
+
+
+
+
+
+//        receiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//
+//                Toast.makeText(context,intent.getStringExtra("message"), Toast.LENGTH_SHORT).show();
+////                messageTv.setText(intent.getStringExtra("message"));
+//            }
+//        };
+//
+//        IntentFilter filter = new IntentFilter("message_received");
+//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
+
+        recyclerView.setAdapter(adapter);
 
 
         return view;

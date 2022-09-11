@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.navigation.Navigation;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
 
+    FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,18 +74,25 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                item.setChecked(true);
                 drawerLayout.closeDrawers();
-                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-                switch (item.getItemId()) {
-//                    case R.id.item_signup:
-//                        break;
-//                    case R.id.item_login:
-//                        break;
-                    case R.id.item_logout:
-                        firebaseAuth.signOut();
-                        break;
-
+                if (!item.isChecked()){
+                    item.setChecked(true);
+                    Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                    //if (user in skip)
+                    switch (item.getItemId()) {
+                        case R.id.item_signup:
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
+//                        Navigation.findNavController().navigate(R.id.action_signupFragment_to_clientDashboard,bundle);
+//                        Navigation.findNavController().navigate(R.id.);
+//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_signupFragment);
+                            break;
+                        case R.id.item_login:
+//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_signupFragment_to_loginFragment);
+                            break;
+                        case R.id.item_logout:
+                            firebaseAuth.signOut();
+                            break;
+                    }
 
                 }
                 return true;
@@ -99,7 +109,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                 View headerView = navigationView.getHeaderView(0);
                 TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
 
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {//logon
                     if (fullname != null) {//signup = update profile with full name
 
@@ -124,7 +134,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 //                    read the user database
 
                 } else {
-//                    userTv.setText("please Login");
+                    userTv.setText("Welcome guest ,please login.");
                     //collapsing?
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(true);

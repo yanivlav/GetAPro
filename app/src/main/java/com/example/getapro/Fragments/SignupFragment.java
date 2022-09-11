@@ -156,7 +156,7 @@ public class SignupFragment extends Fragment {
                                     spetzs_local.add(spetz);
                                     users_fire.child(firebaseAuth.getCurrentUser().getUid()).setValue(spetzs_local);
                                 } else {
-                                    User user1 = new User(fullname,district,username,phone,1);
+                                    User user1 = new User(fullname,district,username,phone,R.drawable.field_username_icon);
                                     users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

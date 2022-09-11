@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.getapro.MainActivity;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -170,6 +171,7 @@ public class LoginFragment extends Fragment {
                                         Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
                                         Bundle bundle = new Bundle();
                                         bundle.putString("username",username);
+//                                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_clientDashboard);
                                         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
                                     }
 

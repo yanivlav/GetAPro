@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
@@ -38,6 +39,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.getapro.MainActivity;
 import com.example.getapro.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -67,6 +69,11 @@ public class ClientDashboard extends Fragment{
 
     // TODO: Rename and change types of parameters
     private String username;
+
+    NavigationView navigationView;
+    DrawerLayout drawerLayout;
+
+    String result;
 
 
     @Override
@@ -109,9 +116,11 @@ public class ClientDashboard extends Fragment{
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
                 // We use a String here, but any type that can be put in a Bundle is supported
-                String result = bundle.getString("bundleKey");
+                result = bundle.getString("bundleKey");
                 // Do something with the result
                 handymAnTV.setText("change "+result+"?");
+//                Bundle bundle = new Bundle();
+//                bundle.putString("category", result);
 
             }
         });
@@ -123,6 +132,31 @@ public class ClientDashboard extends Fragment{
 
 //        NavHostFragment.findNavController(this).navigate(); without view
         View view = inflater.inflate(R.layout.client_dashboard, container, false);
+
+//        drawerLayout = view.findViewById(R.id.drawer_layout);
+//        navigationView = view.findViewById(R.id.navigation_view);
+//
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                drawerLayout.closeDrawers();
+//                if (!item.isChecked()){
+//                    item.setChecked(true);
+//
+//                    switch (item.getItemId()) {
+//                        case R.id.item_signup:
+//                            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signupFragment);
+//                            break;
+//                        case R.id.item_login:
+//                            Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment);
+//                            break;
+//
+//                    }
+//
+//                }
+//                return true;
+//            }
+//        });
 
 
         inquiriesBtn = view.findViewById(R.id.inquiries);
@@ -166,6 +200,8 @@ public class ClientDashboard extends Fragment{
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact);
+                Bundle bundle = new Bundle();
+                bundle.putString("category", result);
             }
         });
 

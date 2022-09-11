@@ -78,6 +78,9 @@
         <action
             android:id="@+id/action_spetzList_to_spetzCard"
             app:destination="@id/spetzCard" />
+        <action
+            android:id="@+id/action_spetzList_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
     </fragment>
     <fragment
         android:id="@+id/spetzCard"

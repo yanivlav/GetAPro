@@ -7,21 +7,24 @@ public class User {
     private String number;
     private String photoPath;
     private int resID;
+    private String Uid;
 
-    public User(String userName, String district, String email, String number, String photoPath) {
+    public User(String userName, String district, String email, String number, String photoPath, String uid) {
         this.userName = userName;
         this.district = district;
         this.email = email;
         this.number = number;
         this.photoPath = photoPath;
+        Uid = uid;
     }
 
-    public User(String userName, String district, String email, String number, int resID) {
+    public User(String userName, String district, String email, String number, int resID, String uid) {
         this.userName = userName;
         this.district = district;
         this.email = email;
         this.number = number;
         this.resID = resID;
+        Uid = uid;
     }
 
     public User() {
@@ -74,5 +77,13 @@ public class User {
 
     public void setResID(int resID) {
         this.resID = resID;
+    }
+
+    public String getUid() {
+        return Uid;
+    }
+
+    public void setUid(String uid) {
+        Uid = uid;
     }
 }

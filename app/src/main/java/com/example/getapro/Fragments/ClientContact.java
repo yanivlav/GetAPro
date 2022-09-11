@@ -163,6 +163,8 @@ public class ClientContact extends Fragment {
         proceedB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("address",locEt.getText().toString());
                 Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm);
 
             }

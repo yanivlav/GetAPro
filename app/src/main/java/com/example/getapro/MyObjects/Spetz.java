@@ -8,14 +8,14 @@ public class Spetz extends User implements Parcelable {
 
     private String district;
 
-    public Spetz(String userName, String district, String email, String number, int resID, String occupation) {
-        super(userName, district, email, number, resID);
+    public Spetz(String userName, String district, String email, String number, int resID, String uid, String occupation) {
+        super(userName, district, email, number, resID, uid);
         this.occupation = occupation;
         this.district =  district;
     }
 
-    public Spetz(String userName, String district, String email, String number, String photoPath, String occupation) {
-        super(userName, district, email, number, photoPath);
+    public Spetz(String userName, String district, String email, String number, String photoPath,String uid, String occupation) {
+        super(userName, district, email, number, photoPath, uid);
         this.occupation = occupation;
         this.district =  district;
     }

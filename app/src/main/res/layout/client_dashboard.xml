@@ -6,10 +6,10 @@
 <!--             android:layout_height="match_parent"-->
 
 <!--    android:id="@+id/root_container">-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_container"
     android:layout_marginTop="60dp">
 
@@ -70,5 +70,13 @@
         android:layout_marginBottom="25dp"
         android:text="@string/inquiriesButton" />
 
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/navigation_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        app:headerLayout="@layout/header_layout"-->
+<!--        app:menu="@menu/drawer_menu"-->
+<!--        />-->
 
 </RelativeLayout>

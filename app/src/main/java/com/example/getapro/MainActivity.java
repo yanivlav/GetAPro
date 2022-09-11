@@ -81,13 +81,10 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     //if (user in skip)
                     switch (item.getItemId()) {
                         case R.id.item_signup:
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
-//                        Navigation.findNavController().navigate(R.id.action_signupFragment_to_clientDashboard,bundle);
-//                        Navigation.findNavController().navigate(R.id.);
-//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_signupFragment);
+                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_signupFragment);
                             break;
                         case R.id.item_login:
-//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_signupFragment_to_loginFragment);
+                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_signupFragment_to_loginFragment);
                             break;
                         case R.id.item_logout:
                             firebaseAuth.signOut();

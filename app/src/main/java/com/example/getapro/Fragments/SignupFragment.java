@@ -14,13 +14,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.MyObjects.User;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -87,7 +85,7 @@ public class SignupFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            username = getArguments().getString(username);
+            username = getArguments().getString("username");
 //            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
@@ -131,7 +129,7 @@ public class SignupFragment extends Fragment {
                                 Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
                                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                                 if(isSpetz){
-                                    Spetz spetz = new Spetz(fullname,district,username,phone,R.drawable.field_username_icon,occupation);
+                                    Spetz spetz = new Spetz(fullname,district,username,phone,R.drawable.field_username_icon, user.getUid(), occupation);
                                     users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -156,7 +154,7 @@ public class SignupFragment extends Fragment {
                                     spetzs_local.add(spetz);
                                     users_fire.child(firebaseAuth.getCurrentUser().getUid()).setValue(spetzs_local);
                                 } else {
-                                    User user1 = new User(fullname,district,username,phone,R.drawable.field_username_icon);
+                                    User user1 = new User(fullname,district,username,phone,R.drawable.field_username_icon, user.getUid());
                                     users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

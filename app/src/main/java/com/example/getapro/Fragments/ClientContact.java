@@ -165,7 +165,7 @@ public class ClientContact extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("address",locEt.getText().toString());
-                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm);
+                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm,bundle);
 
             }
         });

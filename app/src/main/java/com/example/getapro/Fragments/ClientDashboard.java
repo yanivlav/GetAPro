@@ -199,9 +199,10 @@ public class ClientDashboard extends Fragment{
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("category", result);
+                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact,bundle);
             }
         });
 

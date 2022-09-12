@@ -66,7 +66,8 @@ public class ClientContact extends Fragment {
 
 
     private String username;
-//    private String mParam2;
+    private String category;
+    private String state;
 
     public ClientContact() {
         // Required empty public constructor
@@ -86,7 +87,7 @@ public class ClientContact extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            category = getArguments().getString("category");
         }
     }
 
@@ -140,12 +141,12 @@ public class ClientContact extends Fragment {
             }
             else {
                 locEt.setHint("Wait while we get your address...");
-                startLocation();
+//                startLocation();
             }
         }
         else {
             locEt.setHint("Wait while we get your address...");
-            startLocation();
+//            startLocation();
         }
 
         mapFragment = SupportMapFragment.newInstance();
@@ -165,6 +166,8 @@ public class ClientContact extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("address",locEt.getText().toString());
+                bundle.putString("category",category);
+                bundle.putString("district",state);
                 Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm,bundle);
 
             }
@@ -200,7 +203,7 @@ public class ClientContact extends Fragment {
                 super.onLocationResult(locationResult);
 
                 Location location = locationResult.getLastLocation();
-                updateLoc(location);
+//                updateLoc(location);
 
 
             }
@@ -238,7 +241,7 @@ public class ClientContact extends Fragment {
                         @Override
                         public void run() {
                             String address = bestAddr.getAddressLine(0);
-                            String state = bestAddr.getAdminArea();
+                            state = bestAddr.getAdminArea();
                             String city = bestAddr.getLocality();
                             String country = bestAddr.getCountryName();
                             locEt.setText(address);

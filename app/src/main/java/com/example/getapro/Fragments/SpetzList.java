@@ -36,7 +36,8 @@ import java.util.ArrayList;
 public class SpetzList extends Fragment {
 
     ArrayList<Spetz> spetzs;
-    ArrayList<Form> forms_local = new ArrayList<>();
+    ArrayList<Form> forms_user = new ArrayList<>();
+    ArrayList<Form> forms_spetz = new ArrayList<>();
 
     BroadcastReceiver receiver;
     String TAG = "MyFirebaseInstanceIdService";
@@ -47,6 +48,10 @@ public class SpetzList extends Fragment {
 
     private String spetzCategory;
     private String address;
+    private String district;
+    private String desc;
+    private int pic;
+    private Form newForm;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
@@ -72,6 +77,12 @@ public class SpetzList extends Fragment {
         if (getArguments() != null) {
             spetzCategory = getArguments().getString("category");
             address = getArguments().getString("address");
+            district = getArguments().getString("district");
+            desc = getArguments().getString("desc");
+            pic = getArguments().getInt("pic");
+
+
+
         }
 
     }
@@ -81,14 +92,15 @@ public class SpetzList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.spetz_list, container, false);
 //
-//        spetzCategory = getArguments().getString("category");
-//        address = getArguments().getString("address");
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         adapter = new SpetzAdapter(spetzs_local);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
+
+
 
         adapter.setListener(new SpetzAdapter.ISpetzListener() {
             @Override
@@ -109,14 +121,21 @@ public class SpetzList extends Fragment {
                 //pass with bundle the real user form to here
 
                 //add form to the user inquries
+//                forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                newForm = new Form(desc, pic, spetzs_local.get(position).getUid(),spetzCategory, address);
+//                forms_spetz.clear();
+//                forms_user.clear();
+
+
                 forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        forms_local.clear();
+                        forms_user.clear();
                         if(dataSnapshot.exists()) {
                             for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 Form form = snapshot.getValue(Form.class);
-                                forms_local.add(form);
+                                forms_user.add(form);
                             }
                         }
                     }
@@ -127,23 +146,22 @@ public class SpetzList extends Fragment {
                     }
                 });
 
+
                 //update the database
 
-                forms_local.add(new Form("yaniv", R.drawable.problem_icon, spetzs_local.get(position).getUid(),spetzCategory, address));
-                forms_fire.child(firebaseAuth.getCurrentUser().getUid()).setValue(forms_local);
+                forms_user.add(newForm);
+                forms_fire.child(user.getUid()).setValue(forms_user);
 
 
-
-
-                //add form to spetz selected from list
+//                //add form to spetz selected from list
                 forms_fire.child(spetzs_local.get(position).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        forms_local.clear();
+                        forms_spetz.clear();
                         if(dataSnapshot.exists()) {
                             for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 Form form = snapshot.getValue(Form.class);
-                                forms_local.add(form);
+                                forms_spetz.add(form);
                             }
                         }
                     }
@@ -156,12 +174,12 @@ public class SpetzList extends Fragment {
 
                 //update the database
                 if (user.getUid() != spetzs_local.get(position).getUid()){
-//                    forms_local.add(new Form("yaniv", R.drawable.problem_icon, spetzs_local.get(position).getUid()));
-                    forms_fire.child(spetzs_local.get(position).getUid()).setValue(forms_local);
+                    forms_spetz.add(newForm);
+                    forms_fire.child(spetzs_local.get(position).getUid()).setValue(forms_spetz);
                 }
                 else Toast.makeText(getContext(), "can't open to yourself", Toast.LENGTH_SHORT).show();
-
-
+//
+//
 
 
 //                Open Chat

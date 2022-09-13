@@ -69,7 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/inquiries"
         android:layout_centerHorizontal="true"
-        android:text="Spetz Requests" />
+        android:text="Spetz Requests"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/inquiries"

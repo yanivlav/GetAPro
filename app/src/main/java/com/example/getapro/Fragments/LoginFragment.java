@@ -53,6 +53,7 @@ public class LoginFragment extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
 
+
 //    /**
 //     * Use this factory method to create a new instance of
 //     * this fragment using the provided parameters.
@@ -77,8 +78,6 @@ public class LoginFragment extends Fragment {
 //        setHasOptionsMenu(true);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-
         }
     }
 
@@ -97,11 +96,6 @@ public class LoginFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -178,7 +172,6 @@ public class LoginFragment extends Fragment {
 
                                     else
                                         Toast.makeText(getContext(), "Login failed, wrong email/password", Toast.LENGTH_SHORT).show();
-
                                 }
                             });
                         }//else

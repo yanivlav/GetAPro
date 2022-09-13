@@ -25,7 +25,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
             Intent intent = new Intent("message_received");
-            intent.putExtra("message",remoteMessage.getData().get("message"));
+
+            if(remoteMessage.getData().get("message") == null )
+                intent.putExtra("message","default");
+            else
+                intent.putExtra("message",remoteMessage.getData().get("message"));
+
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
             //if the application is not in forground post notification
@@ -37,7 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 manager.createNotificationChannel(channel);
                 builder.setChannelId("id_1");
             }
-            builder.setContentTitle("new message from topic").setContentText(remoteMessage.getData().get("message")).setSmallIcon(android.R.drawable.star_on);
+            builder.setContentTitle("New Spetz request").setContentText(remoteMessage.getData().get("message")).setSmallIcon(android.R.drawable.star_on);
 
             manager.notify(1,builder.build());
 

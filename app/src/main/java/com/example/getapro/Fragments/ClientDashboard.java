@@ -46,8 +46,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.getapro.MainActivity;
+import com.example.getapro.MyObjects.Form;
+import com.example.getapro.MyObjects.Spetz;
+import com.example.getapro.MyObjects.User;
 import com.example.getapro.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.text.TextWatcher;
 import android.widget.Toast;
@@ -81,6 +91,15 @@ public class ClientDashboard extends Fragment{
     DrawerLayout drawerLayout;
 
     String result;
+
+    //check if user is a spetz
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference users_fire = database.getReference("Users");
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+    ArrayList<User> users_local = new ArrayList<>();
+
 
 
     @Override
@@ -128,6 +147,8 @@ public class ClientDashboard extends Fragment{
                 handymAnTV.setText("change "+result+"?");
             }
         });
+
+
     }
 
     @Override
@@ -142,6 +163,25 @@ public class ClientDashboard extends Fragment{
         handymAnTV = view.findViewById(R.id.handyMAnTV);
         requestsBtn = view.findViewById(R.id.spetsRequests);
         messageTV = view.findViewById(R.id.message_tv);
+
+        users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                users_local.clear();
+                if(dataSnapshot.exists()) {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Spetz spetz = snapshot.getValue(Spetz.class);
+                        if (spetz.getOccupation() != null)
+                            requestsBtn.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 //        if (message != "")
 

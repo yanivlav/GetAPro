@@ -116,6 +116,10 @@
         android:name="com.example.getapro.SpetsRequests"
         android:label="fragment_spets_requests"
         tools:layout="@layout/spets_requests" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.getapro.MainActivity"
+        android:label="MainActivity" />
 
 
 </navigation>

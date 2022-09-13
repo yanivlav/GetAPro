@@ -29,7 +29,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             Intent intent = new Intent("message_received");
 
-            intent.putExtra("message",remoteMessage.getData().get("message"));
+            if(remoteMessage.getData().get("message") == null )
+                intent.putExtra("message","default");
+            else
+                intent.putExtra("message",remoteMessage.getData().get("message"));
+
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
             //Add if the application is not in forground post notification

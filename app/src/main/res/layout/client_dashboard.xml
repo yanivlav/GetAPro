@@ -60,7 +60,7 @@
         android:layout_below="@id/search_button"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:hint="thats the message"
+        android:hint="Massege TV"
         android:textSize="30sp" />
 
     <Button

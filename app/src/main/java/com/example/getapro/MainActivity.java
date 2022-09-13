@@ -84,21 +84,22 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         //subscribe spetz here?
         messaging.unsubscribeFromTopic("RxLWdiw41BYU3ekjWwXCgBQ0T9X2");
         messaging.subscribeToTopic("RxLWdiw41BYU3ekjWwXCgBQ0T9X2");
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Bundle bundle = new Bundle();
-                String message = intent.getStringExtra("message");
-                bundle.putString("message" , message);
-
-                ClientDashboard clientDashboard = new ClientDashboard();
-                clientDashboard.setArguments(bundle);
-//                messageTv.setText(intent.getStringExtra("message"));
-            }
-        };
-
-        IntentFilter filter = new IntentFilter("message_received");
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
+//        receiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Bundle bundle = new Bundle();
+//                String message = intent.getStringExtra("message");
+//
+//                bundle.putString("message" , message);
+//
+//                ClientDashboard clientDashboard = new ClientDashboard();
+//                clientDashboard.setArguments(bundle);
+////                messageTv.setText(intent.getStringExtra("message"));
+//            }
+//        };
+//
+//        IntentFilter filter = new IntentFilter("message_received");
+//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
         //Messaging stuff----------        //Messaging stuff----------        //Messaging stuff----------
 
 

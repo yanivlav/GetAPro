@@ -5,6 +5,10 @@ package com.example.getapro.Fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +24,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Lifecycle;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -59,7 +64,7 @@ public class ClientDashboard extends Fragment{
     private static final String CLIENT_DASHBOARD_TAG = "ClientDashboard";
 
     public TextView mInputDisplay;
-    public String mInput;
+    public String message;
 
     final String CLIENT_CONTACT_FRAGMENT_TAG = "client_contact_fragemnt";
     Button inquiriesBtn, searchBtn, requestsBtn;
@@ -84,8 +89,8 @@ public class ClientDashboard extends Fragment{
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
+            message = getArguments().getString("message");
             username = getArguments().getString("username");
-            pos = getArguments().getInt("pos");
         }
 
         if (Build.VERSION.SDK_INT >= 23) {
@@ -135,30 +140,22 @@ public class ClientDashboard extends Fragment{
 //        NavHostFragment.findNavController(this).navigate(); without view
         View view = inflater.inflate(R.layout.client_dashboard, container, false);
 
-//        drawerLayout = view.findViewById(R.id.drawer_layout);
-//        navigationView = view.findViewById(R.id.navigation_view);
-//
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//       BroadcastReceiver receiver = new BroadcastReceiver() {
 //            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                drawerLayout.closeDrawers();
-//                if (!item.isChecked()){
-//                    item.setChecked(true);
+//            public void onReceive(Context context, Intent intent) {
+//                Bundle bundle = new Bundle();
+//                String message = intent.getStringExtra("message");
 //
-//                    switch (item.getItemId()) {
-//                        case R.id.item_signup:
-//                            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signupFragment);
-//                            break;
-//                        case R.id.item_login:
-//                            Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment);
-//                            break;
+//                bundle.putString("message" , message);
 //
-//                    }
-//
-//                }
-//                return true;
+//                ClientDashboard clientDashboard = new ClientDashboard();
+//                clientDashboard.setArguments(bundle);
+////                messageTv.setText(intent.getStringExtra("message"));
 //            }
-//        });
+//        };
+//
+//        IntentFilter filter = new IntentFilter("message_received");
+//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
 
 
         inquiriesBtn = view.findViewById(R.id.inquiries);
@@ -167,21 +164,10 @@ public class ClientDashboard extends Fragment{
         requestsBtn = view.findViewById(R.id.spetsRequests);
         messageTV = view.findViewById(R.id.message_tv);
 
-        String message = "" + getArguments().getString("edttext");
-        if (message != "")
-            messageTV.setText(message);
+//        if (message != "")
+        messageTV.setText(message);
 
 
-//        String spetz = getArguments().getString("Selected_Handyman", "def");
-//        String spetz = getArguments().getString("Selected_Handyman","");
-//        Navigation.findNavController(view).addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-//            @Override
-//            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-//                Log.e("TAG", "onDestinationChanged: "+navDestination.getLabel());
-//            }
-//        });
-
-//        handymAnTV.setText("" + getArguments().get("Selected_Handyman") );
         requestsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,17 +222,4 @@ public class ClientDashboard extends Fragment{
 
         return view;
     }
-
-
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        inflater.inflate(R.menu.drawer_menu,menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//        //handle menu item clicks
-//    }
 }

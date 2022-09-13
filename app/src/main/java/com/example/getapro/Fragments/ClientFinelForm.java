@@ -36,7 +36,6 @@ import java.util.ArrayList;
 
 public class ClientFinelForm extends Fragment {
 
-    ArrayList<String> forms;
     EditText descET;
     TextView tiltleTV, explTV;
     ImageButton galIB, camIB;
@@ -62,7 +61,6 @@ public class ClientFinelForm extends Fragment {
 //        setHasOptionsMenu(true);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
             category= getArguments().getString("category");
             address = getArguments().getString("address");
             district = getArguments().getString("district");

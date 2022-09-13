@@ -167,7 +167,8 @@ public class ClientContact extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("address",locEt.getText().toString());
                 bundle.putString("category",category);
-                bundle.putString("district",state);
+//                bundle.putString("district",state);
+                bundle.putString("district","North");
                 Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm,bundle);
 
             }

@@ -59,6 +59,7 @@ public class SpetzList extends Fragment {
 
     private String spetzCategory;
     private String address;
+    private String occupation;
     private String district;
     private String desc;
     private int pic;
@@ -91,6 +92,8 @@ public class SpetzList extends Fragment {
             district = getArguments().getString("district");
             desc = getArguments().getString("desc");
             pic = getArguments().getInt("pic");
+            occupation = getArguments().getString("category");
+
 
 
 
@@ -265,11 +268,13 @@ public class SpetzList extends Fragment {
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Spetz spetz = snapshot.child("0").getValue(Spetz.class);
-                        //if occupation exists
-                        if (spetz.getOccupation() != null)
+//                        if (spetz.getOccupation()!=null && spetz.getOccupation().equals(occupation) && spetz.getDistrict().equals(district))
+                        if (spetz.getOccupation()!=null && spetz.getOccupation().equals(occupation)) {
                             spetzs_local.add(spetz);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
                 }
             }
             @Override

@@ -44,7 +44,6 @@ public class SpetsRequests extends Fragment {
 
     private String username;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,30 +76,6 @@ public class SpetsRequests extends Fragment {
         });
 
 
-//        final FirebaseUser user = firebaseAuth.getCurrentUser();
-//        forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                forms_local.clear();
-//
-//                if (dataSnapshot.exists()) {
-//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                        Form form = snapshot.getValue(Form.class);
-//                        forms_local.add(form);
-//                    }
-//                    adapter.notifyDataSetChanged();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//
-//        });
-
-
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         forms_fire.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -116,14 +91,10 @@ public class SpetsRequests extends Fragment {
 //                            forms_local.add(form);
                         }
                     }
-//                    adapter.notifyDataSetChanged();
                 }
 
 
                 for (int i=0; i<temp.size(); i++){
-//                    String formid=  forms_local.get(i).getSelectedSpetzUid();
-//                    String userid = user.getUid();
-
                     if  (temp.get(i).getSelectedSpetzUid().equals(user.getUid())){
                         forms_local.add(temp.get(i));
                         adapter.notifyDataSetChanged();

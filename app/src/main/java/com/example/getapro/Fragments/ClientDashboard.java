@@ -35,6 +35,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -62,13 +63,14 @@ public class ClientDashboard extends Fragment{
 
     final String CLIENT_CONTACT_FRAGMENT_TAG = "client_contact_fragemnt";
     Button inquiriesBtn, searchBtn, requestsBtn;
-    TextView handymAnTV;
+    TextView handymAnTV, messageTV;
 
     final int LOCATION_PERMISSION_REQUEST = 1;
     final int POST_NOTIFICATIONS = 2;
 
     // TODO: Rename and change types of parameters
     private String username;
+    private int pos;
 
     NavigationView navigationView;
     DrawerLayout drawerLayout;
@@ -83,7 +85,7 @@ public class ClientDashboard extends Fragment{
 
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            pos = getArguments().getInt("pos");
         }
 
         if (Build.VERSION.SDK_INT >= 23) {
@@ -163,6 +165,12 @@ public class ClientDashboard extends Fragment{
         searchBtn = view.findViewById(R.id.search_button);
         handymAnTV = view.findViewById(R.id.handyMAnTV);
         requestsBtn = view.findViewById(R.id.spetsRequests);
+        messageTV = view.findViewById(R.id.message_tv);
+
+        String message = "" + getArguments().getString("edttext");
+        if (message != "")
+            messageTV.setText(message);
+
 
 //        String spetz = getArguments().getString("Selected_Handyman", "def");
 //        String spetz = getArguments().getString("Selected_Handyman","");
@@ -205,6 +213,26 @@ public class ClientDashboard extends Fragment{
                 Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact,bundle);
             }
         });
+
+
+
+
+        //Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------
+        //if spetz then unsbscribe and then subscribe to his id token
+//        messaging.unsubscribeFromTopic("A");
+//        messaging.unsubscribeFromTopic("B");
+//
+//        groupAcb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b)
+//                    messaging.subscribeToTopic("A");
+//                else
+//                    messaging.unsubscribeFromTopic("A");
+//            }
+//        });
+
+
 
         return view;
     }

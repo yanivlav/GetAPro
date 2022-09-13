@@ -16,6 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.getapro.Helpers.SpetzAdapter;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
@@ -31,7 +38,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SpetzList extends Fragment {
 
@@ -41,9 +53,8 @@ public class SpetzList extends Fragment {
 
     BroadcastReceiver receiver;
     String TAG = "MyFirebaseInstanceIdService";
-    String token;
 
-    String apiToken = "AAAA8BK5-Gs:APA91bEHQfVvwoR62JRU2tdmdkTZcdckkftwsqxqE1NOmZCmfrkUFbzLHJQPuDkY69u3dh5aL_4s1u1AD1GTxhLHant-oUCuyw4cx-dEC-TJz_yFiPf6e1apu6FXwGKAekKnwqBBO6co";
+    String API_TOKEN_KEY = "AAAA8BK5-Gs:APA91bEHQfVvwoR62JRU2tdmdkTZcdckkftwsqxqE1NOmZCmfrkUFbzLHJQPuDkY69u3dh5aL_4s1u1AD1GTxhLHant-oUCuyw4cx-dEC-TJz_yFiPf6e1apu6FXwGKAekKnwqBBO6co";
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
 
     private String spetzCategory;
@@ -99,6 +110,25 @@ public class SpetzList extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
+        //Read user forms
+        forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                forms_user.clear();
+                if(dataSnapshot.exists()) {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Form form = snapshot.getValue(Form.class);
+                        forms_user.add(form);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
 
@@ -112,80 +142,87 @@ public class SpetzList extends Fragment {
             }
 
             @Override
-            public void onSpetzClicked(int position, View view) {
-                //1. read forms from database
-                //2. add form to local forms array than push to database
-                //3. send notification to the spetz
+            public void onSpetzClicked(int position, View view){
+                String selectedSpetzUid = spetzs_local.get(position).getUid();
 
-                //Add form--------------        //Add form--------------        //Add form--------------
-                //pass with bundle the real user form to here
+                newForm = new Form(desc, pic, selectedSpetzUid,spetzCategory, address);
 
-                //add form to the user inquries
-//                forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                newForm = new Form(desc, pic, spetzs_local.get(position).getUid(),spetzCategory, address);
-//                forms_spetz.clear();
-//                forms_user.clear();
-
-
-                forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        forms_user.clear();
-                        if(dataSnapshot.exists()) {
-                            for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Form form = snapshot.getValue(Form.class);
-                                forms_user.add(form);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-                //update the database
-
+                //Add user new form to user form list
                 forms_user.add(newForm);
                 forms_fire.child(user.getUid()).setValue(forms_user);
 
 
-//                //add form to spetz selected from list
-                forms_fire.child(spetzs_local.get(position).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        forms_spetz.clear();
-                        if(dataSnapshot.exists()) {
-                            for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Form form = snapshot.getValue(Form.class);
-                                forms_spetz.add(form);
-                            }
-                        }
+                //Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------
+
+
+                messaging.unsubscribeFromTopic(selectedSpetzUid);
+                messaging.subscribeToTopic(selectedSpetzUid);
+
+                /*
+                https://fcm.googleapis.com/fcm/send
+                Content-Type:application/json
+                Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
+                {
+                     "to": "/topics/foo-bar", (OR:   "condition": "'dogs' in topics || 'cats' in topics",)
+                    "data": {
+                        "message": "This is a Firebase Cloud Messaging Topic Message!",
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-                //update the database
-                if (user.getUid() != spetzs_local.get(position).getUid()){
-                    forms_spetz.add(newForm);
-                    forms_fire.child(spetzs_local.get(position).getUid()).setValue(forms_spetz);
                 }
-                else Toast.makeText(getContext(), "can't open to yourself", Toast.LENGTH_SHORT).show();
-//
-//
+                */
+
+                //maybe to json and then reverse
+                String textToSend = newForm.toString();
+
+                final JSONObject rootObject  = new JSONObject();
+
+                try {
+                    rootObject.put("to", "/topics/" + selectedSpetzUid);
+                    rootObject.put("data",new JSONObject().put("message",textToSend));
+                    String url = "https://fcm.googleapis.com/fcm/send";
+
+                //Was main activity
+                RequestQueue queue = Volley.newRequestQueue(getContext());
+                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {}
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {}
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String,String> headers = new HashMap<>();
+                        headers.put("Content-Type","application/json");
+                        headers.put("Authorization","key="+API_TOKEN_KEY);
+                        return headers;
+                    }
+
+                    @Override
+                    public byte[] getBody() throws AuthFailureError {
+                        return rootObject.toString().getBytes();
+                    }
+                };
+                queue.add(request);
+                queue.start();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
-//                Open Chat
-                Toast.makeText(getContext(),"Sending the massage", Toast.LENGTH_SHORT).show();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("to", spetzs.get(position).getUserName());
+
+
+
+
+
+////                //Add the user form to the Spets form  list
+//                if (user.getUid() != spetzs_local.get(position).getUid()){
+//                    forms_spetz.add(newForm);
+//                    forms_fire.child(spetzs_local.get(position).getUid()).setValue(forms_spetz);
+////                    forms_fire.child(spetzs_local.get(position).getUid()).push().setValue(forms_spetz);
+//                }
+//                else Toast.makeText(getContext(), "can't open to yourself", Toast.LENGTH_SHORT).show();
+
                 Navigation.findNavController(view).navigate(R.id.action_spetzList_to_clientDashboard);
             }
 
@@ -196,80 +233,50 @@ public class SpetzList extends Fragment {
             }
         });
 
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @SuppressLint("LongLogTag")
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (!task.isSuccessful()) {
+//                            System.out.println("Fetching FCM registration token failed");
+//                            return;
+//                        }
+//
+//                        // Get new FCM registration token
+//                        token = task.getResult();
+//
+//                        // Log and toast
+//                        System.out.println(token);
+//                        Log.d(TAG, "Refreshed token: " + token);
+//                        Toast.makeText(getContext(), "Device Token is: " + token, Toast.LENGTH_SHORT).show();
+////                        mtv.setText(token);
+//                    }
+//                });
 
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @SuppressLint("LongLogTag")
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            System.out.println("Fetching FCM registration token failed");
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        token = task.getResult();
-
-                        // Log and toast
-                        System.out.println(token);
-                        Log.d(TAG, "Refreshed token: " + token);
-                        Toast.makeText(getContext(), "Device Token is: " + token, Toast.LENGTH_SHORT).show();
-//                        mtv.setText(token);
-                    }
-                });
-
-
-        //Read users from DB
-//        final FirebaseUser user = firebaseAuth.getCurrentUser();
-//        final FirebaseUser user = firebaseAuth.getCurrentUser();
-//            users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-
+        // Finds out who is a spetz and show it on adapter
         users_fire.addListenerForSingleValueEvent(new ValueEventListener() {
-//        users_fire.getDatabase().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 spetzs_local.clear();
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Spetz spetz = snapshot.child("0").getValue(Spetz.class);
-//                        Spetz spetz = snapshot.getValue(Spetz.class);
                         //if occupation exists
                         if (spetz.getOccupation() != null)
                             spetzs_local.add(spetz);
                     }
                     adapter.notifyDataSetChanged();
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
-
-
-
-
-//        receiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//
-//                Toast.makeText(context,intent.getStringExtra("message"), Toast.LENGTH_SHORT).show();
-////                messageTv.setText(intent.getStringExtra("message"));
-//            }
-//        };
-//
-//        IntentFilter filter = new IntentFilter("message_received");
-//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
-
         recyclerView.setAdapter(adapter);
-
-
         return view;
     }
-
-
 }

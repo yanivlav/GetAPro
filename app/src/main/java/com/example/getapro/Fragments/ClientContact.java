@@ -149,11 +149,11 @@ public class ClientContact extends Fragment {
 //            startLocation();
         }
 
-        mapFragment = SupportMapFragment.newInstance();
-        getParentFragmentManager()
-                .beginTransaction()
-                .add(R.id.map_frame, mapFragment)
-                .commit();
+//        mapFragment = SupportMapFragment.newInstance();
+//        getParentFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.map_frame, mapFragment)
+//                .commit();
 
         // Get a handle to the fragment and register the callback.
 

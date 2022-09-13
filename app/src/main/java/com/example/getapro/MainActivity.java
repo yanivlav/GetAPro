@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
         //Messaging stuff----------        //Messaging stuff----------        //Messaging stuff---------
         //subscribe spetz here?
-        messaging.unsubscribeFromTopic("RxLWdiw41BYU3ekjWwXCgBQ0T9X2");
-        messaging.subscribeToTopic("RxLWdiw41BYU3ekjWwXCgBQ0T9X2");
+
+
 //        receiver = new BroadcastReceiver() {
 //            @Override
 //            public void onReceive(Context context, Intent intent) {
@@ -155,9 +155,13 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 View headerView = navigationView.getHeaderView(0);
                 TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
-
                 user = firebaseAuth.getCurrentUser();
+
                 if (user != null) {//logon
+
+                    messaging.unsubscribeFromTopic(user.getUid());
+                    messaging.subscribeToTopic(user.getUid());
+
                     if (fullname != null) {//signup = update profile with full name
 
                         user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -192,7 +196,9 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
                 }
             }
+
         };
+
 
     }
 

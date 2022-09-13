@@ -126,9 +126,6 @@ public class ClientDashboard extends Fragment{
                 result = bundle.getString("bundleKey");
                 // Do something with the result
                 handymAnTV.setText("change "+result+"?");
-//                Bundle bundle = new Bundle();
-//                bundle.putString("category", result);
-
             }
         });
     }
@@ -140,7 +137,15 @@ public class ClientDashboard extends Fragment{
 //        NavHostFragment.findNavController(this).navigate(); without view
         View view = inflater.inflate(R.layout.client_dashboard, container, false);
 
-//       BroadcastReceiver receiver = new BroadcastReceiver() {
+        inquiriesBtn = view.findViewById(R.id.inquiries);
+        searchBtn = view.findViewById(R.id.search_button);
+        handymAnTV = view.findViewById(R.id.handyMAnTV);
+        requestsBtn = view.findViewById(R.id.spetsRequests);
+        messageTV = view.findViewById(R.id.message_tv);
+
+//        if (message != "")
+
+        //        receiver = new BroadcastReceiver() {
 //            @Override
 //            public void onReceive(Context context, Intent intent) {
 //                Bundle bundle = new Bundle();
@@ -155,16 +160,7 @@ public class ClientDashboard extends Fragment{
 //        };
 //
 //        IntentFilter filter = new IntentFilter("message_received");
-//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
-
-
-        inquiriesBtn = view.findViewById(R.id.inquiries);
-        searchBtn = view.findViewById(R.id.search_button);
-        handymAnTV = view.findViewById(R.id.handyMAnTV);
-        requestsBtn = view.findViewById(R.id.spetsRequests);
-        messageTV = view.findViewById(R.id.message_tv);
-
-//        if (message != "")
+//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
         messageTV.setText(message);
 
 
@@ -199,26 +195,6 @@ public class ClientDashboard extends Fragment{
                 Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact,bundle);
             }
         });
-
-
-
-
-        //Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------
-        //if spetz then unsbscribe and then subscribe to his id token
-//        messaging.unsubscribeFromTopic("A");
-//        messaging.unsubscribeFromTopic("B");
-//
-//        groupAcb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(b)
-//                    messaging.subscribeToTopic("A");
-//                else
-//                    messaging.unsubscribeFromTopic("A");
-//            }
-//        });
-
-
 
         return view;
     }

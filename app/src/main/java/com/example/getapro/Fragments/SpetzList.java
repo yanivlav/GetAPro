@@ -208,6 +208,7 @@ public class SpetzList extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                messaging.unsubscribeFromTopic(selectedSpetzUid);
 
 
 
@@ -222,6 +223,7 @@ public class SpetzList extends Fragment {
 ////                    forms_fire.child(spetzs_local.get(position).getUid()).push().setValue(forms_spetz);
 //                }
 //                else Toast.makeText(getContext(), "can't open to yourself", Toast.LENGTH_SHORT).show();
+
 
                 Navigation.findNavController(view).navigate(R.id.action_spetzList_to_clientDashboard);
             }

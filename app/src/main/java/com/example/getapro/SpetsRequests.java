@@ -40,6 +40,7 @@ public class SpetsRequests extends Fragment {
     DatabaseReference forms_fire = database.getReference("Forms");
     FormAdapter adapter;
     ArrayList<Form> forms_local = new ArrayList<>();
+    ArrayList<Form> temp = new ArrayList<>();
 
     private String username;
 
@@ -76,20 +77,59 @@ public class SpetsRequests extends Fragment {
         });
 
 
+//        final FirebaseUser user = firebaseAuth.getCurrentUser();
+//        forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                forms_local.clear();
+//
+//                if (dataSnapshot.exists()) {
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                        Form form = snapshot.getValue(Form.class);
+//                        forms_local.add(form);
+//                    }
+//                    adapter.notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//
+//        });
+
+
         final FirebaseUser user = firebaseAuth.getCurrentUser();
-        forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        forms_fire.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 forms_local.clear();
-
+                temp.clear();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Form form = snapshot.getValue(Form.class);
-                        forms_local.add(form);
+                        for (DataSnapshot chailed : snapshot.getChildren()) {
+                            Form form = chailed.getValue(Form.class);
+                            temp.add(form);
+//                            forms_local.add(form);
+                        }
                     }
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
                 }
+
+
+                for (int i=0; i<temp.size(); i++){
+//                    String formid=  forms_local.get(i).getSelectedSpetzUid();
+//                    String userid = user.getUid();
+
+                    if  (temp.get(i).getSelectedSpetzUid().equals(user.getUid())){
+                        forms_local.add(temp.get(i));
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+//                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -104,42 +144,4 @@ public class SpetsRequests extends Fragment {
 
         return view;
     }
-
-//    BroadcastReceiver receiver;
-//    TextView messageTv;
-//    FirebaseMessaging messaging = FirebaseMessaging.getInstance();
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//
-//        View view =  inflater.inflate(R.layout.spets_requests, container, false);
-//        messageTv = view.findViewById(R.id.massage);
-//
-//
-//        messaging.unsubscribeFromTopic("Yaniv");
-//        messaging.subscribeToTopic("Yaniv");
-//
-//
-//        receiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//
-//                messageTv.setText(intent.getStringExtra("message"));
-//            }
-//        };
-//
-//        IntentFilter filter = new IntentFilter("message_received");
-////        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
-//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
-//        return view;
-//    }
-//
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
-//
-//    }
 }

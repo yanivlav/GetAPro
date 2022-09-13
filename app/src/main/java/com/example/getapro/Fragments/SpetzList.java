@@ -171,13 +171,13 @@ public class SpetzList extends Fragment {
                 */
 
                 //maybe to json and then reverse
-                String textToSend = newForm.toString();
+//                String textToSend = newForm;
 
                 final JSONObject rootObject  = new JSONObject();
 
                 try {
                     rootObject.put("to", "/topics/" + selectedSpetzUid);
-                    rootObject.put("data",new JSONObject().put("message",textToSend));
+                    rootObject.put("data",new JSONObject().put("message", desc));
                     String url = "https://fcm.googleapis.com/fcm/send";
 
                 //Was main activity

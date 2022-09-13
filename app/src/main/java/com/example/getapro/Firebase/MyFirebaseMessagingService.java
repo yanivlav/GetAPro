@@ -47,7 +47,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 manager.createNotificationChannel(channel);
                 builder.setChannelId("id_1");
             }
-            builder.setContentTitle("new message from topic").setContentText(remoteMessage.getData().get("message")).setSmallIcon(android.R.drawable.star_on);
+            builder.setContentTitle("New Spetz request").setContentText(remoteMessage.getData().get("message")).setSmallIcon(android.R.drawable.star_on);
 
             manager.notify(1,builder.build());
         }

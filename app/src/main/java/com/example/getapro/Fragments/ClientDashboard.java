@@ -5,6 +5,10 @@ package com.example.getapro.Fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,10 +19,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Lifecycle;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -34,12 +40,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.getapro.MainActivity;
+import com.example.getapro.MyObjects.Form;
+import com.example.getapro.MyObjects.Spetz;
+import com.example.getapro.MyObjects.User;
 import com.example.getapro.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.text.TextWatcher;
 import android.widget.Toast;
@@ -56,17 +74,32 @@ public class ClientDashboard extends Fragment{
     private static final String CLIENT_DASHBOARD_TAG = "ClientDashboard";
 
     public TextView mInputDisplay;
-    public String mInput;
+    public String message;
 
     final String CLIENT_CONTACT_FRAGMENT_TAG = "client_contact_fragemnt";
     Button inquiriesBtn, searchBtn, requestsBtn;
-    TextView handymAnTV;
+    TextView handymAnTV, messageTV;
 
     final int LOCATION_PERMISSION_REQUEST = 1;
     final int POST_NOTIFICATIONS = 2;
 
     // TODO: Rename and change types of parameters
     private String username;
+    private int pos;
+
+    NavigationView navigationView;
+    DrawerLayout drawerLayout;
+
+    String result;
+
+    //check if user is a spetz
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference users_fire = database.getReference("Users");
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+    ArrayList<User> users_local = new ArrayList<>();
+
 
 
     @Override
@@ -75,8 +108,8 @@ public class ClientDashboard extends Fragment{
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
+            message = getArguments().getString("message");
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
         if (Build.VERSION.SDK_INT >= 23) {
@@ -109,12 +142,13 @@ public class ClientDashboard extends Fragment{
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
                 // We use a String here, but any type that can be put in a Bundle is supported
-                String result = bundle.getString("bundleKey");
+                result = bundle.getString("bundleKey");
                 // Do something with the result
                 handymAnTV.setText("change "+result+"?");
-
             }
         });
+
+
     }
 
     @Override
@@ -124,22 +158,52 @@ public class ClientDashboard extends Fragment{
 //        NavHostFragment.findNavController(this).navigate(); without view
         View view = inflater.inflate(R.layout.client_dashboard, container, false);
 
-
         inquiriesBtn = view.findViewById(R.id.inquiries);
         searchBtn = view.findViewById(R.id.search_button);
         handymAnTV = view.findViewById(R.id.handyMAnTV);
         requestsBtn = view.findViewById(R.id.spetsRequests);
+        messageTV = view.findViewById(R.id.message_tv);
 
-//        String spetz = getArguments().getString("Selected_Handyman", "def");
-//        String spetz = getArguments().getString("Selected_Handyman","");
-//        Navigation.findNavController(view).addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+        users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                users_local.clear();
+                if(dataSnapshot.exists()) {
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Spetz spetz = snapshot.getValue(Spetz.class);
+                        if (spetz.getOccupation() != null)
+                            requestsBtn.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        if (message != "")
+
+        //        receiver = new BroadcastReceiver() {
 //            @Override
-//            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-//                Log.e("TAG", "onDestinationChanged: "+navDestination.getLabel());
+//            public void onReceive(Context context, Intent intent) {
+//                Bundle bundle = new Bundle();
+//                String message = intent.getStringExtra("message");
+//
+//                bundle.putString("message" , message);
+//
+//                ClientDashboard clientDashboard = new ClientDashboard();
+//                clientDashboard.setArguments(bundle);
+////                messageTv.setText(intent.getStringExtra("message"));
 //            }
-//        });
+//        };
+//
+//        IntentFilter filter = new IntentFilter("message_received");
+//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
+        messageTV.setText(message);
 
-//        handymAnTV.setText("" + getArguments().get("Selected_Handyman") );
+
         requestsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,23 +229,16 @@ public class ClientDashboard extends Fragment{
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact);
+                if (result != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", result);
+                    Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact, bundle);
+                }
+                else
+                    Toast.makeText(getContext(), "Choose a Spetz!", Toast.LENGTH_SHORT).show();
             }
         });
 
         return view;
     }
-
-
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        inflater.inflate(R.menu.drawer_menu,menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//        //handle menu item clicks
-//    }
 }

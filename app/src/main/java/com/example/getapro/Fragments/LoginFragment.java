@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.getapro.MainActivity;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +53,7 @@ public class LoginFragment extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
 
+
 //    /**
 //     * Use this factory method to create a new instance of
 //     * this fragment using the provided parameters.
@@ -76,8 +78,6 @@ public class LoginFragment extends Fragment {
 //        setHasOptionsMenu(true);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-
         }
     }
 
@@ -96,11 +96,6 @@ public class LoginFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -170,13 +165,13 @@ public class LoginFragment extends Fragment {
                                         Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
                                         Bundle bundle = new Bundle();
                                         bundle.putString("username",username);
+//                                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_clientDashboard);
                                         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
                                     }
 
 
                                     else
                                         Toast.makeText(getContext(), "Login failed, wrong email/password", Toast.LENGTH_SHORT).show();
-
                                 }
                             });
                         }//else

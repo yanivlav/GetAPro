@@ -6,10 +6,10 @@
 <!--             android:layout_height="match_parent"-->
 
 <!--    android:id="@+id/root_container">-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_container"
     android:layout_marginTop="60dp">
 
@@ -53,13 +53,24 @@
         android:layout_centerHorizontal="true"
         android:text="@string/searchView" />
 
+    <TextView
+        android:id="@+id/message_tv"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/search_button"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:hint="Massege TV"
+        android:textSize="30sp" />
+
     <Button
         android:id="@+id/spetsRequests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/inquiries"
         android:layout_centerHorizontal="true"
-        android:text="Spetz Requests" />
+        android:text="Spetz Requests"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/inquiries"
@@ -70,5 +81,13 @@
         android:layout_marginBottom="25dp"
         android:text="@string/inquiriesButton" />
 
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/navigation_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        app:headerLayout="@layout/header_layout"-->
+<!--        app:menu="@menu/drawer_menu"-->
+<!--        />-->
 
 </RelativeLayout>

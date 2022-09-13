@@ -36,7 +36,6 @@ import java.util.ArrayList;
 
 public class ClientFinelForm extends Fragment {
 
-    ArrayList<String> forms;
     EditText descET;
     TextView tiltleTV, explTV;
     ImageButton galIB, camIB;
@@ -50,6 +49,10 @@ public class ClientFinelForm extends Fragment {
     final int WRITE_PERMISSION_REQUEST = 1;
 
     private String username;
+    private String category;
+    private String address;
+    private String district;
+
 
 
     @Override
@@ -58,7 +61,9 @@ public class ClientFinelForm extends Fragment {
 //        setHasOptionsMenu(true);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            category= getArguments().getString("category");
+            address = getArguments().getString("address");
+            district = getArguments().getString("district");
 
         }
     }
@@ -79,29 +84,13 @@ public class ClientFinelForm extends Fragment {
         spetzBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                add save to database all the details of the form
-//                String nameS = name.getText().toString();
-//                String linkS = link.getText().toString();
-//
-//                Song song;
-//                if (photo == null){
-//                    song = new Song(nameS, linkS,path);
-//                }
-//                else{
-//                    song = new Song(nameS, linkS,photo.getAbsolutePath());
-//                }
-//
-//                uploadPlaylist();
-//                playList.add(song);
-//                updatePlaylist();
-//
-//                name.setText("");
-//                link.setText("");
-//                resultIv.setImageBitmap(null);
-//
-//                Intent intent = new Intent(AddSongActivity.this, MainActivity.class);
-//                startActivity(intent);
-                Navigation.findNavController(view).navigate(R.id.action_clientFinelForm_to_spetzList);
+                Bundle bundle = new Bundle();
+                bundle.putString("address",address);
+                bundle.putString("category",category);
+                bundle.putString("district",district);
+                bundle.putString("desc",descET.getText().toString());
+                bundle.putInt("pic",2131230849);
+                Navigation.findNavController(view).navigate(R.id.action_clientFinelForm_to_spetzList,bundle);
 
             }
         });

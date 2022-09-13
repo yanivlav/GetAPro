@@ -26,10 +26,6 @@
             android:elevation="4dp"
             />
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
             <fragment
                 android:id="@+id/nav_host_fragment"
@@ -43,7 +39,6 @@
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/my_nav" />
 
-        </FrameLayout>
 
 
 

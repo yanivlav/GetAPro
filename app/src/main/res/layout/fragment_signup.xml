@@ -14,59 +14,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_fullname"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="enter_full_name"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/field_full_name_icon"
-            app:startIconTint="@color/black">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/signup_username"-->
-<!--            android:layout_below="@+id/signup_fullname"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="enter_username"-->
-<!--            android:textColorHint="@color/black"-->
-<!--            app:boxStrokeColor="@color/black"-->
-<!--            app:boxStrokeWidthFocused="2dp"-->
-<!--            app:endIconMode="clear_text"-->
-<!--            app:endIconTint="@color/black"-->
-<!--            app:hintTextColor="@color/black"-->
-<!--            app:startIconDrawable="@drawable/field_username_icon"-->
-<!--            app:startIconTint="@color/black">-->
-
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:inputType="text"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textCursorDrawable="@null" />-->
-
-
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/signup_email"
-            android:layout_below="@+id/signup_fullname"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -120,13 +68,108 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signup_fullname"
+            android:layout_below="@+id/signup_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter_full_name"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/field_full_name_icon"
+            app:startIconTint="@color/black">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signup_phone"
+            android:layout_below="@+id/signup_fullname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="phone"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/field_username_icon"
+            app:startIconTint="@color/black">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/signup_district"
+            android:layout_below="@+id/signup_phone"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter_district"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/field_username_icon"
+            app:startIconTint="@color/black">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/liniar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signup_district"
+            android:weightSum="2">
+
+            <CheckBox
+                android:id="@+id/spetz_CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signup_fullname"
+                android:layout_weight="1"
+                android:text="Are u a spetz?" />
+
+            <EditText
+                android:id="@+id/signup_spetz_occupation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="occupation" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/signup_complete_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/signup_password"
+            android:layout_below="@+id/liniar"
             android:layout_marginTop="10dp"
             android:text="complete signup" />
+
+
 
         <Button
             android:id="@+id/signup_back_btn"

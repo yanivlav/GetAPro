@@ -28,6 +28,7 @@ import android.widget.EditText;
 
 import com.example.getapro.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -44,49 +45,25 @@ import java.util.List;
 
 public class ClientContact extends Fragment {
 
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-    Button proceedB, changeServiceB, locationB;
-
+    Button proceedB;
     final int LOCATION_PERMISSION_REQUEST = 1;
-
     FusedLocationProviderClient client;
     EditText locEt;
-
     Geocoder geocoder;
-
     Handler handler = new Handler();
-
     SupportMapFragment mapFragment;
     double lat ;
     double lng;
-
-
     private String username;
-//    private String mParam2;
-
-    public ClientContact() {
-        // Required empty public constructor
-    }
-
-//    public static ClientContact newInstance(String param1, String param2) {
-//        ClientContact fragment = new ClientContact();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    private String category;
+    private String state;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            category = getArguments().getString("category");
         }
     }
 
@@ -121,6 +98,7 @@ public class ClientContact extends Fragment {
 //                .title("Marker"));
 //    }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -154,7 +132,7 @@ public class ClientContact extends Fragment {
                 .add(R.id.map_frame, mapFragment)
                 .commit();
 
-        // Get a handle to the fragment and register the callback.
+//         Get a handle to the fragment and register the callback.
 
 //        mapFragment.getMapAsync(this);
 
@@ -163,46 +141,38 @@ public class ClientContact extends Fragment {
         proceedB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm);
+                Bundle bundle = new Bundle();
+                bundle.putString("address",locEt.getText().toString());
+                bundle.putString("category",category);
+//                bundle.putString("district",state);
+                bundle.putString("district","North");
+                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm,bundle);
 
             }
         });
-//        changeServiceB = view.findViewById(R.id.changeServiceBtn);
-//        changeServiceB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                changeServiceB.setText("Change " + getArguments().getString("Selected_Handyman"));
-//                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientDashboard);
-//
-//            }
-//        });
-//
-//        locationB = view.findViewById(R.id.locationBtn);
-//        locationB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
-
-
         return view;
     }
 
     private void startLocation() {
+
         client = LocationServices.getFusedLocationProviderClient(getContext());
+
         LocationCallback callback = new LocationCallback() {
+            @Override
+            public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
+                super.onLocationAvailability(locationAvailability);
+            }
+
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
 
                 Location location = locationResult.getLastLocation();
                 updateLoc(location);
-
-
             }
         };
+
+
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -236,7 +206,7 @@ public class ClientContact extends Fragment {
                         @Override
                         public void run() {
                             String address = bestAddr.getAddressLine(0);
-                            String state = bestAddr.getAdminArea();
+                            state = bestAddr.getAdminArea();
                             String city = bestAddr.getLocality();
                             String country = bestAddr.getCountryName();
                             locEt.setText(address);

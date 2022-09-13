@@ -10,15 +10,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.getapro.MyObjects.Spetz;
+import com.example.getapro.MyObjects.User;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -34,13 +45,20 @@ public class SignupFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String username;
-    private String mParam2;
+
+    ArrayList<Spetz> spetzs_local = new ArrayList<>();
+    ArrayList<User> users_local = new ArrayList<>();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //name of the instance of the Forms table
+    DatabaseReference users_fire = database.getReference("Users");
 
     public SignupFragment() {
         // Required empty public constructor
     }
 
-    TextInputLayout fullnameTiEt,emailTiet,passwordTiEt;
+    TextInputLayout emailTiet,passwordTiEt,fullnameTiEt,phoneTiEt,districtTiEt;
+    CheckBox spetzCheckBox;
+    EditText occupationEt;
     Button completeSignupBtn, backBtn;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
@@ -67,7 +85,7 @@ public class SignupFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            username = getArguments().getString(username);
+            username = getArguments().getString("username");
 //            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
@@ -82,35 +100,92 @@ public class SignupFragment extends Fragment {
 //        fullnameTiEt = view.findViewById(R.id.signup_fullname);
         emailTiet = view.findViewById(R.id.signup_email);
         passwordTiEt = view.findViewById(R.id.signup_password);
-
-
-
+        fullnameTiEt = view.findViewById(R.id.signup_fullname);
+        phoneTiEt = view.findViewById(R.id.signup_phone);
+        districtTiEt = view.findViewById(R.id.signup_district);
+        spetzCheckBox = view.findViewById(R.id.spetz_CheckBox);
+        occupationEt = view.findViewById(R.id.signup_spetz_occupation);
 
         completeSignupBtn = view.findViewById(R.id.signup_complete_btn);
         completeSignupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String fullname = fullnameTiEt.getEditText().getText().toString();
                 String username = emailTiet.getEditText().getText().toString();
                 String password = passwordTiEt.getEditText().getText().toString();
+                String fullname = fullnameTiEt.getEditText().getText().toString();
+                String phone = phoneTiEt.getEditText().getText().toString();
+                String district = districtTiEt.getEditText().getText().toString();
+                Boolean isSpetz = spetzCheckBox.isChecked();
+                String occupation = occupationEt.getText().toString();
 
 
-                if (username.length() == 0 || password.length() == 0) {
+                if (username.length() == 0 || password.length() == 0 ) {
                     Toast.makeText(getContext(), "null field was detected!", Toast.LENGTH_SHORT).show();
-                }
-                else{
-
+                } else {
                     firebaseAuth.createUserWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){//                signup to user
-//                                Snackbar.make(view,"Signup success\nWelcome \"+username+\"!",Snackbar.LENGTH_SHORT);
-                                //
+                            if(task.isSuccessful()){
                                 Toast.makeText(getContext(), "Welcome "+username+"!", Toast.LENGTH_SHORT).show();
+                                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                                if(isSpetz){
+                                    Spetz spetz = new Spetz(fullname,district,username,phone,R.drawable.field_username_icon, user.getUid(), occupation);
+                                    users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            spetzs_local.clear();
+
+                                            if(dataSnapshot.exists()) {
+                                                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                    Spetz spetz1 = snapshot.getValue(Spetz.class);
+                                                    spetzs_local.add(spetz1);
+                                                }
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+
+                                    });
+
+                                    spetzs_local.add(spetz);
+                                    users_fire.child(firebaseAuth.getCurrentUser().getUid()).setValue(spetzs_local);
+                                } else {
+                                    User user1 = new User(fullname,district,username,phone,R.drawable.field_username_icon, user.getUid());
+                                    users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            users_local.clear();
+
+                                            if(dataSnapshot.exists()) {
+                                                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                    User user2 = snapshot.getValue(User.class);
+                                                    users_local.add(user2);
+                                                }
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+
+                                    });
+
+                                    users_local.add(user1);
+                                    users_fire.child(firebaseAuth.getCurrentUser().getUid()).setValue(users_local);
+                                }
+
+
+
                                 Bundle bundle = new Bundle();
                                 bundle.putString("username",username);
                                 Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_clientDashboard,bundle);
-//                                getActivity().                TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
+
 
                             }//email is already in use
                             else{

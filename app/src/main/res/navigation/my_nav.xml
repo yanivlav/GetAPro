@@ -78,6 +78,9 @@
         <action
             android:id="@+id/action_spetzList_to_spetzCard"
             app:destination="@id/spetzCard" />
+        <action
+            android:id="@+id/action_spetzList_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
     </fragment>
     <fragment
         android:id="@+id/spetzCard"
@@ -113,6 +116,10 @@
         android:name="com.example.getapro.SpetsRequests"
         android:label="fragment_spets_requests"
         tools:layout="@layout/spets_requests" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.getapro.MainActivity"
+        android:label="MainActivity" />
 
 
 </navigation>

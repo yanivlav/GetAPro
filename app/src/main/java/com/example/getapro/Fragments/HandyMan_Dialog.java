@@ -33,11 +33,6 @@ import com.example.getapro.R;
 
 import java.util.ArrayList;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Use the {@link HandyMan_Dialog#newInstance} factory method to
-// * create an instance of this fragment.
-// */
 public class HandyMan_Dialog extends DialogFragment {
 
     private static final String TAG = "DialogFragment";
@@ -47,27 +42,17 @@ public class HandyMan_Dialog extends DialogFragment {
     TextView tv;
     EditText et;
     ArrayAdapter<String> adapter;
-    String [] jobs  = {"", "b", "c", "d", "e", "f","a", "b", "c", "d", "e", "f","a", "b", "c", "d", "e", "f"};
+    String [] jobs  = {"Constructor", "Plumber", "Electrician", "Yoga teacher", "Kite instructor", "Skipper","Construction engineer"};
 
-    private ArrayList<String> mOfficeListItems = new ArrayList<String>();
+//    private ArrayList<String> mOfficeListItems = new ArrayList<String>();
 
     private String username;
-
-
-    // TODO: Rename and change types and number of parameters
-    public static HandyMan_Dialog newInstance(String param1, String param2) {
-        HandyMan_Dialog fragment = new HandyMan_Dialog();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -79,8 +64,6 @@ public class HandyMan_Dialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // assign variable
         View  view = inflater.inflate(R.layout.handyman_spinner,null);
         Bundle bundle = new Bundle();
 
@@ -118,17 +101,8 @@ public class HandyMan_Dialog extends DialogFragment {
                 getParentFragmentManager().setFragmentResult("requestKey", bundle);
                 getDialog().dismiss();
 
-//                tv.setText(adapter.getItem(position));
-//                bundle.putString("Selected_Handyman", adapter.getItem(position));
-
-//                 Dismiss dialog
-//                Navigation.findNavController(view).navigate(R.id.action_handyMan_Dialog_to_clientDashboard);
-
-
-
             }
         });
-//        changeServiceB.setText("Change " + getArguments().getString("serviceName"));
 
         return view;
     }

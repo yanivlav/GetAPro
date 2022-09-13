@@ -4,14 +4,14 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/item_signup"
             android:checked="true"
-            android:icon="@drawable/ic_attachment"
-            android:title="SignUp"/>
-
-        <item android:id="@+id/item_login"
+            android:id="@+id/item_login"
             android:icon="@drawable/ic_image"
             android:title="Login"/>
+        <item
+            android:id="@+id/item_signup"
+            android:icon="@drawable/ic_attachment"
+            android:title="SignUp"/>
 
         <item android:id="@+id/item_myInquries"
             android:icon="@drawable/ic_message"

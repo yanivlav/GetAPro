@@ -1,4 +1,4 @@
-package com.example.getapro.Services;
+package com.example.getapro.Firebase;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -14,6 +14,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+
+    //tag to see the meassge
     final String TAG = "MyFirebaseMessaging";
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -24,6 +26,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
+
             Intent intent = new Intent("message_received");
 
             if(remoteMessage.getData().get("message") == null )
@@ -33,7 +36,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
-            //if the application is not in forground post notification
+            //Add if the application is not in forground post notification
+            //post notification only if in forground
+
             NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(this);
 
@@ -45,8 +50,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             builder.setContentTitle("New Spetz request").setContentText(remoteMessage.getData().get("message")).setSmallIcon(android.R.drawable.star_on);
 
             manager.notify(1,builder.build());
-
-
         }
 
         // Check if message contains a notification payload.

@@ -28,6 +28,7 @@ import android.widget.EditText;
 
 import com.example.getapro.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -153,18 +154,25 @@ public class ClientContact extends Fragment {
     }
 
     private void startLocation() {
+
         client = LocationServices.getFusedLocationProviderClient(getContext());
+
         LocationCallback callback = new LocationCallback() {
+            @Override
+            public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
+                super.onLocationAvailability(locationAvailability);
+            }
+
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
 
                 Location location = locationResult.getLastLocation();
                 updateLoc(location);
-
-
             }
         };
+
+
 
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

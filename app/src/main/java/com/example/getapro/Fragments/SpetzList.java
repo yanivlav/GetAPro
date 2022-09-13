@@ -268,11 +268,15 @@ public class SpetzList extends Fragment {
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Spetz spetz = snapshot.child("0").getValue(Spetz.class);
+                        if (!spetz.getUid().equals(user.getUid())) {//not show spetz to spetz
 //                        if (spetz.getOccupation()!=null && spetz.getOccupation().equals(occupation) && spetz.getDistrict().equals(district))
-                        if (spetz.getOccupation()!=null && spetz.getOccupation().equals(occupation)) {
-                            spetzs_local.add(spetz);
-                            adapter.notifyDataSetChanged();
+                            if (spetz.getOccupation() != null && spetz.getOccupation().equals(occupation)) {
+                                spetzs_local.add(spetz);
+                                adapter.notifyDataSetChanged();
+                            }
                         }
+                        if (spetzs_local.size()==0)
+                            Toast.makeText(getContext(), "Sorry, no Spetz for your request! ", Toast.LENGTH_SHORT).show();
                     }
 //                    adapter.notifyDataSetChanged();
                 }

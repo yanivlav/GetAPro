@@ -229,10 +229,13 @@ public class ClientDashboard extends Fragment{
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("category", result);
-                Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact,bundle);
+                if (result != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", result);
+                    Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientContact, bundle);
+                }
+                else
+                    Toast.makeText(getContext(), "Choose a Spetz!", Toast.LENGTH_SHORT).show();
             }
         });
 

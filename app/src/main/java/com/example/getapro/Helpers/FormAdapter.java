@@ -1,4 +1,5 @@
 package com.example.getapro.Helpers;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +28,9 @@ import java.util.List;
 public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder> {
 
     private List<Form> forms;
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    StorageReference pathReference;
+    StorageReference gsReference;
 
     public FormAdapter(List<Form> forms) {
         this.forms = forms;
@@ -80,11 +88,15 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
         Form form = forms.get(position);
         holder.descTV.setText(form.getDescription());
 
-        if(form.getIssueImage()!= null)
+        if(form.getIssueImage()!= null) {
 //            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
-            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
-        else
+            gsReference = FirebaseStorage.getInstance().getReferenceFromUrl(form.getIssueImage());
+            Glide.with(holder.picIv.getContext()).load(gsReference).into(holder.picIv);
+//            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
+        }else
             holder.picIv.setImageResource(form.getIssueImageResID());
+
+
     }
 
     @Override

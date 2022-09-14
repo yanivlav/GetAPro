@@ -41,6 +41,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+
+
 public class ClientInquiries extends Fragment {
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -121,6 +123,8 @@ public class ClientInquiries extends Fragment {
 
         return view;
     }
+
+
 }
 
 

@@ -113,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/spetsRequests"
-        android:name="com.example.getapro.SpetsRequests"
+        android:name="com.example.getapro.Fragments.SpetsRequests"
         android:label="fragment_spets_requests"
         tools:layout="@layout/spets_requests" />
     <activity

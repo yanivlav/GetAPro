@@ -166,7 +166,7 @@ public class LoginFragment extends Fragment {
                                         Bundle bundle = new Bundle();
                                         bundle.putString("username",username);
 //                                        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_clientDashboard);
-                                        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard,bundle);
+                                        Navigation.findNavController(view).navigate(R.id.clientDashboard,bundle);
                                     }
 
 

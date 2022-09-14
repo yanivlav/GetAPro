@@ -100,6 +100,9 @@ public class ClientDashboard extends Fragment{
 
     ArrayList<User> users_local = new ArrayList<>();
 
+    BroadcastReceiver receiver;
+
+
 
 
     @Override
@@ -164,28 +167,30 @@ public class ClientDashboard extends Fragment{
         requestsBtn = view.findViewById(R.id.spetsRequests);
         messageTV = view.findViewById(R.id.message_tv);
 
-        users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                users_local.clear();
-                if(dataSnapshot.exists()) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Spetz spetz = snapshot.getValue(Spetz.class);
-                        if (spetz.getOccupation() != null)
-                            requestsBtn.setVisibility(View.VISIBLE);
+        if (user != null){
+            users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    users_local.clear();
+                    if(dataSnapshot.exists()) {
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Spetz spetz = snapshot.getValue(Spetz.class);
+                            if (spetz.getOccupation() != null)
+                                requestsBtn.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
-//        if (message != "")
 
-        //        receiver = new BroadcastReceiver() {
+////        if (message != "")
+//        receiver = new BroadcastReceiver() {
 //            @Override
 //            public void onReceive(Context context, Intent intent) {
 //                Bundle bundle = new Bundle();
@@ -195,14 +200,21 @@ public class ClientDashboard extends Fragment{
 //
 //                ClientDashboard clientDashboard = new ClientDashboard();
 //                clientDashboard.setArguments(bundle);
-////                messageTv.setText(intent.getStringExtra("message"));
+//                messageTV.setText(intent.getStringExtra("message"));
 //            }
 //        };
 //
 //        IntentFilter filter = new IntentFilter("message_received");
-//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
-        messageTV.setText(message);
+//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
+//        messageTV.setText(message);
 
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String message = intent.getStringExtra("message");
+                messageTV.setText(message);
+            }
+        };
 
         requestsBtn.setOnClickListener(new View.OnClickListener() {
             @Override

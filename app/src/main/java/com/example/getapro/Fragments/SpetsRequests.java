@@ -1,4 +1,4 @@
-package com.example.getapro;
+package com.example.getapro.Fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.getapro.Helpers.FormAdapter;
 import com.example.getapro.MyObjects.Form;
+import com.example.getapro.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

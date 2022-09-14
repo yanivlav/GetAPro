@@ -13,6 +13,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
 import android.content.BroadcastReceiver;
@@ -32,9 +34,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.getapro.Fragments.ClientDashboard;
 import com.example.getapro.Fragments.LoginFragment;
 import com.example.getapro.Fragments.SignupFragment;
+import com.example.getapro.MyObjects.Spetz;
+import com.example.getapro.MyObjects.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,11 +49,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,7 +94,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         //Messaging stuff----------        //Messaging stuff----------        //Messaging stuff---------
         //subscribe spetz here?
 
-
+//        NavController navController = Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment);
+//        NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.my_nav,true).build();
 //        receiver = new BroadcastReceiver() {
 //            @Override
 //            public void onReceive(Context context, Intent intent) {
@@ -92,6 +104,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 //
 //                bundle.putString("message" , message);
 //
+////                ClientDashboard clientDashboard = new ClientDashboard();
+//                sendBroadcast();
 //                ClientDashboard clientDashboard = new ClientDashboard();
 //                clientDashboard.setArguments(bundle);
 ////                messageTv.setText(intent.getStringExtra("message"));
@@ -129,16 +143,26 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     item.setChecked(true);
                     Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
                     //if (user in skip)
+                    NavController navController = Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment);
+                    NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.my_nav,true).build();
+
                     switch (item.getItemId()) {
                         case R.id.item_signup:
-                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_signupFragment);
+                            navController.navigate(R.id.signupFragment,null,navOptions);
+//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_signupFragment);
                             break;
                         case R.id.item_login:
-                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_signupFragment_to_loginFragment);
+                            navController.navigate(R.id.loginFragment,null,navOptions);
+//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_signupFragment_to_loginFragment);
                             break;
                         case R.id.item_logout:
                             firebaseAuth.signOut();
+                            navController.navigate(R.id.clientDashboard,null,navOptions);
                             break;
+                        case R.id.item_myInquries:
+                            navController.navigate(R.id.clientInquiries,null,navOptions);
+                        case R.id.item_myRequests:
+                            navController.navigate(R.id.spetsRequests,null,navOptions);
                     }
 
                 }
@@ -181,6 +205,27 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(true);
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference users_fire = database.getReference("Users");
+                    ArrayList<User> users_local = new ArrayList<>();
+                    users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            users_local.clear();
+                            if(dataSnapshot.exists()) {
+                                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    Spetz spetz = snapshot.getValue(Spetz.class);
+                                    if (spetz.getOccupation() != null)
+                                        navigationView.getMenu().findItem(R.id.item_myRequests).setVisible(true);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 //
 //                    read the user database
 
@@ -191,6 +236,9 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.item_myRequests).setVisible(false);
+
+
 
 //                    adapter.notifyDataSetChanged();
 

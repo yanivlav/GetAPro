@@ -1,6 +1,7 @@
 package com.example.getapro.Helpers;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -29,8 +32,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 
     private List<Form> forms;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    StorageReference pathReference;
-    StorageReference gsReference;
+//    StorageReference gsReference;
 
     public FormAdapter(List<Form> forms) {
         this.forms = forms;
@@ -90,9 +92,18 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 
         if(form.getIssueImage()!= null) {
 //            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
-            gsReference = FirebaseStorage.getInstance().getReferenceFromUrl(form.getIssueImage());
-            Glide.with(holder.picIv.getContext()).load(gsReference).into(holder.picIv);
-            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
+            String s = form.getIssueImage();
+//            StorageReference pathReference = storageReference.child(form.getIssueImage());
+
+                storageReference.child(form.getIssueImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(holder.picIv.getContext()).load(uri).into(holder.picIv);
+                }
+            });
+
+
+//            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
         }else
             holder.picIv.setImageResource(form.getIssueImageResID());
 

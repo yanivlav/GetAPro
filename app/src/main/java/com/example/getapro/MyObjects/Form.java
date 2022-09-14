@@ -2,7 +2,7 @@ package com.example.getapro.MyObjects;
 
 import java.io.Serializable;
 
-public class Form extends User implements Serializable {//extends User implements Serializable {
+public class Form implements Serializable {//extends User implements Serializable {
     private String description;
     private String issueImage;
     private int issueImageResID;
@@ -11,29 +11,46 @@ public class Form extends User implements Serializable {//extends User implement
     private String address;
 
 
+//public class Form extends User implements Serializable {//extends User implements Serializable {
+//    private String description;
+//    private String issueImage;
+//    private int issueImageResID;
+//    private String selectedSpetzUid;
+//    private String categoty;
+//    private String address;
 
-    public Form(String userName, String address, String email, String number, String photoPath, String uid, String description, String issueImage, String selectedSpetzUid, String categoty, String address1) {
-        super(userName, address, email, number, photoPath, uid);
-        this.description = description;
-        this.issueImage = issueImage;
-        this.selectedSpetzUid = selectedSpetzUid;
-        this.categoty = categoty;
-        this.address = address1;
-    }
 
-    public Form(String userName, String address, String email, String number, int resID, String uid, String description, int issueImageResID, String selectedSpetzUid, String categoty, String address1) {
-        super(userName, address, email, number, resID, uid);
-        this.description = description;
-        this.issueImageResID = issueImageResID;
-        this.selectedSpetzUid = selectedSpetzUid;
-        this.categoty = categoty;
-        this.address = address1;
-    }
+//
+//    public Form(String userName, String address, String email, String number, String photoPath, String uid, String description, String issueImage, String selectedSpetzUid, String categoty, String address1) {
+//        super(userName, address, email, number, photoPath, uid);
+//        this.description = description;
+//        this.issueImage = issueImage;
+//        this.selectedSpetzUid = selectedSpetzUid;
+//        this.categoty = categoty;
+//        this.address = address1;
+//    }
+//
+//    public Form(String userName, String address, String email, String number, int resID, String uid, String description, int issueImageResID, String selectedSpetzUid, String categoty, String address1) {
+//        super(userName, address, email, number, resID, uid);
+//        this.description = description;
+//        this.issueImageResID = issueImageResID;
+//        this.selectedSpetzUid = selectedSpetzUid;
+//        this.categoty = categoty;
+//        this.address = address1;
+//    }
 
     public Form(String description, int imgResID, String selectedSpetzEmail, String categoty, String address) {
         super();
         this.description = description;
         this.issueImageResID = imgResID;
+        this.selectedSpetzUid = selectedSpetzEmail;
+        this.categoty = categoty;
+        this.address = address;
+    }
+
+    public Form(String description, String issueImage, String selectedSpetzEmail, String categoty, String address) {
+        this.description = description;
+        this.issueImage = issueImage;
         this.selectedSpetzUid = selectedSpetzEmail;
         this.categoty = categoty;
         this.address = address;
@@ -85,12 +102,10 @@ public class Form extends User implements Serializable {//extends User implement
         this.categoty = categoty;
     }
 
-    @Override
     public String getAddress() {
         return address;
     }
 
-    @Override
     public void setAddress(String address) {
         this.address = address;
     }

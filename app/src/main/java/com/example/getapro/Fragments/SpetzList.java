@@ -63,6 +63,7 @@ public class SpetzList extends Fragment {
     private String district;
     private String desc;
     private int pic;
+    private String realImage;
     private Form newForm;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -93,10 +94,7 @@ public class SpetzList extends Fragment {
             desc = getArguments().getString("desc");
             pic = getArguments().getInt("pic");
             occupation = getArguments().getString("category");
-
-
-
-
+            realImage = getArguments().getString("realImage");
         }
 
     }
@@ -148,7 +146,7 @@ public class SpetzList extends Fragment {
             public void onSpetzClicked(int position, View view){
                 String selectedSpetzUid = spetzs_local.get(position).getUid();
 
-                newForm = new Form(desc, pic, selectedSpetzUid,spetzCategory, address);
+                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address);
 
                 //Add user new form to user form list
                 forms_user.add(newForm);

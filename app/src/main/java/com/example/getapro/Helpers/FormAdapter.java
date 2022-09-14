@@ -80,10 +80,11 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
         Form form = forms.get(position);
         holder.descTV.setText(form.getDescription());
 
-        if(form.getPhotoPath()!= null)
-            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
+        if(form.getIssueImage()!= null)
+//            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
+            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
         else
-            holder.picIv.setImageResource(form.getResID());
+            holder.picIv.setImageResource(form.getIssueImageResID());
     }
 
     @Override

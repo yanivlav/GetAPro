@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -91,18 +92,17 @@ public class ClientInquiries extends Fragment {
         forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                StorageReference pathReference = storageReference.child("Problems/"+user.getUid()+"_Form_Number_"".jpg");
+//                StorageReference pathReference = storageReference.child("Problems/"+user.getUid()+"_Form_Number_"".jpg");
+                StorageReference pathReference;
 
                 forms_local.clear();
                 int num = 0;
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Form form = snapshot.getValue(Form.class);
                         pathReference = storageReference.child("Problems/"+user.getUid()+"_Form_Number_"+num+".jpg");
                         pathReference.getDownloadUrl();
-                        Form form = snapshot.getValue(Form.class);
-                        form.setIssueImage(pathReference.getDownloadUrl());
                         forms_local.add(form);
-                        num++;
                     }
                     adapter.notifyDataSetChanged();
 

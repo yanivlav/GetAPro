@@ -108,6 +108,7 @@ public class ClientFinelForm extends Fragment {
         camIB = view.findViewById(R.id.camBtn);
         spetzBtn = view.findViewById(R.id.spetzlistBtn);
 
+
         forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -115,6 +116,9 @@ public class ClientFinelForm extends Fragment {
 
                 if (dataSnapshot.exists()) {
                     path = user.getUid()+"_Form_Number_"+dataSnapshot.getChildrenCount()+".jpg";
+                }
+                else  {
+                    path = user.getUid()+"_Form_Number_0.jpg";
                 }
             }
 
@@ -137,6 +141,7 @@ public class ClientFinelForm extends Fragment {
                 bundle.putString("district",district);
                 bundle.putString("desc",descET.getText().toString());
                 bundle.putInt("pic",2131230849);
+                bundle.putString("realImage","Problems/" + path);
                 Navigation.findNavController(view).navigate(R.id.action_clientFinelForm_to_spetzList,bundle);
 
             }
@@ -191,7 +196,6 @@ public class ClientFinelForm extends Fragment {
 
         StorageReference problemImage = storageReference.child("problemImage.jpg");
         problemImagesRef = storageReference.child("Problems/"+path);
-//        problemImagesRef.putFile(filePath);
 
 
         if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
@@ -208,6 +212,7 @@ public class ClientFinelForm extends Fragment {
             byte[] byteArray = stream.toByteArray();
 
             problemImagesRef.putBytes(byteArray);
+
 
             resultIv.setImageBitmap(image);
 

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -28,8 +29,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.getapro.Helpers.FormAdapter;
+import com.example.getapro.MyObjects.Form;
 import com.example.getapro.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +66,19 @@ public class ClientFinelForm extends Fragment {
     private String category;
     private String address;
     private String district;
+
+//    FirebaseStorage firebaseStore = FirebaseStorage.getInstance();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//    FirebaseAuth.AuthStateListener authStateListener;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    //name of the instance of the Forms table
+    DatabaseReference forms_fire = database.getReference("Forms");
+    ArrayList<Form> forms_local = new ArrayList<>();
+    final FirebaseUser user = firebaseAuth.getCurrentUser();
+    StorageReference problemImagesRef;
 
 
 
@@ -81,6 +108,26 @@ public class ClientFinelForm extends Fragment {
         camIB = view.findViewById(R.id.camBtn);
         spetzBtn = view.findViewById(R.id.spetzlistBtn);
 
+        forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                forms_local.clear();
+
+                if (dataSnapshot.exists()) {
+                    path = user.getUid()+"_Form_Number_"+dataSnapshot.getChildrenCount()+".jpg";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+
+        problemImagesRef = storageReference.child("Problems/" + path);
+
         spetzBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,16 +154,19 @@ public class ClientFinelForm extends Fragment {
         camIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                photo = new File(Environment.getExternalStorageDirectory(),"form"+(forms!=null ? forms.size() : 0)+".jpg");
+
+//                photo = new File(Environment.getExternalStorageDirectory(),user.getUid()+"Form_Number"+(openformes+".jpg"));
 //                Uri imageUri = FileProvider.getUriForFile(getActivity(),
 //                        "com.example.getapro.provider", //(use your app signature + ".provider" )
 //                        photo);
 //                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 //                startActivityForResult(intent,CAMERA_REQUEST);
+//                path = user.getUid()+"Form_Number"+openformes+".jpg";
+//                problemImagesRef = storageReference.child("Problems/" + path);
 
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // Start the activity with camera_intent, and request pic id
+//                 Start the activity with camera_intent, and request pic id
                 startActivityForResult(camera_intent, CAMERA_REQUEST);
             }
         });
@@ -136,6 +186,14 @@ public class ClientFinelForm extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
+
+        StorageReference problemImage = storageReference.child("problemImage.jpg");
+        problemImagesRef = storageReference.child("Problems/"+path);
+//        problemImagesRef.putFile(filePath);
+
+
         if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
 //             bitmap = (Bitmap)data.getExtras().get("data");
 //            resultIv.setImageBitmap(BitmapFactory.decodeFile(photo.getAbsolutePath()));
@@ -144,7 +202,16 @@ public class ClientFinelForm extends Fragment {
             // Set the image in imageview for display
             galIB.setImageResource(R.drawable.gallery_icon);
             camIB.setImageResource(R.drawable.check_icon);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            problemImagesRef.putBytes(byteArray);
+
             resultIv.setImageBitmap(image);
+
+
         }
 
         if (requestCode == SELECT_PICTURE && resultCode == getActivity().RESULT_OK) {
@@ -164,8 +231,14 @@ public class ClientFinelForm extends Fragment {
                 camIB.setImageResource(R.drawable.cam_icon);
                 galIB.setImageResource(R.drawable.check_icon);
                 resultIv.setImageBitmap(bitmap);
+
+                problemImagesRef.putFile(selectedImageUri);
+
             }
         }
+
+//        final FirebaseUser user = firebaseAuth.getCurrentUser();
+
     }
 
     public String getRealPathFromURI(Uri uri){
@@ -174,4 +247,5 @@ public class ClientFinelForm extends Fragment {
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
+
 }

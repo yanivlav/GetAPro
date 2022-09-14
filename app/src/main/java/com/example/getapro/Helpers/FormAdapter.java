@@ -92,7 +92,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 //            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
             gsReference = FirebaseStorage.getInstance().getReferenceFromUrl(form.getIssueImage());
             Glide.with(holder.picIv.getContext()).load(gsReference).into(holder.picIv);
-//            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
+            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
         }else
             holder.picIv.setImageResource(form.getIssueImageResID());
 

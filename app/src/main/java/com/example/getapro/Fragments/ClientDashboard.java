@@ -112,6 +112,8 @@ public class ClientDashboard extends Fragment{
 
         if (getArguments() != null) {
             message = getArguments().getString("message");
+            if (message!=null)
+                messageTV.setText(message);
             username = getArguments().getString("username");
         }
 
@@ -151,7 +153,6 @@ public class ClientDashboard extends Fragment{
             }
         });
 
-
     }
 
     @Override
@@ -166,6 +167,24 @@ public class ClientDashboard extends Fragment{
         handymAnTV = view.findViewById(R.id.handyMAnTV);
         requestsBtn = view.findViewById(R.id.spetsRequests);
         messageTV = view.findViewById(R.id.message_tv);
+
+        IntentFilter filter = new IntentFilter("il.org.syntax.sms_received");
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String message = intent.getStringExtra("message");
+                if (message!=null)
+                    messageTV.setText(message);
+            }
+        };
+        //registerReceiver(receiver,filter);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
+
+        if (getArguments() != null) {
+            message = getArguments().getString("message");
+            if (message!=null)
+                messageTV.setText(message);
+        }
 
         if (user != null){
             users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -188,33 +207,8 @@ public class ClientDashboard extends Fragment{
             });
         }
 
+        messageTV.setText(message);
 
-////        if (message != "")
-//        receiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                Bundle bundle = new Bundle();
-//                String message = intent.getStringExtra("message");
-//
-//                bundle.putString("message" , message);
-//
-//                ClientDashboard clientDashboard = new ClientDashboard();
-//                clientDashboard.setArguments(bundle);
-//                messageTV.setText(intent.getStringExtra("message"));
-//            }
-//        };
-//
-//        IntentFilter filter = new IntentFilter("message_received");
-//        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
-//        messageTV.setText(message);
-
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String message = intent.getStringExtra("message");
-                messageTV.setText(message);
-            }
-        };
 
         requestsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,14 +224,12 @@ public class ClientDashboard extends Fragment{
 
             }
         });
-
         inquiriesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientInquiries);
             }
         });
-
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -253,4 +245,10 @@ public class ClientDashboard extends Fragment{
 
         return view;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+        }
 }

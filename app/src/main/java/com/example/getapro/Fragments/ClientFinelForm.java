@@ -159,17 +159,6 @@ public class ClientFinelForm extends Fragment {
         camIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                photo = new File(Environment.getExternalStorageDirectory(),user.getUid()+"Form_Number"+(openformes+".jpg"));
-//                Uri imageUri = FileProvider.getUriForFile(getActivity(),
-//                        "com.example.getapro.provider", //(use your app signature + ".provider" )
-//                        photo);
-//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//                startActivityForResult(intent,CAMERA_REQUEST);
-//                path = user.getUid()+"Form_Number"+openformes+".jpg";
-//                problemImagesRef = storageReference.child("Problems/" + path);
-
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //                 Start the activity with camera_intent, and request pic id
                 startActivityForResult(camera_intent, CAMERA_REQUEST);

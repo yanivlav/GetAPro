@@ -45,6 +45,7 @@ import java.util.ArrayList;
 
 public class ClientInquiries extends Fragment {
 
+
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseDatabase database = FirebaseDatabase.getInstance();

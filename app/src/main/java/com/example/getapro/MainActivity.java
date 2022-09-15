@@ -40,6 +40,7 @@ import com.example.getapro.Fragments.LoginFragment;
 import com.example.getapro.Fragments.SignupFragment;
 import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.MyObjects.User;
+import com.example.getapro.Services.MyFirebaseMessagingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
 
     //Messaging stuff----------
-    TextView messageTv;
     final String API_TOKEN_KEY = "AAAA5liTr20:APA91bFEfcKcX8g78mJnO-NPtkn1FSYo7aCXa8-bsfKxYQyG75KUE1asONXC6qkA_jodeMatug7Sreud-dRXOBi7O9uxK7cz_Vl0YQyBF3oix5EG5JGXWbTVhoiwe1qDeAgpfm5Q3_49";
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
     BroadcastReceiver receiver;
@@ -89,34 +89,19 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        //Messaging stuff----------        //Messaging stuff----------        //Messaging stuff---------
-        //subscribe spetz here?
-
-//        NavController navController = Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment);
-//        NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.my_nav,true).build();
+//
+//        IntentFilter filter = new IntentFilter("il.org.syntax.sms_received");
 //        receiver = new BroadcastReceiver() {
 //            @Override
 //            public void onReceive(Context context, Intent intent) {
 //                Bundle bundle = new Bundle();
 //                String message = intent.getStringExtra("message");
-//
-//                bundle.putString("message" , message);
-//
-////                ClientDashboard clientDashboard = new ClientDashboard();
-//                sendBroadcast();
-//                ClientDashboard clientDashboard = new ClientDashboard();
-//                clientDashboard.setArguments(bundle);
-////                messageTv.setText(intent.getStringExtra("message"));
+//                bundle.putString("massage", message);
+////                textView.setText("Live registration " + intent.getStringExtra("name") + " - " + intent.getStringExtra("message"));
 //            }
 //        };
-//
-//        IntentFilter filter = new IntentFilter("message_received");
+//        //registerReceiver(receiver,filter);
 //        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
-        //Messaging stuff----------        //Messaging stuff----------        //Messaging stuff----------
-
-
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -129,11 +114,6 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-
-//        if (savedInstanceState == null){
-//            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,new LoginFragment()).commit();
-//            navigationView.setCheckedItem(R.id.login_btn);
-//        }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -270,7 +250,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
+
+
     }
 
     @Override

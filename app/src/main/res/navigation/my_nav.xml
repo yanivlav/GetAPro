@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_spetzList_to_clientDashboard"
             app:destination="@id/clientDashboard" />
+        <action
+            android:id="@+id/action_spetzList_to_user_Dialog"
+            app:destination="@id/user_Dialog" />
     </fragment>
     <fragment
         android:id="@+id/spetzCard"
@@ -110,6 +113,9 @@
         <action
             android:id="@+id/action_signupFragment_to_clientDashboard"
             app:destination="@id/clientDashboard" />
+        <action
+            android:id="@+id/action_signupFragment_to_handyMan_Dialog"
+            app:destination="@id/handyMan_Dialog" />
     </fragment>
     <fragment
         android:id="@+id/spetsRequests"
@@ -120,6 +126,10 @@
         android:id="@+id/mainActivity"
         android:name="com.example.getapro.MainActivity"
         android:label="MainActivity" />
+    <dialog
+        android:id="@+id/user_Dialog"
+        android:name="com.example.getapro.Fragments.User_Dialog"
+        android:label="User_Dialog" />
 
 
 </navigation>

@@ -1,11 +1,19 @@
 package com.example.getapro.Fragments;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +28,7 @@ import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,76 +37,60 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Use the {@link SignupFragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
 public class SignupFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String username = "username";
-//    private static final String ARG_PARAM2 = "param2";
+    final int CAMERA_REQUEST = 1;
+    final int WRITE_PERMISSION_REQUEST = 1;
 
-    // TODO: Rename and change types of parameters
     private String username;
 
     ArrayList<Spetz> spetzs_local = new ArrayList<>();
     ArrayList<User> users_local = new ArrayList<>();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //name of the instance of the Forms table
-    DatabaseReference users_fire = database.getReference("Users");
 
-    public SignupFragment() {
-        // Required empty public constructor
-    }
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference users_fire = database.getReference("Users");
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseAuth.AuthStateListener authStateListener;
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
 
     TextInputLayout emailTiet,passwordTiEt,fullnameTiEt,phoneTiEt,districtTiEt;
     CheckBox spetzCheckBox;
-    EditText occupationEt;
-    Button completeSignupBtn, backBtn;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseAuth.AuthStateListener authStateListener;
-
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment SignupFragment.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static SignupFragment newInstance(String param1, String param2) {
-//        SignupFragment fragment = new SignupFragment();
-//        Bundle args = new Bundle();
-//        args.putString(username, "username");
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    MaterialTextView occupationEt;
+    Button completeSignupBtn, backBtn, imageBtn;
+    String result;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                // We use a String here, but any type that can be put in a Bundle is supported
+                result = bundle.getString("bundleKey");
+                // Do something with the result
+                occupationEt.setText(result);
+            }
+        });
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
 
-//        fullnameTiEt = view.findViewById(R.id.signup_fullname);
         emailTiet = view.findViewById(R.id.signup_email);
         passwordTiEt = view.findViewById(R.id.signup_password);
         fullnameTiEt = view.findViewById(R.id.signup_fullname);
@@ -105,7 +98,35 @@ public class SignupFragment extends Fragment {
         districtTiEt = view.findViewById(R.id.signup_district);
         spetzCheckBox = view.findViewById(R.id.spetz_CheckBox);
         occupationEt = view.findViewById(R.id.signup_spetz_occupation);
+        imageBtn = view.findViewById(R.id.userImage);
 
+        imageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (emailTiet.getEditText().getText().toString().equals(""))
+                    Toast.makeText(getContext(), "Fill in your Email first!", Toast.LENGTH_SHORT).show();
+                else {
+                    imageBtn.setEnabled(true);
+                    Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(camera_intent, CAMERA_REQUEST);
+                }
+            }
+        });
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            int hasWritePermission = getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (hasWritePermission != PackageManager.PERMISSION_GRANTED) {
+                getActivity().requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
+            } else imageBtn.setVisibility(View.VISIBLE);
+        } else imageBtn.setVisibility(View.VISIBLE);
+
+
+        occupationEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.handyMan_Dialog);
+            }
+        });
         completeSignupBtn = view.findViewById(R.id.signup_complete_btn);
         completeSignupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +229,26 @@ public class SignupFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment);
             }
         });
-
         return view;
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       String  path = emailTiet.getEditText().getText().toString()+".jpg";
+        StorageReference problemImagesRef = storageReference.child("UsersProfilePhotos/"+path);
+
+        if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
+            Bitmap image = (Bitmap) data.getExtras().get("data");
+            imageBtn.setBackgroundResource(R.drawable.check_icon);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            problemImagesRef.putBytes(byteArray);
+        }
+
     }
 }

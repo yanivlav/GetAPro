@@ -18,7 +18,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter_email"
+            android:hint="Enter email"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -46,7 +46,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter_password"
+            android:hint="Enter password"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -74,7 +74,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter_full_name"
+            android:hint="Enter full name"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -97,7 +97,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="phone"
+            android:hint="Enter phone"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -120,7 +120,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter_district"
+            android:hint="Enter district"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -150,9 +150,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/signup_fullname"
                 android:layout_weight="1"
-                android:text="Are u a spetz?" />
+                android:text="Are you a Spetz?" />
 
-            <EditText
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/signup_spetz_occupation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -162,22 +162,44 @@
         </LinearLayout>
 
         <Button
+        android:id="@+id/userImage"
+        android:layout_below="@+id/liniar"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Take a photo"
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/black"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/black"
+        app:hintTextColor="@color/black"
+        app:startIconDrawable="@drawable/cam_icon"
+        app:startIconTint="@color/black">
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:inputType="text"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textCursorDrawable="@null" />-->
+        </Button>
+
+        <Button
             android:id="@+id/signup_complete_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/liniar"
+            android:layout_below="@+id/userImage"
             android:layout_marginTop="10dp"
             android:text="complete signup" />
 
 
-
         <Button
             android:id="@+id/signup_back_btn"
-            android:layout_below="@+id/signup_complete_btn"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="back to login"/>
+            android:layout_below="@+id/signup_complete_btn"
+            android:layout_marginTop="10dp"
+            android:text="back to login" />
 
     </RelativeLayout>
 

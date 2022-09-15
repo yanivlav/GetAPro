@@ -91,23 +91,15 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
         holder.descTV.setText(form.getDescription());
 
         if(form.getIssueImage()!= null) {
-//            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
             String s = form.getIssueImage();
-//            StorageReference pathReference = storageReference.child(form.getIssueImage());
-
                 storageReference.child(form.getIssueImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     Glide.with(holder.picIv.getContext()).load(uri).into(holder.picIv);
                 }
             });
-
-
-//            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getIssueImage()));
         }else
             holder.picIv.setImageResource(form.getIssueImageResID());
-
-
     }
 
     @Override

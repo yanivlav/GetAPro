@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -100,6 +101,17 @@ public class SignupFragment extends Fragment {
         occupationEt = view.findViewById(R.id.signup_spetz_occupation);
         imageBtn = view.findViewById(R.id.userImage);
 
+
+        occupationEt.setEnabled(false);
+
+        spetzCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(spetzCheckBox.isChecked())
+                    occupationEt.setEnabled(true);
+            }
+        }
+        );
         imageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,14 +174,11 @@ public class SignupFragment extends Fragment {
                                                     spetzs_local.add(spetz1);
                                                 }
                                             }
-
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
-
                                         }
-
                                     });
 
                                     spetzs_local.add(spetz);
@@ -187,26 +196,20 @@ public class SignupFragment extends Fragment {
                                                     users_local.add(user2);
                                                 }
                                             }
-
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
-
                                         }
-
                                     });
 
                                     users_local.add(user1);
                                     users_fire.child(firebaseAuth.getCurrentUser().getUid()).setValue(users_local);
                                 }
 
-
-
                                 Bundle bundle = new Bundle();
                                 bundle.putString("username",username);
                                 Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_clientDashboard,bundle);
-
 
                             }//email is already in use
                             else{
@@ -217,7 +220,6 @@ public class SignupFragment extends Fragment {
                         }
                     });
                 }
-
 
             }
         });
@@ -231,8 +233,6 @@ public class SignupFragment extends Fragment {
         });
         return view;
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -97,7 +97,8 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
+            app:destination="@id/signupFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_loginFragment_to_clientDashboard"
             app:destination="@id/clientDashboard" />

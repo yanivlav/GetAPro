@@ -1,6 +1,7 @@
 package com.example.getapro.Fragments;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.getapro.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -39,6 +41,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.List;
@@ -101,13 +105,8 @@ public class ClientContact extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View  view = inflater.inflate(R.layout.client_contact, container, false);
-
         locEt = view.findViewById(R.id.loc_et);
-
-
         geocoder = new Geocoder(getContext());
         Handler handler = new Handler();
 
@@ -133,21 +132,25 @@ public class ClientContact extends Fragment {
                 .commit();
 
 //         Get a handle to the fragment and register the callback.
-
 //        mapFragment.getMapAsync(this);
-
 
         proceedB = view.findViewById(R.id.proceedButton);
         proceedB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("address",locEt.getText().toString());
-                bundle.putString("category",category);
-//                bundle.putString("district",state);
-                bundle.putString("district",state);
-                Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm,bundle);
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
 
+                if (user == null )
+                    Toast.makeText(getContext(), "Sign up or register first!", Toast.LENGTH_SHORT).show();
+                else{
+                    Bundle bundle = new Bundle();
+                    bundle.putString("address",locEt.getText().toString());
+                    bundle.putString("category",category);
+//                bundle.putString("district",state);
+                    bundle.putString("district",state);
+                    Navigation.findNavController(view).navigate(R.id.action_clientContact_to_clientFinelForm,bundle);
+                }
             }
         });
         return view;
@@ -173,19 +176,15 @@ public class ClientContact extends Fragment {
         };
 
 
-
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setNumUpdates(2);
         locationRequest.setInterval(3000);
         locationRequest.setFastestInterval(2000);
 
-
         if(Build.VERSION.SDK_INT >= 23 && getContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==  PackageManager.PERMISSION_GRANTED)
             client.requestLocationUpdates(locationRequest,callback,null);
         else client.requestLocationUpdates(locationRequest,callback,null);
-
-
 
     }
 
@@ -229,3 +228,10 @@ public class ClientContact extends Fragment {
         }.start();
     }
 }
+
+//
+//    final ProgressDialog progressDialog = new ProgressDialog(getContext());
+//        progressDialog.setMessage("Loading you're inquiries, please wait...");
+//                progressDialog.show();
+//
+//                progressDialog.dismiss();

@@ -55,7 +55,6 @@ public class SpetsRequests extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.spetz_list, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
@@ -67,7 +66,6 @@ public class SpetsRequests extends Fragment {
         adapter.setListener(new FormAdapter.FormListener() {
             @Override
             public void onFormClicked(int position, View view) {
-
             }
 
             @Override
@@ -89,7 +87,6 @@ public class SpetsRequests extends Fragment {
                         for (DataSnapshot chailed : snapshot.getChildren()) {
                             Form form = chailed.getValue(Form.class);
                             temp.add(form);
-//                            forms_local.add(form);
                         }
                     }
                 }
@@ -101,14 +98,11 @@ public class SpetsRequests extends Fragment {
                         adapter.notifyDataSetChanged();
                     }
                 }
-//                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-
         });
 
         recyclerView.setAdapter(adapter);

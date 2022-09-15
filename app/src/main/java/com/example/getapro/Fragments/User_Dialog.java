@@ -36,7 +36,6 @@ import com.google.firebase.storage.StorageReference;
 
 public class User_Dialog extends DialogFragment {
 
-//    private static final String TAG = "DialogFragment";
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     ImageView image;

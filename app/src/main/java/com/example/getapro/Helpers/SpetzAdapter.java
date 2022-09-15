@@ -20,16 +20,11 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by erankatsav on 19/03/2018.
- */
-
 public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHolder> {
 
     private List<Spetz> spetzs;
     private ISpetzListener listener;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-
 
     public interface ISpetzListener {
         void onInfoClicked(int position, View view);

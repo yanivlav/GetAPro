@@ -1,4 +1,5 @@
 package com.example.getapro.Helpers;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.getapro.Fragments.ClientInquiries;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.R;
@@ -32,7 +34,6 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 
     private List<Form> forms;
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-//    StorageReference gsReference;
 
     public FormAdapter(List<Form> forms) {
         this.forms = forms;
@@ -86,7 +87,6 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FormViewHolder holder, int position) {
-
         Form form = forms.get(position);
         holder.descTV.setText(form.getDescription());
 

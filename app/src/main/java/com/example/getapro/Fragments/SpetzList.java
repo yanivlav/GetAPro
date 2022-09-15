@@ -107,7 +107,6 @@ public class SpetzList extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-
         //Read user forms
         forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -131,7 +130,6 @@ public class SpetzList extends Fragment {
             @Override
             public void onInfoClicked(int position, View view) {
                 Bundle bundle =  new Bundle();
-//                bundle.putString("name", );
                 bundle.putString("name", spetzs_local.get(position).getUserName());
                 bundle.putString("district", spetzs_local.get(position).getDistrict());
                 bundle.putString("number", spetzs_local.get(position).getNumber());
@@ -188,21 +186,7 @@ public class SpetzList extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                messaging.unsubscribeFromTopic(selectedSpetzUid);
-
-
-
-
-
-
-
-////                //Add the user form to the Spets form  list
-//                if (user.getUid() != spetzs_local.get(position).getUid()){
-//                    forms_spetz.add(newForm);
-//                    forms_fire.child(spetzs_local.get(position).getUid()).setValue(forms_spetz);
-////                    forms_fire.child(spetzs_local.get(position).getUid()).push().setValue(forms_spetz);
-//                }
-//                else Toast.makeText(getContext(), "can't open to yourself", Toast.LENGTH_SHORT).show();
+                messaging.unsubscribeFromTopic(selectedSpetzUid);
 
 
                 Navigation.findNavController(view).navigate(R.id.action_spetzList_to_clientDashboard);
@@ -238,8 +222,6 @@ public class SpetzList extends Fragment {
                         Toast.makeText(getContext(), "Sorry, no Spetz for your request! ", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.action_spetzList_to_clientDashboard);
                     }
-
-//                    adapter.notifyDataSetChanged();
                 }
             }
             @Override

@@ -10,35 +10,6 @@ public class Form implements Serializable {//extends User implements Serializabl
     private String categoty;
     private String address;
 
-
-//public class Form extends User implements Serializable {//extends User implements Serializable {
-//    private String description;
-//    private String issueImage;
-//    private int issueImageResID;
-//    private String selectedSpetzUid;
-//    private String categoty;
-//    private String address;
-
-
-//
-//    public Form(String userName, String address, String email, String number, String photoPath, String uid, String description, String issueImage, String selectedSpetzUid, String categoty, String address1) {
-//        super(userName, address, email, number, photoPath, uid);
-//        this.description = description;
-//        this.issueImage = issueImage;
-//        this.selectedSpetzUid = selectedSpetzUid;
-//        this.categoty = categoty;
-//        this.address = address1;
-//    }
-//
-//    public Form(String userName, String address, String email, String number, int resID, String uid, String description, int issueImageResID, String selectedSpetzUid, String categoty, String address1) {
-//        super(userName, address, email, number, resID, uid);
-//        this.description = description;
-//        this.issueImageResID = issueImageResID;
-//        this.selectedSpetzUid = selectedSpetzUid;
-//        this.categoty = categoty;
-//        this.address = address1;
-//    }
-
     public Form(String description, int imgResID, String selectedSpetzEmail, String categoty, String address) {
         super();
         this.description = description;
@@ -56,11 +27,7 @@ public class Form implements Serializable {//extends User implements Serializabl
         this.address = address;
     }
 
-    public Form() {
-
-    }
-
-
+    public Form() {}
 
 
     public String getDescription() {

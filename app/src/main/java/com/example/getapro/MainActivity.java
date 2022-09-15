@@ -77,11 +77,9 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
     FirebaseUser user;
 
 
-    //Messaging stuff----------
     final String API_TOKEN_KEY = "AAAA5liTr20:APA91bFEfcKcX8g78mJnO-NPtkn1FSYo7aCXa8-bsfKxYQyG75KUE1asONXC6qkA_jodeMatug7Sreud-dRXOBi7O9uxK7cz_Vl0YQyBF3oix5EG5JGXWbTVhoiwe1qDeAgpfm5Q3_49";
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
     BroadcastReceiver receiver;
-    //Messaging stuff----------
 
 
 
@@ -89,20 +87,6 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//
-//        IntentFilter filter = new IntentFilter("il.org.syntax.sms_received");
-//        receiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                Bundle bundle = new Bundle();
-//                String message = intent.getStringExtra("message");
-//                bundle.putString("massage", message);
-////                textView.setText("Live registration " + intent.getStringExtra("name") + " - " + intent.getStringExtra("message"));
-//            }
-//        };
-//        //registerReceiver(receiver,filter);
-//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
-
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -129,11 +113,9 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     switch (item.getItemId()) {
                         case R.id.item_signup:
                             navController.navigate(R.id.signupFragment,null,navOptions);
-//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_loginFragment_to_signupFragment);
                             break;
                         case R.id.item_login:
                             navController.navigate(R.id.loginFragment,null,navOptions);
-//                            Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.action_signupFragment_to_loginFragment);
                             break;
                         case R.id.item_logout:
                             firebaseAuth.signOut();
@@ -141,17 +123,15 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                             break;
                         case R.id.item_myInquries:
                             navController.navigate(R.id.clientInquiries,null,navOptions);
+                            break;
                         case R.id.item_myRequests:
                             navController.navigate(R.id.spetsRequests,null,navOptions);
+                            break;
                     }
-
                 }
                 return true;
             }
         });
-
-
-
 
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -206,8 +186,6 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
                         }
                     });
-//
-//                    read the user database
 
                 } else {
                     userTv.setText("Welcome guest ,please login.");
@@ -217,11 +195,6 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_myRequests).setVisible(false);
-
-
-
-//                    adapter.notifyDataSetChanged();
-
                 }
             }
 
@@ -250,8 +223,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
     @Override
     protected void onStart() {
         super.onStart();
-
-
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override

@@ -55,7 +55,6 @@ public class ClientFinelForm extends Fragment {
     ImageButton galIB, camIB;
     Button spetzBtn;
     ImageView resultIv;
-    File photo;
     String path;
 
     int SELECT_PICTURE = 200;
@@ -67,11 +66,8 @@ public class ClientFinelForm extends Fragment {
     private String address;
     private String district;
 
-//    FirebaseStorage firebaseStore = FirebaseStorage.getInstance();
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//    FirebaseAuth.AuthStateListener authStateListener;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     //name of the instance of the Forms table
@@ -96,9 +92,7 @@ public class ClientFinelForm extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View  view = inflater.inflate(R.layout.client_finel_form, container, false);
         descET = view.findViewById(R.id.decriptionET);
         resultIv = view.findViewById(R.id.resultImage);
@@ -124,9 +118,7 @@ public class ClientFinelForm extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-
         });
 
 
@@ -160,7 +152,6 @@ public class ClientFinelForm extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                 Start the activity with camera_intent, and request pic id
                 startActivityForResult(camera_intent, CAMERA_REQUEST);
             }
         });
@@ -188,9 +179,6 @@ public class ClientFinelForm extends Fragment {
 
 
         if (requestCode == CAMERA_REQUEST && resultCode == getActivity().RESULT_OK) {
-//             bitmap = (Bitmap)data.getExtras().get("data");
-//            resultIv.setImageBitmap(BitmapFactory.decodeFile(photo.getAbsolutePath()));
-
             Bitmap image = (Bitmap) data.getExtras().get("data");
             // Set the image in imageview for display
             galIB.setImageResource(R.drawable.gallery_icon);
@@ -201,11 +189,7 @@ public class ClientFinelForm extends Fragment {
             byte[] byteArray = stream.toByteArray();
 
             problemImagesRef.putBytes(byteArray);
-
-
             resultIv.setImageBitmap(image);
-
-
         }
 
         if (requestCode == SELECT_PICTURE && resultCode == getActivity().RESULT_OK) {
@@ -213,9 +197,7 @@ public class ClientFinelForm extends Fragment {
             Uri selectedImageUri = data.getData();
             path = getRealPathFromURI(selectedImageUri);
             if (null != selectedImageUri) {
-
                 // update the preview image in the layout
-//                    resultIv.setImageURI(selectedImageUri);
                 Bitmap bitmap = null;
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImageUri);
@@ -230,9 +212,6 @@ public class ClientFinelForm extends Fragment {
 
             }
         }
-
-//        final FirebaseUser user = firebaseAuth.getCurrentUser();
-
     }
 
     public String getRealPathFromURI(Uri uri){

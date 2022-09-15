@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@android:color/white"
+    android:background="@color/orange"
 
     >
 
@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Select occupation"
         android:textSize="20sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:id="@+id/text_view"
         />

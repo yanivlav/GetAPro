@@ -1,6 +1,7 @@
 package com.example.getapro.Fragments;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -58,7 +59,6 @@ public class ClientInquiries extends Fragment {
     
     private String username;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,23 +81,20 @@ public class ClientInquiries extends Fragment {
         adapter.setListener(new FormAdapter.FormListener() {
             @Override
             public void onFormClicked(int position, View view) {
-
             }
 
             @Override
             public void onFormLongClicked(int position, View view) {
-
             }
         });
+
 
 
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                StorageReference pathReference = storageReference.child("Problems/"+user.getUid()+"_Form_Number_"".jpg");
                 StorageReference pathReference;
-
                 forms_local.clear();
                 int num = 0;
                 if (dataSnapshot.exists()) {
@@ -114,12 +111,11 @@ public class ClientInquiries extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-
         });
 
         recyclerView.setAdapter(adapter);
+
 
 
         return view;

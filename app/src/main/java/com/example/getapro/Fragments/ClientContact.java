@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.getapro.R;
@@ -58,6 +59,7 @@ public class ClientContact extends Fragment {
     SupportMapFragment mapFragment;
     double lat ;
     double lng;
+    ProgressBar progressBar;
     private String username;
     private String category;
     private String state;
@@ -107,6 +109,7 @@ public class ClientContact extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View  view = inflater.inflate(R.layout.client_contact, container, false);
         locEt = view.findViewById(R.id.loc_et);
+        progressBar = view.findViewById(R.id.indeterminateBar);
         geocoder = new Geocoder(getContext());
         Handler handler = new Handler();
 
@@ -186,12 +189,14 @@ public class ClientContact extends Fragment {
             client.requestLocationUpdates(locationRequest,callback,null);
         else client.requestLocationUpdates(locationRequest,callback,null);
 
+
     }
 
     private void updateLoc(Location location) {
 
         lat = location.getLatitude();
         lng = location.getLongitude();
+
 
         new Thread(){
             @Override

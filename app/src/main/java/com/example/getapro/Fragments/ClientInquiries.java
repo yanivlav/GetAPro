@@ -80,6 +80,11 @@ public class ClientInquiries extends Fragment {
         
         adapter.setListener(new FormAdapter.FormListener() {
             @Override
+            public void onInfoClicked(int position, View view) {
+
+            }
+
+            @Override
             public void onFormClicked(int position, View view) {
             }
 

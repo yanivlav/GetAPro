@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
     }
 
     public interface FormListener {
+        void onInfoClicked(int position, View view);
         void onFormClicked(int position, View view);
         void onFormLongClicked(int position, View view);
     }
@@ -54,23 +56,35 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 
         TextView descTV;
         ImageView picIv;
+        ImageButton infoBtn;
 
         public FormViewHolder(View itemView) {
             super(itemView);
             descTV = itemView.findViewById(R.id.problem_description);
             picIv = itemView.findViewById(R.id.problem_image);
+            infoBtn = itemView.findViewById(R.id.formInfo);
+            infoBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener!=null)
+                        listener.onInfoClicked(getAdapterPosition(),view);
+                }
+            });
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onFormClicked(getAdapterPosition(),view);
+                    if(listener!=null)
+                        listener.onFormClicked(getAdapterPosition(),view);
                 }
             });
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    listener.onFormLongClicked(getAdapterPosition(),view);
+                    if(listener!=null)
+                        listener.onFormLongClicked(getAdapterPosition(),view);
                     return true;
                 }
             });

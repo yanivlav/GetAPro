@@ -197,6 +197,7 @@ public class ClientDashboard extends Fragment{
                 }
             });
         }
+        else inquiriesBtn.setVisibility(View.INVISIBLE);
 
         messageTV.setText(message);
 

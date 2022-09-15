@@ -127,6 +127,9 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                         case R.id.item_myRequests:
                             navController.navigate(R.id.spetsRequests,null,navOptions);
                             break;
+                        case R.id.item_home:
+                            navController.navigate(R.id.clientDashboard,null,navOptions);
+                            break;
                     }
                 }
                 return true;
@@ -146,14 +149,16 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     messaging.unsubscribeFromTopic(user.getUid());
                     messaging.subscribeToTopic(user.getUid());
 
-                    if (fullname != null) {//signup = update profile with full name
+                    if (fullname != null) {//sign in - update profile with full name
 
                         user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 fullname = null;
-                                if (task.isSuccessful())
+                                if (task.isSuccessful()){
                                     Snackbar.make(coordinatorLayout, user.getDisplayName() + "Welcome", Snackbar.LENGTH_SHORT).show();
+                                }
+
                             }
                         });
                     }
@@ -165,6 +170,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(true);
+                    navigationView.getMenu().findItem(R.id.item_home).setChecked(true);
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference users_fire = database.getReference("Users");
                     ArrayList<User> users_local = new ArrayList<>();
@@ -189,12 +195,14 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
                 } else {
                     userTv.setText("Welcome guest ,please login.");
-                    //collapsing?
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_logout).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_myRequests).setVisible(false);
+                    if ( navigationView.getCheckedItem() == navigationView.getMenu().findItem(R.id.item_logout))
+                        navigationView.getMenu().findItem(R.id.item_home).setChecked(true);
+
                 }
             }
 

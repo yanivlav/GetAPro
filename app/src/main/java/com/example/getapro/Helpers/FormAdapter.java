@@ -1,8 +1,12 @@
 package com.example.getapro.Helpers;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -11,9 +15,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.getapro.Fragments.ClientInquiries;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +34,14 @@ import java.util.List;
 public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder> {
 
     private List<Form> forms;
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     public FormAdapter(List<Form> forms) {
         this.forms = forms;
     }
 
     public interface FormListener {
+        void onInfoClicked(int position, View view);
         void onFormClicked(int position, View view);
         void onFormLongClicked(int position, View view);
     }
@@ -43,23 +56,35 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 
         TextView descTV;
         ImageView picIv;
+        ImageButton infoBtn;
 
         public FormViewHolder(View itemView) {
             super(itemView);
             descTV = itemView.findViewById(R.id.problem_description);
             picIv = itemView.findViewById(R.id.problem_image);
+            infoBtn = itemView.findViewById(R.id.formInfo);
+            infoBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener!=null)
+                        listener.onInfoClicked(getAdapterPosition(),view);
+                }
+            });
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onFormClicked(getAdapterPosition(),view);
+                    if(listener!=null)
+                        listener.onFormClicked(getAdapterPosition(),view);
                 }
             });
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    listener.onFormLongClicked(getAdapterPosition(),view);
+                    if(listener!=null)
+                        listener.onFormLongClicked(getAdapterPosition(),view);
                     return true;
                 }
             });
@@ -76,14 +101,19 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FormViewHolder holder, int position) {
-
         Form form = forms.get(position);
         holder.descTV.setText(form.getDescription());
 
-        if(form.getPhotoPath()!= null)
-            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(form.getPhotoPath()));
-        else
-            holder.picIv.setImageResource(form.getResID());
+        if(form.getIssueImage()!= null) {
+            String s = form.getIssueImage();
+                storageReference.child(form.getIssueImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(holder.picIv.getContext()).load(uri).into(holder.picIv);
+                }
+            });
+        }else
+            holder.picIv.setImageResource(form.getIssueImageResID());
     }
 
     @Override

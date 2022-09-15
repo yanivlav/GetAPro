@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/loginFragment"
+    app:startDestination="@id/clientDashboard"
     >
 
     <fragment
@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_spetzList_to_clientDashboard"
             app:destination="@id/clientDashboard" />
+        <action
+            android:id="@+id/action_spetzList_to_user_Dialog"
+            app:destination="@id/user_Dialog" />
     </fragment>
     <fragment
         android:id="@+id/spetzCard"
@@ -94,7 +97,8 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
+            app:destination="@id/signupFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_loginFragment_to_clientDashboard"
             app:destination="@id/clientDashboard" />
@@ -110,16 +114,23 @@
         <action
             android:id="@+id/action_signupFragment_to_clientDashboard"
             app:destination="@id/clientDashboard" />
+        <action
+            android:id="@+id/action_signupFragment_to_handyMan_Dialog"
+            app:destination="@id/handyMan_Dialog" />
     </fragment>
     <fragment
         android:id="@+id/spetsRequests"
-        android:name="com.example.getapro.SpetsRequests"
+        android:name="com.example.getapro.Fragments.SpetsRequests"
         android:label="fragment_spets_requests"
         tools:layout="@layout/spets_requests" />
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.getapro.MainActivity"
         android:label="MainActivity" />
+    <dialog
+        android:id="@+id/user_Dialog"
+        android:name="com.example.getapro.Fragments.User_Dialog"
+        android:label="User_Dialog" />
 
 
 </navigation>

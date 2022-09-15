@@ -1,10 +1,13 @@
 package com.example.getapro.Fragments;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,14 +37,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+
+
 public class ClientInquiries extends Fragment {
+
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     //name of the instance of the Forms table
     DatabaseReference forms_fire = database.getReference("Forms");
@@ -49,7 +58,6 @@ public class ClientInquiries extends Fragment {
     ArrayList<Form> forms_local = new ArrayList<>();
     
     private String username;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,43 +80,67 @@ public class ClientInquiries extends Fragment {
         
         adapter.setListener(new FormAdapter.FormListener() {
             @Override
-            public void onFormClicked(int position, View view) {
+            public void onInfoClicked(int position, View view) {
 
             }
 
             @Override
-            public void onFormLongClicked(int position, View view) {
+            public void onFormClicked(int position, View view) {
+            }
 
+            @Override
+            public void onFormLongClicked(int position, View view) {
             }
         });
+
 
 
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                StorageReference pathReference;
                 forms_local.clear();
-
+                int num = 0;
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Form form = snapshot.getValue(Form.class);
+                        pathReference = storageReference.child("Problems/"+user.getUid()+"_Form_Number_"+num+".jpg");
+                        pathReference.getDownloadUrl();
                         forms_local.add(form);
                     }
                     adapter.notifyDataSetChanged();
+
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-
         });
 
         recyclerView.setAdapter(adapter);
 
 
+
         return view;
     }
+
+
 }
+
+
+
+//    // Create a reference with an initial file path and name
+//    StorageReference pathReference = storageRef.child("images/stars.jpg");
+//
+//    // Create a reference to a file from a Cloud Storage URI
+//    StorageReference gsReference = storage.getReferenceFromUrl("gs://bucket/images/stars.jpg");
+//
+//    // Create a reference from an HTTPS URL
+//// Note that in the URL, characters are URL escaped!
+//    StorageReference httpsReference = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/b/bucket/o/images%20stars.jpg");
+
+//    After you've created an appropriate reference, you can then download files from Cloud Storage by calling the getBytes() or getStream() method.
+
+//        If you prefer to download the file with another library, you can get a download URL with getDownloadUrl().

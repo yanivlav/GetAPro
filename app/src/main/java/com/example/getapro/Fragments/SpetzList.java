@@ -37,6 +37,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +58,8 @@ public class SpetzList extends Fragment {
 
     String API_TOKEN_KEY = "AAAA8BK5-Gs:APA91bEHQfVvwoR62JRU2tdmdkTZcdckkftwsqxqE1NOmZCmfrkUFbzLHJQPuDkY69u3dh5aL_4s1u1AD1GTxhLHant-oUCuyw4cx-dEC-TJz_yFiPf6e1apu6FXwGKAekKnwqBBO6co";
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
 
     private String spetzCategory;
     private String address;
@@ -63,6 +67,7 @@ public class SpetzList extends Fragment {
     private String district;
     private String desc;
     private int pic;
+    private String realImage;
     private Form newForm;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -75,13 +80,6 @@ public class SpetzList extends Fragment {
     DatabaseReference forms_fire = database.getReference("Forms");
     SpetzAdapter adapter;
     final FirebaseUser user = firebaseAuth.getCurrentUser();
-//
-//    public static SpetzList newInstance(String param1, String param2) {
-//        SpetzList fragment = new SpetzList();
-//        Bundle args = new Bundle();
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,12 +91,8 @@ public class SpetzList extends Fragment {
             desc = getArguments().getString("desc");
             pic = getArguments().getInt("pic");
             occupation = getArguments().getString("category");
-
-
-
-
+            realImage = getArguments().getString("realImage");
         }
-
     }
 
     @Override
@@ -132,52 +126,33 @@ public class SpetzList extends Fragment {
             }
         });
 
-
-
-
         adapter.setListener(new SpetzAdapter.ISpetzListener() {
             @Override
             public void onInfoClicked(int position, View view) {
-//                Bundle bundle =  new Bundle();
-//                bundle.putParcelable("spetzs", spetzs.get(position));//maybe the form class should implement parceble
-//                Navigation.findNavController(view).navigate(R.id.action_spetzList_to_spetzCard);
+                Bundle bundle =  new Bundle();
+                bundle.putString("name", spetzs_local.get(position).getUserName());
+                bundle.putString("district", spetzs_local.get(position).getDistrict());
+                bundle.putString("number", spetzs_local.get(position).getNumber());
+                bundle.putString("occupation", spetzs_local.get(position).getOccupation());
+                bundle.putParcelable("spetzs", spetzs_local.get(position));//maybe the form class should implement parceble
+                Navigation.findNavController(view).navigate(R.id.action_spetzList_to_user_Dialog,bundle);
 
             }
 
             @Override
             public void onSpetzClicked(int position, View view){
                 String selectedSpetzUid = spetzs_local.get(position).getUid();
+                Toast.makeText(getContext(), "We noted "+spetzs_local.get(position).getUserName()+" that you are looking for him!", Toast.LENGTH_SHORT).show();
 
-                newForm = new Form(desc, pic, selectedSpetzUid,spetzCategory, address);
+                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address);
 
                 //Add user new form to user form list
                 forms_user.add(newForm);
                 forms_fire.child(user.getUid()).setValue(forms_user);
 
-
-                //Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------Messaging stuff ----------
-
-
                 messaging.unsubscribeFromTopic(selectedSpetzUid);
                 messaging.subscribeToTopic(selectedSpetzUid);
-
-                /*
-                https://fcm.googleapis.com/fcm/send
-                Content-Type:application/json
-                Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
-                {
-                     "to": "/topics/foo-bar", (OR:   "condition": "'dogs' in topics || 'cats' in topics",)
-                    "data": {
-                        "message": "This is a Firebase Cloud Messaging Topic Message!",
-                    }
-                }
-                */
-
-                //maybe to json and then reverse
-//                String textToSend = newForm;
-
                 final JSONObject rootObject  = new JSONObject();
-
                 try {
                     rootObject.put("to", "/topics/" + selectedSpetzUid);
                     rootObject.put("data",new JSONObject().put("message", desc));
@@ -214,23 +189,8 @@ public class SpetzList extends Fragment {
                 messaging.unsubscribeFromTopic(selectedSpetzUid);
 
 
-
-
-
-
-
-////                //Add the user form to the Spets form  list
-//                if (user.getUid() != spetzs_local.get(position).getUid()){
-//                    forms_spetz.add(newForm);
-//                    forms_fire.child(spetzs_local.get(position).getUid()).setValue(forms_spetz);
-////                    forms_fire.child(spetzs_local.get(position).getUid()).push().setValue(forms_spetz);
-//                }
-//                else Toast.makeText(getContext(), "can't open to yourself", Toast.LENGTH_SHORT).show();
-
-
                 Navigation.findNavController(view).navigate(R.id.action_spetzList_to_clientDashboard);
             }
-
 
             @Override
             public void onSpetzLongClicked(int position, View view) {
@@ -238,36 +198,18 @@ public class SpetzList extends Fragment {
             }
         });
 
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnCompleteListener(new OnCompleteListener<String>() {
-//                    @SuppressLint("LongLogTag")
-//                    @Override
-//                    public void onComplete(@NonNull Task<String> task) {
-//                        if (!task.isSuccessful()) {
-//                            System.out.println("Fetching FCM registration token failed");
-//                            return;
-//                        }
-//
-//                        // Get new FCM registration token
-//                        token = task.getResult();
-//
-//                        // Log and toast
-//                        System.out.println(token);
-//                        Log.d(TAG, "Refreshed token: " + token);
-//                        Toast.makeText(getContext(), "Device Token is: " + token, Toast.LENGTH_SHORT).show();
-////                        mtv.setText(token);
-//                    }
-//                });
-
-
         // Finds out who is a spetz and show it on adapter
         users_fire.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                StorageReference pathReference;
+
                 spetzs_local.clear();
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Spetz spetz = snapshot.child("0").getValue(Spetz.class);
+                        pathReference = storageReference.child("UsersProfilePhotos/" + spetz.getEmail() + ".jpg");
+                        pathReference.getDownloadUrl();
                         if (!spetz.getUid().equals(user.getUid())) {//not show spetz to spetz
 //                        if (spetz.getOccupation()!=null && spetz.getOccupation().equals(occupation) && spetz.getDistrict().equals(district))
                             if (spetz.getOccupation() != null && spetz.getOccupation().equals(occupation)) {
@@ -275,10 +217,11 @@ public class SpetzList extends Fragment {
                                 adapter.notifyDataSetChanged();
                             }
                         }
-                        if (spetzs_local.size()==0)
-                            Toast.makeText(getContext(), "Sorry, no Spetz for your request! ", Toast.LENGTH_SHORT).show();
                     }
-//                    adapter.notifyDataSetChanged();
+                    if (spetzs_local.size() == 0){
+                        Toast.makeText(getContext(), "Sorry, no Spetz for your request! ", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.action_spetzList_to_clientDashboard);
+                    }
                 }
             }
             @Override

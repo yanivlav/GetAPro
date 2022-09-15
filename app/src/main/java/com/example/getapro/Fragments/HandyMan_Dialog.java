@@ -44,8 +44,6 @@ public class HandyMan_Dialog extends DialogFragment {
     ArrayAdapter<String> adapter;
     String [] jobs  = {"Constructor", "Plumber", "Electrician", "Yoga teacher", "Kite instructor", "Skipper","Construction engineer"};
 
-//    private ArrayList<String> mOfficeListItems = new ArrayList<String>();
-
     private String username;
 
     @Override

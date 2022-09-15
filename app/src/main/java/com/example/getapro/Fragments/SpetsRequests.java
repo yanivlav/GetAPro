@@ -1,4 +1,4 @@
-package com.example.getapro;
+package com.example.getapro.Fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.getapro.Helpers.FormAdapter;
 import com.example.getapro.MyObjects.Form;
+import com.example.getapro.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +56,6 @@ public class SpetsRequests extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.spetz_list, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
@@ -64,9 +65,21 @@ public class SpetsRequests extends Fragment {
         recyclerView.setAdapter(adapter);
 
         adapter.setListener(new FormAdapter.FormListener() {
+
+            @Override
+            public void onInfoClicked(int position, View view) {
+
+            }
+
             @Override
             public void onFormClicked(int position, View view) {
-
+//                Bundle bundle =  new Bundle();
+//                bundle.putString("name", spetzs_local.get(position).getUserName());
+//                bundle.putString("district", spetzs_local.get(position).getDistrict());
+//                bundle.putString("number", spetzs_local.get(position).getNumber());
+//                bundle.putString("occupation", spetzs_local.get(position).getOccupation());
+//                bundle.putParcelable("spetzs", spetzs_local.get(position));//maybe the form class should implement parceble
+//                Navigation.findNavController(view).navigate(R.id.action_spetzList_to_user_Dialog,bundle);
             }
 
             @Override
@@ -88,7 +101,6 @@ public class SpetsRequests extends Fragment {
                         for (DataSnapshot chailed : snapshot.getChildren()) {
                             Form form = chailed.getValue(Form.class);
                             temp.add(form);
-//                            forms_local.add(form);
                         }
                     }
                 }
@@ -100,14 +112,11 @@ public class SpetsRequests extends Fragment {
                         adapter.notifyDataSetChanged();
                     }
                 }
-//                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-
         });
 
         recyclerView.setAdapter(adapter);

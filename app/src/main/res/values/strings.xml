@@ -2,25 +2,25 @@
     <string name="app_name">GetAPro</string>
 
     <!--Splash Screen-->
-    <string name="slogan">GetAPro</string>
+    <string name="slogan">Get A Pro</string>
 
     <!--    UserDashboard-->
-    <string name="hi_client">Hello dear customer how can we assist you?</string>
-    <string name="searchView">Search for your spetz?</string>
-    <string name="inquiriesButton">My inquiries?</string>
+    <string name="hi_client">Hello, how can we assist you?</string>
+    <string name="searchView">Search for your pro!</string>
+    <string name="inquiriesButton">My inquiries</string>
 
 
     <!--Titles-->
-    <string name="first_slide_title">Search Your Location</string>
+    <string name="first_slide_title">Find your Pro</string>
     <string name="second_slide_title">Make A Call</string>
-    <string name="third_slide_title">Add Missing Place</string>
+    <string name="third_slide_title">Trust the system</string>
     <string name="fourth_slide_title">Sit Back And Enjoy</string>
 
     <!--Descriptions-->
-    <string name="first_slide_desc">You can search any place nearby or with-in the specified city. We will display specific or all related shops to match your search. </string>
-    <string name="second_slide_desc">We provide almost all the numbers of all departments and shops registered with us. You can perform bookings as well.</string>
-    <string name="third_slide_desc">If you have a shop or somethings and want to be a part of our growing industry then add your place by follwing simple steps.</string>
-    <string name="fourth_slide_desc">We will handle everything for you. As you have the app in your pocket then you don\'t have to worry about anything.  </string>
+    <string name="first_slide_desc">You can search any type of professional you desire. We will display specific and related professional to match your search by location and occupation. </string>
+    <string name="second_slide_desc">Fill in your details, specific address, describe with image and try to explain your problem.</string>
+    <string name="third_slide_desc">We will make our best effort to provide reliable and honest professionals  .</string>
+    <string name="fourth_slide_desc">We will handle everything for you. As you have the app in your pocket then you don\'t have to worry about anything. just Relex and watch the  job get done.  </string>
 
     <!--Buttons-->
     <string name="skip_btn">Skip</string>

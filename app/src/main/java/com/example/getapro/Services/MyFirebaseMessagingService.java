@@ -15,6 +15,7 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     final String TAG = "MyFirebaseMessaging";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 

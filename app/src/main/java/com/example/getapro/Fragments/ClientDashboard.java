@@ -66,11 +66,6 @@ import java.util.ArrayList;
 
 
 public class ClientDashboard extends Fragment{
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
     private static final String CLIENT_DASHBOARD_TAG = "ClientDashboard";
 
     public TextView mInputDisplay;
@@ -100,6 +95,7 @@ public class ClientDashboard extends Fragment{
 
     ArrayList<User> users_local = new ArrayList<>();
 
+    BroadcastReceiver receiver;
 
 
     @Override
@@ -109,6 +105,8 @@ public class ClientDashboard extends Fragment{
 
         if (getArguments() != null) {
             message = getArguments().getString("message");
+            if (message!=null)
+                messageTV.setText(message);
             username = getArguments().getString("username");
         }
 
@@ -148,13 +146,10 @@ public class ClientDashboard extends Fragment{
             }
         });
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
 //        NavHostFragment.findNavController(this).navigate(); without view
         View view = inflater.inflate(R.layout.client_dashboard, container, false);
 
@@ -164,43 +159,46 @@ public class ClientDashboard extends Fragment{
         requestsBtn = view.findViewById(R.id.spetsRequests);
         messageTV = view.findViewById(R.id.message_tv);
 
-        users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        IntentFilter filter = new IntentFilter("il.org.syntax.sms_received");
+        receiver = new BroadcastReceiver() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                users_local.clear();
-                if(dataSnapshot.exists()) {
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Spetz spetz = snapshot.getValue(Spetz.class);
-                        if (spetz.getOccupation() != null)
-                            requestsBtn.setVisibility(View.VISIBLE);
+            public void onReceive(Context context, Intent intent) {
+                String message = intent.getStringExtra("message");
+                if (message!=null)
+                    messageTV.setText(message);
+            }
+        };
+        //registerReceiver(receiver,filter);
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
+
+        if (getArguments() != null) {
+            message = getArguments().getString("message");
+            if (message!=null)
+                messageTV.setText(message);
+        }
+
+        if (user != null){
+            users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    users_local.clear();
+                    if(dataSnapshot.exists()) {
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Spetz spetz = snapshot.getValue(Spetz.class);
+                            if (spetz.getOccupation() != null)
+                                requestsBtn.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+        else inquiriesBtn.setVisibility(View.INVISIBLE);
 
-//        if (message != "")
-
-        //        receiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                Bundle bundle = new Bundle();
-//                String message = intent.getStringExtra("message");
-//
-//                bundle.putString("message" , message);
-//
-//                ClientDashboard clientDashboard = new ClientDashboard();
-//                clientDashboard.setArguments(bundle);
-////                messageTv.setText(intent.getStringExtra("message"));
-//            }
-//        };
-//
-//        IntentFilter filter = new IntentFilter("message_received");
-//        LocalBroadcastManager.getInstance(this).registerReceiver(receiver,filter);
         messageTV.setText(message);
 
 
@@ -218,14 +216,12 @@ public class ClientDashboard extends Fragment{
 
             }
         });
-
         inquiriesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_clientDashboard_to_clientInquiries);
             }
         });
-
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -241,4 +237,11 @@ public class ClientDashboard extends Fragment{
 
         return view;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
+        }
+
 }

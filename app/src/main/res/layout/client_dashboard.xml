@@ -17,19 +17,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:id="@+id/appName"
-        android:textSize="40dp"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:layout_below="@+id/appName"
         android:textAlignment="center"
         android:hint="@string/hi_client"
         android:textSize="18dp"
+        android:textColorHint="@color/black"
         android:id="@+id/hiClient"
         android:layout_centerHorizontal="true"/>
 
@@ -42,6 +34,8 @@
         android:drawableEnd="@drawable/handyman_icon"
         android:gravity="center_vertical"
         android:hint="Find a spetz"
+        android:textColorHint="@color/black"
+        android:textSize="20dp"
         android:padding="12dp" />
 
 
@@ -52,6 +46,14 @@
         android:layout_below="@+id/handyMAnTV"
         android:layout_centerHorizontal="true"
         android:text="@string/searchView" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="280dp"
+        android:src="@drawable/handymanlogo01" />
 
     <TextView
         android:id="@+id/message_tv"

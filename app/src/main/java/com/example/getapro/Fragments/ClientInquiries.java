@@ -1,71 +1,151 @@
 package com.example.getapro.Fragments;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.getapro.Helpers.FormAdapter;
+import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ClientInquiries#newInstance} factory method to
- * create an instance of this fragment.
- */
+
+
 public class ClientInquiries extends Fragment {
 
-    ArrayList<Form> forms;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseAuth.AuthStateListener authStateListener;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ClientInquiries() {
-        // Required empty public constructor
-    }
-
-
-    public static ClientInquiries newInstance(String param1, String param2) {
-        ClientInquiries fragment = new ClientInquiries();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    //name of the instance of the Forms table
+    DatabaseReference forms_fire = database.getReference("Forms");
+    DatabaseReference users_fire = database.getReference("Users");
+    FormAdapter adapter;
+    ArrayList<Form> forms_local = new ArrayList<>();
+    
+    private String username;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.spetz_list, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
-
+        adapter = new FormAdapter(forms_local);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        final SpetzAdapter spetzAdapter = new SpetzAdapter(spetsz);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+        
+        adapter.setListener(new FormAdapter.FormListener() {
+            @Override
+            public void onInfoClicked(int position, View view) {
+                Bundle bundle =  new Bundle();
+                bundle.putInt("position",position);
+                bundle.putParcelable("form", forms_local.get(position));//maybe the form class should implement parceble
+                Navigation.findNavController(view).navigate(R.id.action_clientInquiries_to_form_Dialog,bundle);
+            }
+
+            @Override
+            public void onFormClicked(int position, View view) {
+            }
+
+            @Override
+            public void onFormLongClicked(int position, View view) {
+            }
+        });
+
+
+        //shows description and image
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                StorageReference pathReference;
+                forms_local.clear();
+                int num = 0;
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Form form = snapshot.getValue(Form.class);
+                        pathReference = storageReference.child("Problems/"+user.getUid()+"_Form_Number_"+num+".jpg");
+                        pathReference.getDownloadUrl();
+                        forms_local.add(form);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+
+
 
         return view;
     }
+
+
 }
+
+
+
+//    // Create a reference with an initial file path and name
+//    StorageReference pathReference = storageRef.child("images/stars.jpg");
+//
+//    // Create a reference to a file from a Cloud Storage URI
+//    StorageReference gsReference = storage.getReferenceFromUrl("gs://bucket/images/stars.jpg");
+//
+//    // Create a reference from an HTTPS URL
+//// Note that in the URL, characters are URL escaped!
+//    StorageReference httpsReference = storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/b/bucket/o/images%20stars.jpg");
+
+//    After you've created an appropriate reference, you can then download files from Cloud Storage by calling the getBytes() or getStream() method.
+
+//        If you prefer to download the file with another library, you can get a download URL with getDownloadUrl().

@@ -6,17 +6,23 @@ import android.os.Parcelable;
 public class Spetz extends User implements Parcelable {
     private String occupation;
 
-    public Spetz(String userName, String address, String email, String password, long number, int resID, String occupation) {
-        super(userName, address, email, password, number, resID);
+    private String district;
+
+    public Spetz(String userName, String district, String email, String number, int resID, String uid, String occupation) {
+        super(userName, district, email, number, resID, uid);
         this.occupation = occupation;
+        this.district =  district;
     }
 
-    public Spetz(String userName, String address, String email, String password, long number, String photoPath, String occupation) {
-        super(userName, address, email, password, number, photoPath);
+    public Spetz(String userName, String district, String email, String number, String photoPath,String uid, String occupation) {
+        super(userName, district, email, number, photoPath, uid);
         this.occupation = occupation;
+        this.district =  district;
     }
 
+    public Spetz() {
 
+    }
 
     public String getOccupation() {
         return occupation;
@@ -25,6 +31,10 @@ public class Spetz extends User implements Parcelable {
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
+
+    public String getDistrict() {return district;}
+
+    public void setDistrict(String district) {this.district = district;}
 
     @Override
     public int describeContents() {

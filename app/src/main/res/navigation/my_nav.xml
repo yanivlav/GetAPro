@@ -3,13 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/clientDashboard">
+    app:startDestination="@id/clientDashboard"
+    >
 
     <fragment
         android:id="@+id/clientInquiries"
         android:name="com.example.getapro.Fragments.ClientInquiries"
         android:label="fragment_client_inquiries"
-        tools:layout="@layout/client_inquiries" />
+        tools:layout="@layout/client_inquiries" >
+        <action
+            android:id="@+id/action_clientInquiries_to_form_Dialog"
+            app:destination="@id/form_Dialog" />
+    </fragment>
     <fragment
         android:id="@+id/clientContact"
         android:name="com.example.getapro.Fragments.ClientContact"
@@ -23,9 +28,6 @@
         <action
             android:id="@+id/action_clientContact_to_clientFinelForm"
             app:destination="@id/clientFinelForm" />
-        <action
-            android:id="@+id/action_clientContact_to_blankFragment"
-            app:destination="@id/blankFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientDashboard"
@@ -41,6 +43,9 @@
         <action
             android:id="@+id/action_clientDashboard_to_clientContact"
             app:destination="@id/clientContact" />
+        <action
+            android:id="@+id/action_clientDashboard_to_spetsRequests"
+            app:destination="@id/spetsRequests" />
     </fragment>
     <fragment
         android:id="@+id/clientFinelForm"
@@ -70,11 +75,6 @@
             app:destination="@id/clientDashboard" />
     </dialog>
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.example.getapro.Fragments.LocationFragment"
-        android:label="BlankFragment"
-        tools:layout="@layout/fragment_location" />
-    <fragment
         android:id="@+id/spetzList"
         android:name="com.example.getapro.Fragments.SpetzList"
         android:label="spetz_list"
@@ -82,11 +82,69 @@
         <action
             android:id="@+id/action_spetzList_to_spetzCard"
             app:destination="@id/spetzCard" />
+        <action
+            android:id="@+id/action_spetzList_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
+        <action
+            android:id="@+id/action_spetzList_to_user_Dialog"
+            app:destination="@id/user_Dialog" />
     </fragment>
     <fragment
         android:id="@+id/spetzCard"
         android:name="com.example.getapro.Helpers.SpetzCard"
         android:label="fragment_spetz_card"
         tools:layout="@layout/spetz_cell" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.getapro.Fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_loginFragment_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.getapro.Fragments.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_clientDashboard"
+            app:destination="@id/clientDashboard" />
+        <action
+            android:id="@+id/action_signupFragment_to_handyMan_Dialog"
+            app:destination="@id/handyMan_Dialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/spetsRequests"
+        android:name="com.example.getapro.Fragments.SpetsRequests"
+        android:label="fragment_spets_requests"
+        tools:layout="@layout/spets_requests" >
+        <action
+            android:id="@+id/action_spetsRequests_to_form_Dialog"
+            app:destination="@id/form_Dialog" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.getapro.MainActivity"
+        android:label="MainActivity" />
+    <dialog
+        android:id="@+id/user_Dialog"
+        android:name="com.example.getapro.Fragments.User_Dialog"
+        android:label="User_Dialog"
+        tools:layout="@layout/user_dialog"/>
+    <dialog
+        android:id="@+id/form_Dialog"
+        android:name="com.example.getapro.Fragments.Form_Dialog"
+        android:label="Form_Dialog"
+        tools:layout="@layout/form_dialog"/>
+
 
 </navigation>

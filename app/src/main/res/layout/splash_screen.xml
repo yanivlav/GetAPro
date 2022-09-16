@@ -16,17 +16,19 @@
                     android:id="@+id/background_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/splash_screen_design" />
+                    android:src="@drawable/handymanlogo01" />
 
                 <TextView
                     android:id="@+id/spetzSlogan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/slogan"
-                    android:textSize="50sp"
                     android:layout_alignParentBottom="true"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="100dp"
+                    android:text="@string/slogan"
+                    android:textSize="50sp" />
 
 
         </RelativeLayout>

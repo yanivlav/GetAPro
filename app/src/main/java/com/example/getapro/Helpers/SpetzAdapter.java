@@ -1,5 +1,6 @@
 package com.example.getapro.Helpers;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +10,21 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by erankatsav on 19/03/2018.
- */
 
 public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHolder> {
 
     private List<Spetz> spetzs;
     private ISpetzListener listener;
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     public interface ISpetzListener {
         void onInfoClicked(int position, View view);
@@ -46,9 +48,9 @@ public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHol
 
         public SpetzViewHolder(View itemView) {
             super(itemView);
-            nameTv = itemView.findViewById(R.id.spetz_name);
-            picIv = itemView.findViewById(R.id.album_image);
-            infoIB = itemView.findViewById(R.id.spetzInfo);
+            nameTv = itemView.findViewById(R.id.problem_description);
+            picIv = itemView.findViewById(R.id.problem_image);
+            infoIB = itemView.findViewById(R.id.formInfo);
             infoIB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -87,12 +89,22 @@ public class SpetzAdapter extends RecyclerView.Adapter<SpetzAdapter.SpetzViewHol
 
     @Override
     public void onBindViewHolder(SpetzViewHolder holder, int position) {
-        Spetz Spetz = spetzs.get(position);
-        holder.nameTv.setText(Spetz.getUserName());
-        if(Spetz.getPhotoPath()!= null)
-            holder.picIv.setImageBitmap(BitmapFactory.decodeFile(Spetz.getPhotoPath()));
-        else
-            holder.picIv.setImageResource(Spetz.getResID());
+        StorageReference pathReference;
+        Spetz spetz = spetzs.get(position);
+        String path = "UsersProfilePhotos/" + spetz.getEmail() + ".jpg";
+        pathReference = storageReference.child(path);
+        pathReference.getDownloadUrl();
+
+        holder.nameTv.setText(spetz.getUserName());
+        if (spetz.getEmail() != null) {
+
+            storageReference.child(path).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with((holder.picIv.getContext())).load(uri).into(holder.picIv);
+                }
+            });
+        }
     }
 
     @Override

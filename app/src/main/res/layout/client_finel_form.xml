@@ -3,24 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ClientFinelForm">
+    tools:context=".Fragments.ClientFinelForm"
+    android:paddingTop="50dp">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/nearly_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nearly done!!"
-        android:padding="15dp"
-        android:textSize="40dp"
-        android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:id="@+id/nearly_TV"/>
+        android:text="@string/nearly_done"
+        android:textSize="40dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/nearly_TV"
-        android:text="Add description and photos to help our spetz"
+        android:text="@string/add_description_and_photos_to_help_our_spetz"
         android:textAlignment="center"
         android:padding="15dp"
         android:textSize="30dp"
@@ -58,7 +58,7 @@
         android:id="@+id/decriptionET"
         android:layout_below="@+id/linear"
         android:textAlignment="center"
-        android:hint="What is the problem?"/>
+        android:hint="@string/what_is_the_problem"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="25dp"
         android:layout_alignParentBottom="true"
-        android:text="Continue to Spetz list"/>
+        android:text="@string/continue_to_spetz_list"/>
 
     <ImageView
         android:layout_centerHorizontal="true"

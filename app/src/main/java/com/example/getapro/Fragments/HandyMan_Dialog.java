@@ -33,11 +33,6 @@ import com.example.getapro.R;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HandyMan_Dialog#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HandyMan_Dialog extends DialogFragment {
 
     private static final String TAG = "DialogFragment";
@@ -47,27 +42,17 @@ public class HandyMan_Dialog extends DialogFragment {
     TextView tv;
     EditText et;
     ArrayAdapter<String> adapter;
-    String [] jobs  = {"", "b", "c", "d", "e", "f","a", "b", "c", "d", "e", "f","a", "b", "c", "d", "e", "f"};
+//    String [] jobs  = {"Constructor", "Plumber", "Electrician", "Yoga teacher", "Kite instructor", "Skipper","Construction engineer"};
+    ArrayList<String> jobs = new ArrayList<>();
 
-    private ArrayList<String> mOfficeListItems = new ArrayList<String>();
-
-
-
-    // TODO: Rename and change types and number of parameters
-    public static HandyMan_Dialog newInstance(String param1, String param2) {
-        HandyMan_Dialog fragment = new HandyMan_Dialog();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private String username;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
+        if (getArguments() != null) {
+            username = getArguments().getString("username");
+        }
     }
 
     @NonNull
@@ -78,11 +63,16 @@ public class HandyMan_Dialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // assign variable
         View  view = inflater.inflate(R.layout.handyman_spinner,null);
         Bundle bundle = new Bundle();
 
+        jobs.add(getString(R.string.Constructor));
+        jobs.add(getString(R.string.Plumber));
+        jobs.add(getString(R.string.Electrician));
+        jobs.add(getString(R.string.Yoga_teacher));
+        jobs.add(getString(R.string.Kite_instructor));
+        jobs.add(getString(R.string.Skipper));
+        jobs.add(getString(R.string.Construction_engineer));
         lv = view.findViewById(R.id.list_view);
         et = view.findViewById(R.id.edit_text);
         tv = view.findViewById(R.id.text_view);
@@ -117,17 +107,8 @@ public class HandyMan_Dialog extends DialogFragment {
                 getParentFragmentManager().setFragmentResult("requestKey", bundle);
                 getDialog().dismiss();
 
-//                tv.setText(adapter.getItem(position));
-//                bundle.putString("Selected_Handyman", adapter.getItem(position));
-
-//                 Dismiss dialog
-//                Navigation.findNavController(view).navigate(R.id.action_handyMan_Dialog_to_clientDashboard);
-
-
-
             }
         });
-//        changeServiceB.setText("Change " + getArguments().getString("serviceName"));
 
         return view;
     }

@@ -15,18 +15,20 @@
 
     <TextView
         android:id="@+id/slider_heading"
-        android:paddingTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_below="@+id/slider_image"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:paddingTop="15dp"
         android:text="TextView"
         android:textSize="36sp" />
 
     <TextView
         android:id="@+id/slider_desc"
-        android:paddingTop="15dp"
+        android:paddingTop="100dp"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"

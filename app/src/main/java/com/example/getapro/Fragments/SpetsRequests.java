@@ -68,18 +68,15 @@ public class SpetsRequests extends Fragment {
 
             @Override
             public void onInfoClicked(int position, View view) {
-
+                Bundle bundle =  new Bundle();
+                bundle.putInt("position",position);
+                bundle.putParcelable("form", forms_local.get(position));//maybe the form class should implement parceble
+                Navigation.findNavController(view).navigate(R.id.action_spetsRequests_to_form_Dialog,bundle);
             }
 
             @Override
             public void onFormClicked(int position, View view) {
-//                Bundle bundle =  new Bundle();
-//                bundle.putString("name", spetzs_local.get(position).getUserName());
-//                bundle.putString("district", spetzs_local.get(position).getDistrict());
-//                bundle.putString("number", spetzs_local.get(position).getNumber());
-//                bundle.putString("occupation", spetzs_local.get(position).getOccupation());
-//                bundle.putParcelable("spetzs", spetzs_local.get(position));//maybe the form class should implement parceble
-//                Navigation.findNavController(view).navigate(R.id.action_spetzList_to_user_Dialog,bundle);
+
             }
 
             @Override

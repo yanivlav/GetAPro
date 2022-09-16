@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.getapro.Helpers.SpetzAdapter;
 import com.example.getapro.MyObjects.Form;
 import com.example.getapro.MyObjects.Spetz;
+import com.example.getapro.MyObjects.User;
 import com.example.getapro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -80,6 +81,8 @@ public class SpetzList extends Fragment {
     DatabaseReference forms_fire = database.getReference("Forms");
     SpetzAdapter adapter;
     final FirebaseUser user = firebaseAuth.getCurrentUser();
+    User myuser;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,7 @@ public class SpetzList extends Fragment {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Form form = snapshot.getValue(Form.class);
                         forms_user.add(form);
+
                     }
                 }
             }
@@ -141,10 +145,13 @@ public class SpetzList extends Fragment {
 
             @Override
             public void onSpetzClicked(int position, View view){
+                Spetz spetz = spetzs_local.get(position);
                 String selectedSpetzUid = spetzs_local.get(position).getUid();
                 Toast.makeText(getContext(), "We noted "+spetzs_local.get(position).getUserName()+" that you are looking for him!", Toast.LENGTH_SHORT).show();
 
-                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address);
+
+                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address, spetz.getNumber(),spetz.getUserName(),myuser.getNumber(),myuser.getUserName());
+
 
                 //Add user new form to user form list
                 forms_user.add(newForm);
@@ -217,6 +224,10 @@ public class SpetzList extends Fragment {
                                 adapter.notifyDataSetChanged();
                             }
                         }
+                        if (user.getUid().equals(spetz.getUid()))
+                        myuser = snapshot.child("0").getValue(User.class);
+
+
                     }
                     if (spetzs_local.size() == 0){
                         Toast.makeText(getContext(), "Sorry, no Spetz for your request! ", Toast.LENGTH_SHORT).show();

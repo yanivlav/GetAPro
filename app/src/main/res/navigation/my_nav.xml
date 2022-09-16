@@ -10,7 +10,11 @@
         android:id="@+id/clientInquiries"
         android:name="com.example.getapro.Fragments.ClientInquiries"
         android:label="fragment_client_inquiries"
-        tools:layout="@layout/client_inquiries" />
+        tools:layout="@layout/client_inquiries" >
+        <action
+            android:id="@+id/action_clientInquiries_to_form_Dialog"
+            app:destination="@id/form_Dialog" />
+    </fragment>
     <fragment
         android:id="@+id/clientContact"
         android:name="com.example.getapro.Fragments.ClientContact"
@@ -122,7 +126,11 @@
         android:id="@+id/spetsRequests"
         android:name="com.example.getapro.Fragments.SpetsRequests"
         android:label="fragment_spets_requests"
-        tools:layout="@layout/spets_requests" />
+        tools:layout="@layout/spets_requests" >
+        <action
+            android:id="@+id/action_spetsRequests_to_form_Dialog"
+            app:destination="@id/form_Dialog" />
+    </fragment>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.getapro.MainActivity"
@@ -131,6 +139,10 @@
         android:id="@+id/user_Dialog"
         android:name="com.example.getapro.Fragments.User_Dialog"
         android:label="User_Dialog" />
+    <dialog
+        android:id="@+id/form_Dialog"
+        android:name="com.example.getapro.Fragments.Form_Dialog"
+        android:label="Form_Dialog" />
 
 
 </navigation>

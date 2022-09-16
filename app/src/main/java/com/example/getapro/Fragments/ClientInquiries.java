@@ -54,6 +54,7 @@ public class ClientInquiries extends Fragment {
 
     //name of the instance of the Forms table
     DatabaseReference forms_fire = database.getReference("Forms");
+    DatabaseReference users_fire = database.getReference("Users");
     FormAdapter adapter;
     ArrayList<Form> forms_local = new ArrayList<>();
     
@@ -81,7 +82,10 @@ public class ClientInquiries extends Fragment {
         adapter.setListener(new FormAdapter.FormListener() {
             @Override
             public void onInfoClicked(int position, View view) {
-
+                Bundle bundle =  new Bundle();
+                bundle.putInt("position",position);
+                bundle.putParcelable("form", forms_local.get(position));//maybe the form class should implement parceble
+                Navigation.findNavController(view).navigate(R.id.action_clientInquiries_to_form_Dialog,bundle);
             }
 
             @Override
@@ -94,7 +98,7 @@ public class ClientInquiries extends Fragment {
         });
 
 
-
+        //shows description and image
         final FirebaseUser user = firebaseAuth.getCurrentUser();
         forms_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

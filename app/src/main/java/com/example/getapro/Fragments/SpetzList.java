@@ -159,8 +159,8 @@ public class SpetzList extends Fragment {
                 forms_user.add(newForm);
                 forms_fire.child(user.getUid()).setValue(forms_user);
 
-                messaging.unsubscribeFromTopic(selectedSpetzUid);
-                messaging.subscribeToTopic(selectedSpetzUid);
+//                messaging.unsubscribeFromTopic(selectedSpetzUid);
+//                messaging.subscribeToTopic(selectedSpetzUid);
                 final JSONObject rootObject  = new JSONObject();
                 try {
                     rootObject.put("to", "/topics/" + selectedSpetzUid);
@@ -195,7 +195,7 @@ public class SpetzList extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                messaging.unsubscribeFromTopic(selectedSpetzUid);
+//                messaging.unsubscribeFromTopic(selectedSpetzUid);
 
 
                 Navigation.findNavController(view).navigate(R.id.action_spetzList_to_clientDashboard);

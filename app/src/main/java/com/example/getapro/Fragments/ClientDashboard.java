@@ -109,6 +109,9 @@ public class ClientDashboard extends Fragment{
             message = getArguments().getString("message");
             if (message!=null)
                 messageTV.setText(message);
+            else
+                messageTV.setText("since 1972");
+
             username = getArguments().getString("username");
         }
 
@@ -173,12 +176,6 @@ public class ClientDashboard extends Fragment{
         };
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
 
-        if (getArguments() != null) {
-            message = getArguments().getString("message");
-            if (message!=null)
-                messageTV.setText(message);
-        }
-
         if (user != null){
             users_fire.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -206,7 +203,7 @@ public class ClientDashboard extends Fragment{
             messageTV.setText("since 1792");
         }
         //check  if this is the right on
-        messageTV.setText(message);
+        messageTV.setText("since 1792");
 
 
         requestsBtn.setOnClickListener(new View.OnClickListener() {

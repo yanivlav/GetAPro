@@ -42,6 +42,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -73,6 +74,7 @@ public class ClientDashboard extends Fragment{
 
     final String CLIENT_CONTACT_FRAGMENT_TAG = "client_contact_fragemnt";
     Button inquiriesBtn, searchBtn, requestsBtn;
+    ImageView logoIv;
     TextView handymAnTV, messageTV;
 
     final int LOCATION_PERMISSION_REQUEST = 1;
@@ -158,6 +160,7 @@ public class ClientDashboard extends Fragment{
         handymAnTV = view.findViewById(R.id.handyMAnTV);
         requestsBtn = view.findViewById(R.id.spetsRequests);
         messageTV = view.findViewById(R.id.message_tv);
+        logoIv = view.findViewById(R.id.logo);
 
         IntentFilter filter = new IntentFilter("il.org.syntax.sms_received");
         receiver = new BroadcastReceiver() {
@@ -168,7 +171,6 @@ public class ClientDashboard extends Fragment{
                     messageTV.setText(message);
             }
         };
-        //registerReceiver(receiver,filter);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
 
         if (getArguments() != null) {
@@ -185,8 +187,10 @@ public class ClientDashboard extends Fragment{
                     if(dataSnapshot.exists()) {
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Spetz spetz = snapshot.getValue(Spetz.class);
-                            if (spetz.getOccupation() != null)
+                            if (spetz.getOccupation() != null) {
                                 requestsBtn.setVisibility(View.VISIBLE);
+                                messageTV.setText("Here you'll get new descriptions from new clients");
+                            }
                         }
                     }
                 }
@@ -197,9 +201,11 @@ public class ClientDashboard extends Fragment{
                 }
             });
         }
-        else inquiriesBtn.setVisibility(View.INVISIBLE);
-
-        messageTV.setText(message);
+        else {
+            inquiriesBtn.setVisibility(View.INVISIBLE);
+            messageTV.setText("since 1792");
+        }
+//        messageTV.setText(message);
 
 
         requestsBtn.setOnClickListener(new View.OnClickListener() {

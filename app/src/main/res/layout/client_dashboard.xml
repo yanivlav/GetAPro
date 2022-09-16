@@ -9,7 +9,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_container"
     android:layout_marginTop="60dp">
 
@@ -17,71 +16,75 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginTop="40dp"
         android:textAlignment="center"
         android:hint="@string/hi_client"
-        android:textSize="18dp"
+        android:textSize="20dp"
         android:textColorHint="@color/black"
         android:id="@+id/hiClient"
         android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/handyMAnTV"
-        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/hiClient"
         android:background="@android:drawable/editbox_background"
         android:drawableEnd="@drawable/handyman_icon"
         android:gravity="center_vertical"
         android:hint="Find a spetz"
+        android:layout_marginTop="15dp"
+        android:padding="15dp"
         android:textColorHint="@color/black"
-        android:textSize="20dp"
-        android:padding="12dp" />
+        android:textSize="20dp" />
 
-
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/handyMAnTV"
-        android:layout_centerHorizontal="true"
-        android:text="@string/searchView" />
+    <TextView
+        android:id="@+id/message_tv"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/handyMAnTV"
+        android:layout_marginTop="15dp"
+        android:text="Get A Pro"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="220dp"
         android:src="@drawable/handymanlogo01" />
 
-    <TextView
-        android:id="@+id/message_tv"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/search_button"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:hint="Massege TV"
-        android:textSize="30sp" />
 
     <Button
-        android:id="@+id/spetsRequests"
-        android:layout_width="wrap_content"
+        android:id="@+id/search_button"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/inquiries"
+        android:layout_marginTop="480dp"
         android:layout_centerHorizontal="true"
-        android:text="Spetz Requests"
-        android:visibility="invisible"/>
+        android:text="@string/searchView" />
 
     <Button
         android:id="@+id/inquiries"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/search_button"
         android:text="@string/inquiriesButton" />
+
+    <Button
+        android:id="@+id/spetsRequests"
+        android:layout_below="@id/inquiries"
+        android:layout_marginTop="15dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Spetz Requests"
+        android:visibility="invisible"/>
 
 <!--    <com.google.android.material.navigation.NavigationView-->
 <!--        android:id="@+id/navigation_view"-->

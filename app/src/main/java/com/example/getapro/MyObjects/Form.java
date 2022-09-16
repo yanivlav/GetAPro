@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Form implements Serializable, Parcelable {//extends User implements Serializable {
     private String description;
     private String issueImage;
-    private int issueImageResID;
+    private long formNum;
     private String selectedSpetzUid;
     private String categoty;
     private String address;
@@ -30,7 +30,7 @@ public class Form implements Serializable, Parcelable {//extends User implements
 ////        this.usersPhone = usersPhone;
 //    }
 
-    public Form(String description, String issueImage, String selectedSpetzEmail, String categoty, String address,String spetzPhone, String spetzName, String usersPhone, String usersName) {
+    public Form(String description, String issueImage, String selectedSpetzEmail, String categoty, String address,String spetzPhone, String spetzName, String usersPhone, String usersName, long formNum) {
         this.description = description;
         this.issueImage = issueImage;
         this.selectedSpetzUid = selectedSpetzEmail;
@@ -40,6 +40,7 @@ public class Form implements Serializable, Parcelable {//extends User implements
         this.spetzPhone = spetzPhone;
         this.usersName = usersName;
         this.usersPhone = usersPhone;
+        this.formNum = formNum;
     }
 
     public Form() {}
@@ -61,12 +62,12 @@ public class Form implements Serializable, Parcelable {//extends User implements
         this.issueImage = issueImage;
     }
 
-    public int getIssueImageResID() {
-        return issueImageResID;
+    public long getFormNum() {
+        return formNum;
     }
 
-    public void setIssueImageResID(int issueImageResID) {
-        this.issueImageResID = issueImageResID;
+    public void setFormNum(long formNum) {
+        this.formNum = formNum;
     }
 
     public String getSelectedSpetzUid() {

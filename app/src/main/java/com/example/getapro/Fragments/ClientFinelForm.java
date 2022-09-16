@@ -65,6 +65,7 @@ public class ClientFinelForm extends Fragment {
     private String category;
     private String address;
     private String district;
+    long formNum;
 
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -109,6 +110,7 @@ public class ClientFinelForm extends Fragment {
                 forms_local.clear();
 
                 if (dataSnapshot.exists()) {
+                    formNum = dataSnapshot.getChildrenCount();
                     path = user.getUid()+"_Form_Number_"+dataSnapshot.getChildrenCount()+".jpg";
                 }
                 else  {
@@ -134,6 +136,7 @@ public class ClientFinelForm extends Fragment {
                 bundle.putString("desc",descET.getText().toString());
                 bundle.putInt("pic",2131230849);
                 bundle.putString("realImage","Problems/" + path);
+                bundle.putLong("formNum",formNum);
                 Navigation.findNavController(view).navigate(R.id.action_clientFinelForm_to_spetzList,bundle);
 
             }

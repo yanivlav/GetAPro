@@ -45,12 +45,14 @@ public class SpetsRequests extends Fragment {
     ArrayList<Form> temp = new ArrayList<>();
 
     private String username;
+    private long formNum;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
+            formNum = getArguments().getLong("formNum");
         }
     }
 

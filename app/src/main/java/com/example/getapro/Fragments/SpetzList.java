@@ -70,6 +70,7 @@ public class SpetzList extends Fragment {
     private int pic;
     private String realImage;
     private Form newForm;
+    private long formNum;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authStateListener;
@@ -95,6 +96,7 @@ public class SpetzList extends Fragment {
             pic = getArguments().getInt("pic");
             occupation = getArguments().getString("category");
             realImage = getArguments().getString("realImage");
+            formNum = getArguments().getLong("formNum");
         }
     }
 
@@ -150,7 +152,7 @@ public class SpetzList extends Fragment {
                 Toast.makeText(getContext(), "We noted "+spetzs_local.get(position).getUserName()+" that you are looking for him!", Toast.LENGTH_SHORT).show();
 
 
-                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address, spetz.getNumber(),spetz.getUserName(),myuser.getNumber(),myuser.getUserName());
+                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address, spetz.getNumber(),spetz.getUserName(),myuser.getNumber(),myuser.getUserName(),formNum);
 
 
                 //Add user new form to user form list

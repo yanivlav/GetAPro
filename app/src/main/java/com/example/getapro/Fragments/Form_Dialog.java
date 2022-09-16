@@ -32,7 +32,7 @@ public class Form_Dialog extends DialogFragment {
     ImageView image;
     TextView desc,address,spetzName, spetzPhone, userName, userPhone;
     Form form;
-    int pos;
+    int pos ;
     private String username;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     final FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -81,7 +81,7 @@ public class Form_Dialog extends DialogFragment {
         image = view.findViewById(R.id.imageIv);
 
         StorageReference pathReference;
-        String path = "Problems/"+user.getUid()+"_Form_Number_"+pos+".jpg";
+        String path = "Problems/"+user.getUid()+"_Form_Number_"+form.getFormNum()+".jpg";
         pathReference = storageReference.child(path);
         pathReference.getDownloadUrl();
 

@@ -205,7 +205,8 @@ public class ClientDashboard extends Fragment{
             inquiriesBtn.setVisibility(View.INVISIBLE);
             messageTV.setText("since 1792");
         }
-//        messageTV.setText(message);
+        //check  if this is the right on
+        messageTV.setText(message);
 
 
         requestsBtn.setOnClickListener(new View.OnClickListener() {

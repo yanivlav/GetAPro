@@ -152,7 +152,7 @@ public class SpetzList extends Fragment {
                 Toast.makeText(getContext(), "We noted "+spetzs_local.get(position).getUserName()+" that you are looking for him!", Toast.LENGTH_SHORT).show();
 
 
-                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address, spetz.getNumber(),spetz.getUserName(),myuser.getNumber(),myuser.getUserName(),formNum);
+                newForm = new Form(desc, realImage, selectedSpetzUid,spetzCategory, address, spetz.getNumber(),spetz.getUserName(),myuser.getNumber(),myuser.getUserName(),formNum, user.getUid());
 
 
                 //Add user new form to user form list

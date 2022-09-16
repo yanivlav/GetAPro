@@ -7,6 +7,10 @@ import java.io.Serializable;
 
 public class Form implements Serializable, Parcelable {//extends User implements Serializable {
     private String description;
+
+
+
+    private String formOpenUid;
     private String issueImage;
     private long formNum;
     private String selectedSpetzUid;
@@ -30,7 +34,7 @@ public class Form implements Serializable, Parcelable {//extends User implements
 ////        this.usersPhone = usersPhone;
 //    }
 
-    public Form(String description, String issueImage, String selectedSpetzEmail, String categoty, String address,String spetzPhone, String spetzName, String usersPhone, String usersName, long formNum) {
+    public Form(String description, String issueImage, String selectedSpetzEmail, String categoty, String address,String spetzPhone, String spetzName, String usersPhone, String usersName, long formNum, String formOpenUid) {
         this.description = description;
         this.issueImage = issueImage;
         this.selectedSpetzUid = selectedSpetzEmail;
@@ -41,6 +45,7 @@ public class Form implements Serializable, Parcelable {//extends User implements
         this.usersName = usersName;
         this.usersPhone = usersPhone;
         this.formNum = formNum;
+        this.formOpenUid = formOpenUid;
     }
 
     public Form() {}
@@ -133,5 +138,13 @@ public class Form implements Serializable, Parcelable {//extends User implements
     @Override
     public void writeToParcel(Parcel parcel, int i) {
 
+    }
+
+    public String getFormOpenUid() {
+        return formOpenUid;
+    }
+
+    public void setFormOpenUid(String formOpenUid) {
+        this.formOpenUid = formOpenUid;
     }
 }

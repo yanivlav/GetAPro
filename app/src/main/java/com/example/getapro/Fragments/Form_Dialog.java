@@ -81,7 +81,7 @@ public class Form_Dialog extends DialogFragment {
         image = view.findViewById(R.id.imageIv);
 
         StorageReference pathReference;
-        String path = "Problems/"+user.getUid()+"_Form_Number_"+form.getFormNum()+".jpg";
+        String path = "Problems/"+form.getFormOpenUid()+"_Form_Number_"+form.getFormNum()+".jpg";
         pathReference = storageReference.child(path);
         pathReference.getDownloadUrl();
 

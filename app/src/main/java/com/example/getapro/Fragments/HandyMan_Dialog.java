@@ -42,7 +42,8 @@ public class HandyMan_Dialog extends DialogFragment {
     TextView tv;
     EditText et;
     ArrayAdapter<String> adapter;
-    String [] jobs  = {"Constructor", "Plumber", "Electrician", "Yoga teacher", "Kite instructor", "Skipper","Construction engineer"};
+//    String [] jobs  = {"Constructor", "Plumber", "Electrician", "Yoga teacher", "Kite instructor", "Skipper","Construction engineer"};
+    ArrayList<String> jobs = new ArrayList<>();
 
     private String username;
 
@@ -65,6 +66,13 @@ public class HandyMan_Dialog extends DialogFragment {
         View  view = inflater.inflate(R.layout.handyman_spinner,null);
         Bundle bundle = new Bundle();
 
+        jobs.add(getString(R.string.Constructor));
+        jobs.add(getString(R.string.Plumber));
+        jobs.add(getString(R.string.Electrician));
+        jobs.add(getString(R.string.Yoga_teacher));
+        jobs.add(getString(R.string.Kite_instructor));
+        jobs.add(getString(R.string.Skipper));
+        jobs.add(getString(R.string.Construction_engineer));
         lv = view.findViewById(R.id.list_view);
         et = view.findViewById(R.id.edit_text);
         tv = view.findViewById(R.id.text_view);

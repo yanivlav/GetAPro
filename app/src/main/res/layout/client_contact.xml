@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:padding="15dp"
-        android:text="Where would you like the service?"
+        android:text="@string/where_would_you_like_the_service"
         android:textSize="40dp"
         android:textStyle="bold"
         android:textAlignment="center"/>
@@ -35,7 +35,7 @@
         android:background="@android:drawable/editbox_background"
         android:drawableEnd="@drawable/ic_location"
         android:gravity="center_vertical"
-        android:hint="Enter your address"
+        android:hint="@string/enter_your_address"
         android:padding="12dp" />
 
 <!--    <Button-->
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/loc_et"
         android:layout_centerHorizontal="true"
-        android:text="proceed" />
+        android:text="@string/proceed" />
 
     <FrameLayout
         android:id="@+id/map_frame"

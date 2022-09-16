@@ -35,7 +35,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter email"
+            android:hint="@string/enter_email1"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -61,7 +61,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter password"
+            android:hint="@string/enter_password1"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             android:backgroundTint="@color/orange"
@@ -92,7 +92,7 @@
             android:layout_below="@+id/pass_et"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/orange"
-            android:text="Sing in"
+            android:text="@string/sing_in1"
             android:textColor="@color/black" />
 
         <Button
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_btn"
-            android:text="Sing up"
+            android:text="@string/sign_up1"
             android:textColor="@color/black" />
 
         <Button
@@ -111,7 +111,7 @@
             android:layout_below="@+id/signup_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Skip"/>
+            android:text="@string/skip"/>
 
 
 

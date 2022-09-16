@@ -61,7 +61,7 @@ public class Form_Dialog extends DialogFragment {
         if (desc != null){
             desc.setText(form.getDescription());
         }
-        desc.setText("no desc");
+        else desc.setText("no desc");
 
         address = view.findViewById(R.id.problom_address);
         address.setText(form.getAddress());

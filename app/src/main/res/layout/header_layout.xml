@@ -24,5 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/navigation_header_text_view"
-        android:text="Welcome guest ,please login." />
+        android:text="@string/welcome_guest_please_login" />
 </LinearLayout>

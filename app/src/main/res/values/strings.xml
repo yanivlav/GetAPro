@@ -27,7 +27,7 @@
     <string name="next_btn">Next</string>
     <string name="let_get_started">Lets Get Started</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!--    Jobs-->
     <string-array name="jobs">
@@ -39,7 +39,7 @@
         <item>kitesurfing guide</item>
     </string-array>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -47,4 +47,49 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="search">Search...</string>
+    <string name="select_occupation">Select occupation</string>
+    <string name="find_a_spetz">Find a spetz</string>
+    <string name="since_1972">Since 1972</string>
+    <string name="spetz_requests">Spetz Requests</string>
+    <string name="where_would_you_like_the_service">Where would you like the service?</string>
+    <string name="enter_your_address">Enter your address</string>
+    <string name="proceed">proceed</string>
+    <string name="home">Home</string>
+    <string name="login">Login</string>
+    <string name="signup">SignUp</string>
+    <string name="my_inquries">My Inquries</string>
+    <string name="my_requests">My Requests</string>
+    <string name="logout">Logout</string>
+    <string name="welcome_guest_please_login">Welcome guest ,please login.</string>
+    <string name="welcome_guest">Welcome guest ,please login.</string>
+    <string name="loggen_in_as">\"loggen in as \"</string>
+    <string name="add_description_and_photos_to_help_our_spetz">Add description and photos to help our spetz</string>
+    <string name="what_is_the_problem">What is the problem?</string>
+    <string name="continue_to_spetz_list">Continue to Spetz list</string>
+    <string name="nearly_done">Nearly done!!</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_full_name">Enter full name</string>
+    <string name="enter_phone">Enter phone</string>
+    <string name="enter_district">Enter district</string>
+    <string name="are_you_a_spetz">Are you a Spetz?</string>
+    <string name="occupation">Occupation</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="complete_signup">complete signup</string>
+    <string name="back_to_login">back to login</string>
+    <string name="enter_email1">Enter email</string>
+    <string name="enter_password1">Enter password</string>
+    <string name="sing_in1">Sign in</string>
+    <string name="sign_up1">Sign up</string>
+    <string name="skip">Skip</string>
+    <string name="Constructor">Constructor</string>
+    <string name="Plumber">Plumber</string>
+    <string name="Electrician">Electrician</string>
+    <string name="Yoga_teacher">Yoga teacher</string>
+    <string name="Kite_instructor">Kite instructor</string>
+    <string name="Skipper">Skipper</string>
+    <string name="Construction_engineer">Construction engineer</string>
+    <string name="change">\"change \"</string>
+    <string name="wait_for_address">Wait while we get your address...</string>
 </resources>

@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                         });
                     }
 
-                    userTv.setText("loggen in as " + user.getEmail());
+                    userTv.setText(getString(R.string.loggen_in_as) + user.getEmail());
 
 
                     StorageReference pathReference;
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     });
 
                 } else {
-                    userTv.setText("Welcome guest ,please login.");
+                    userTv.setText(R.string.welcome_guest);
 //                    Glide.with(MainActivity.this).load(R.drawable.problem_icon).into(userPic);
                     userPic.setImageResource(R.drawable.handymanlogo01);
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(true);

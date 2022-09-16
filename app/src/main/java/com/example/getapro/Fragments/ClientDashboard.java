@@ -146,7 +146,7 @@ public class ClientDashboard extends Fragment{
                 // We use a String here, but any type that can be put in a Bundle is supported
                 result = bundle.getString("bundleKey");
                 // Do something with the result
-                handymAnTV.setText("change "+result+"?");
+                handymAnTV.setText(getString(R.string.change)+result+"?");
             }
         });
 

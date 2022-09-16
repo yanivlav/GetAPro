@@ -26,15 +26,15 @@
 
     <TextView
         android:id="@+id/handyMAnTV"
-        android:layout_centerHorizontal="true"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/hiClient"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:background="@android:drawable/editbox_background"
         android:drawableEnd="@drawable/handyman_icon"
         android:gravity="center_vertical"
-        android:hint="Find a spetz"
-        android:layout_marginTop="15dp"
+        android:hint="@string/find_a_spetz"
         android:padding="15dp"
         android:textColorHint="@color/black"
         android:textSize="20dp" />
@@ -45,7 +45,7 @@
         android:layout_height="150dp"
         android:layout_below="@id/handyMAnTV"
         android:layout_marginTop="15dp"
-        android:text="Since 1972"
+        android:text="@string/since_1972"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="15dp" />
@@ -83,7 +83,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Spetz Requests"
+        android:text="@string/spetz_requests"
         android:visibility="invisible"/>
 
 <!--    <com.google.android.material.navigation.NavigationView-->

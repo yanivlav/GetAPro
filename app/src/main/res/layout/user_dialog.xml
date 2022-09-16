@@ -18,7 +18,9 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:id="@+id/nameTv"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@android:drawable/editbox_background"
+        />
 
     <TextView
         android:layout_marginTop="15dp"
@@ -30,7 +32,9 @@
         android:text="Select occupation"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:id="@+id/occupationTv" />
+        android:id="@+id/occupationTv"
+        android:background="@android:drawable/editbox_background"
+        />
 
     <TextView
         android:layout_below="@id/occupationTv"
@@ -42,11 +46,12 @@
         android:text="Select occupation"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:id="@+id/districtTv" />
+        android:id="@+id/districtTv"
+        android:background="@android:drawable/editbox_background"
+        />
 
     <TextView
         android:layout_below="@id/districtTv"
-
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:padding="10dp"
@@ -55,7 +60,9 @@
         android:text="Select occupation"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:id="@+id/numberTv" />
+        android:id="@+id/numberTv"
+        android:background="@android:drawable/editbox_background"
+        />
 
     <ImageView
         android:layout_below="@id/numberTv"

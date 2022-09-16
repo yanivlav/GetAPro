@@ -26,7 +26,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter email"
+            android:hint="@string/enter_email"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -54,7 +54,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter password"
+            android:hint="@string/enter_password"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -82,7 +82,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter full name"
+            android:hint="@string/enter_full_name"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -105,7 +105,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter phone"
+            android:hint="@string/enter_phone"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -128,7 +128,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter district"
+            android:hint="@string/enter_district"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidthFocused="2dp"
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/signup_fullname"
                 android:layout_weight="1"
-                android:text="Are you a Spetz?" />
+                android:text="@string/are_you_a_spetz" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/signup_spetz_occupation"
@@ -169,7 +169,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:shadowColor="@color/black"
-                android:hint="Occupation" />
+                android:hint="@string/occupation" />
         </LinearLayout>
 
         <Button
@@ -178,7 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/liniar"
-            android:hint="Take a photo"
+            android:hint="@string/take_a_photo"
             android:textColorHint="@color/black"
             android:backgroundTint="@color/orange"
             app:boxStrokeColor="@color/black"
@@ -198,7 +198,7 @@
             android:layout_below="@+id/userImage"
             android:layout_marginTop="5dp"
             android:backgroundTint="@color/orange"
-            android:text="complete signup"
+            android:text="@string/complete_signup"
             android:textColor="@color/black" />
 
 
@@ -210,7 +210,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/signup_complete_btn"
             android:layout_marginTop="5dp"
-            android:text="back to login" />
+            android:text="@string/back_to_login" />
 
     </RelativeLayout>
 

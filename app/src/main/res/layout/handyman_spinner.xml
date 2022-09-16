@@ -8,13 +8,14 @@
     android:padding="16dp"
     android:background="@color/orange"
 
+
     >
 
     <!-- Text view to show the text Select course-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select occupation"
+        android:text="@string/select_occupation"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -27,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edit_text"
-        android:hint="Search..."
+        android:hint="@string/search"
         android:padding="12dp"
         android:singleLine="true"
         android:layout_marginTop="8dp"
@@ -37,9 +38,10 @@
 
     <!-- List view to insert list of items-->
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:id="@+id/list_view"
+        android:layout_centerInParent="true"
         />
 
 </LinearLayout>

@@ -119,7 +119,7 @@ public class ClientContact extends Fragment {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
             }
             else {
-                locEt.setHint("Wait while we get your address...");
+                locEt.setHint(R.string.wait_for_address);
                 startLocation();
             }
         }

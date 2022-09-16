@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1655" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/drawable/field_full_name_icon.xml" value="0.1" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1655" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/drawable/ic_login.xml" value="0.1" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_location_manager.xml" value="0.215625" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/activity_login.xml" value="0.2109375" />
@@ -20,7 +22,7 @@
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/fragment_login.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/fragment_signup.xml" value="0.1" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/handyman_spinner.xml" value="0.1" />
-        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/header_layout.xml" value="0.14814814814814814" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/header_layout.xml" value="0.25" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/sign_dialog.xml" value="0.18" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/slides_layout.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/GetAPro/app/src/main/res/layout/spets_requests.xml" value="0.1" />

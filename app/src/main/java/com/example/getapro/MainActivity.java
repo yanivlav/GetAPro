@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +32,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ import com.example.getapro.MyObjects.Spetz;
 import com.example.getapro.MyObjects.User;
 import com.example.getapro.Services.MyFirebaseMessagingService;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -56,6 +59,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,10 +82,19 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
     FirebaseUser user;
 
 
+    String path ;
+    ImageView userPic;
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+//    StorageReference pathReference = problemImagesRef.getDownloadUrl();
+
+
+
+
+
     final String API_TOKEN_KEY = "AAAA5liTr20:APA91bFEfcKcX8g78mJnO-NPtkn1FSYo7aCXa8-bsfKxYQyG75KUE1asONXC6qkA_jodeMatug7Sreud-dRXOBi7O9uxK7cz_Vl0YQyBF3oix5EG5JGXWbTVhoiwe1qDeAgpfm5Q3_49";
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
     BroadcastReceiver receiver;
-
 
 
     @Override
@@ -137,17 +151,21 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         });
 
 
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 View headerView = navigationView.getHeaderView(0);
                 TextView userTv = headerView.findViewById(R.id.navigation_header_text_view);
+                userPic = headerView.findViewById(R.id.user_pic);
                 user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {//logon
 
                     messaging.unsubscribeFromTopic(user.getUid());
                     messaging.subscribeToTopic(user.getUid());
+                    path = user.getEmail()+".jpg";
+
 
                     if (fullname != null) {//sign in - update profile with full name
 
@@ -162,9 +180,24 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                             }
                         });
                     }
-                    FragmentManager fragmentManager;//???????????????
 
-                    userTv.setText("loggen in as " + user.getDisplayName());
+                    userTv.setText("loggen in as " + user.getEmail());
+
+
+                    StorageReference pathReference;
+                    String path = "UsersProfilePhotos/"+user.getEmail()+".jpg";
+//                    String path = "UsersProfilePhotos/Yaniv@gmail.com.jpg";
+                    pathReference = storageReference.child(path);
+                    pathReference.getDownloadUrl();
+
+
+                    storageReference.child(path).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(MainActivity.this).load(uri).into(userPic);
+                        }
+                    });
+
 
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(false);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(false);
@@ -195,6 +228,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
                 } else {
                     userTv.setText("Welcome guest ,please login.");
+//                    Glide.with(MainActivity.this).load(R.drawable.problem_icon).into(userPic);
+                    userPic.setImageResource(R.drawable.handymanlogo01);
                     navigationView.getMenu().findItem(R.id.item_login).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_signup).setVisible(true);
                     navigationView.getMenu().findItem(R.id.item_myInquries).setVisible(false);

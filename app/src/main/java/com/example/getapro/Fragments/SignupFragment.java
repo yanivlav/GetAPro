@@ -143,7 +143,7 @@ public class SignupFragment extends Fragment {
         completeSignupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = emailTiet.getEditText().getText().toString();
+                String username = emailTiet.getEditText().getText().toString().toLowerCase();
                 String password = passwordTiEt.getEditText().getText().toString();
                 String fullname = fullnameTiEt.getEditText().getText().toString();
                 String phone = phoneTiEt.getEditText().getText().toString();

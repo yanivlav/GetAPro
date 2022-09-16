@@ -138,11 +138,13 @@
     <dialog
         android:id="@+id/user_Dialog"
         android:name="com.example.getapro.Fragments.User_Dialog"
-        android:label="User_Dialog" />
+        android:label="User_Dialog"
+        tools:layout="@layout/user_dialog"/>
     <dialog
         android:id="@+id/form_Dialog"
         android:name="com.example.getapro.Fragments.Form_Dialog"
-        android:label="Form_Dialog" />
+        android:label="Form_Dialog"
+        tools:layout="@layout/form_dialog"/>
 
 
 </navigation>

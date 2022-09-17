@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                             navController.navigate(R.id.loginFragment,null,navOptions);
                             break;
                         case R.id.item_logout:
+                            messaging.unsubscribeFromTopic(user.getUid());
                             firebaseAuth.signOut();
                             navController.navigate(R.id.clientDashboard,null,navOptions);
                             break;

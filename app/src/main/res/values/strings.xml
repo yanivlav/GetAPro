@@ -63,7 +63,7 @@
     <string name="logout">Logout</string>
     <string name="welcome_guest_please_login">Welcome guest ,please login.</string>
     <string name="welcome_guest">Welcome guest ,please login.</string>
-    <string name="loggen_in_as">\"loggen in as \"</string>
+    <string name="loggen_in_as">"loggen in as "</string>
     <string name="add_description_and_photos_to_help_our_spetz">Add description and photos to help our spetz</string>
     <string name="what_is_the_problem">What is the problem?</string>
     <string name="continue_to_spetz_list">Continue to Spetz list</string>
@@ -90,6 +90,6 @@
     <string name="Kite_instructor">Kite instructor</string>
     <string name="Skipper">Skipper</string>
     <string name="Construction_engineer">Construction engineer</string>
-    <string name="change">\"change \"</string>
+    <string name="change">change</string>
     <string name="wait_for_address">Wait while we get your address...</string>
 </resources>

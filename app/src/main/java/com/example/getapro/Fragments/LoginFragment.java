@@ -99,11 +99,12 @@ public class LoginFragment extends Fragment {
 //
                 //if logged on
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {//logon
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", user.getEmail());
-                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard, bundle);
-                }
+//                if (user != null) {//logon
+//                    Bundle bundle = new Bundle();
+////                    bundle.putString("username", user.getEmail());
+//                    bundle.putString("username", username);
+//                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_clientDashboard, bundle);
+//                }
 
                 if (user != null){
                     if(user.getEmail()!= null) {//signin = update profile with full name

@@ -8,58 +8,44 @@
     android:padding="16dp"
     android:background="@android:color/white">
 
-    <!-- Text view to show the text Select course-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/handyMAnTV"-->
-<!--        android:layout_width="280dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/hiClient"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:background="@android:drawable/editbox_background"-->
-<!--        android:drawableEnd="@drawable/handyman_icon"-->
-<!--        android:gravity="center_vertical"-->
-<!--        android:hint="Find a spetz"-->
-<!--        android:padding="15dp"-->
-<!--        android:textColorHint="@color/black"-->
-<!--        android:textSize="20dp" />-->
     <TextView
         android:id="@+id/problom_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:text="desc"
-        android:textSize="20sp"
+        android:text="Description"
+        android:textSize="15dp"
+        android:padding="5dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:background="@android:drawable/editbox_background"
         />
 
     <TextView
         android:layout_marginTop="15dp"
-        android:padding="10dp"
+        android:textColor="@color/black"
         android:layout_below="@id/problom_desc"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="problom_address"
-        android:textSize="20sp"
+        android:text="Problom address"
+        android:textSize="15dp"
         android:textStyle="bold"
+        android:padding="5dp"
         android:id="@+id/problom_address"
-        android:background="@android:drawable/editbox_background"
-        />
+        android:background="@android:drawable/editbox_background" />
 
     <TextView
         android:layout_below="@id/problom_address"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="spetz name"
-        android:textSize="20sp"
+        android:text="Spetz name"
+        android:padding="5dp"
+        android:textSize="15dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:id="@+id/problem_spetzName"
         android:background="@android:drawable/editbox_background"
@@ -67,14 +53,14 @@
 
     <TextView
         android:layout_below="@id/problem_spetzName"
-
+        android:padding="5dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="spetz phone"
-        android:textSize="20sp"
+        android:text="Spetz phone"
+        android:textSize="15dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:id="@+id/problem_spetzPhone"
         android:background="@android:drawable/editbox_background"
@@ -84,41 +70,56 @@
         android:layout_below="@id/problem_spetzPhone"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:padding="10dp"
+        android:padding="5dp"
+        android:drawablePadding="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="spetz name"
-        android:textSize="20sp"
+        android:text="User name"
+        android:textSize="15dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:id="@+id/problem_userName"
         android:background="@android:drawable/editbox_background"
         />
 
     <TextView
+        android:id="@+id/problem_userPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/problem_userName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="spetz phone"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/problem_userPhone"
         android:background="@android:drawable/editbox_background"
-        />
+        android:padding="5dp"
+        android:text="User phone"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/spetzReplayET"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/problem_userName"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:background="@android:drawable/editbox_background"-->
+<!--        android:padding="5dp"-->
+<!--        android:text="Here you'll get the pro's replay"-->
+<!--        android:textSize="15dp"-->
+<!--        android:textColor="@color/black"/>-->
 
 
     <ImageView
-        android:layout_below="@id/problem_userPhone"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/imageIv"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_below="@id/problem_userPhone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
         android:text="Select occupation"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/imageIv" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

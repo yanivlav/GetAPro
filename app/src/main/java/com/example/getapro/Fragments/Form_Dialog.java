@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class Form_Dialog extends DialogFragment {
     StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     ImageView image;
+    EditText spetzReplay;
     TextView desc,address,spetzName, spetzPhone, userName, userPhone;
     Form form;
     int pos ;
@@ -62,6 +64,16 @@ public class Form_Dialog extends DialogFragment {
             desc.setText(form.getDescription());
         }
         else desc.setText("no desc");
+
+
+//        spetzReplay = view.findViewById(R.id.spetzReplayET);
+//        spetzReplay.setEnabled(false);
+//
+//        if (user.getDisplayName() == form.getSpetzName())
+//            spetzReplay.setEnabled(false);
+//
+
+
 
         address = view.findViewById(R.id.problom_address);
         address.setText(form.getAddress());

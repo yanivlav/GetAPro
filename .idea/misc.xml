@@ -37,14 +37,18 @@
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/client_contact.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/client_dashboard.xml" value="0.18" />
         <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/Last_Project/MergeWithBar/GetAPro/app/src/main/res/layout/fragment_blank.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.10326086956521739" />
         <entry key="app/src/main/res/layout/client_contact.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout/client_dashboard.xml" value="0.23639221191406257" />
         <entry key="app/src/main/res/layout/form_cell.xml" value="0.23097826086956522" />
+        <entry key="app/src/main/res/layout/form_dialog.xml" value="0.30023965408552944" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.11018237082066869" />
         <entry key="app/src/main/res/layout/fragment_spets_requests.xml" value="0.15572916666666667" />
         <entry key="app/src/main/res/layout/fragment_spetz_card.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout/sign_dialog.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout/spets_requests.xml" value="0.1" />
         <entry key="app/src/main/res/layout/spetz_cell.xml" value="0.16666666666666666" />
+        <entry key="app/src/main/res/layout/user_dialog.xml" value="0.11018237082066869" />
       </map>
     </option>
   </component>

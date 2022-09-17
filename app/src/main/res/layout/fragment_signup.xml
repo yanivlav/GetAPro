@@ -174,20 +174,14 @@
 
         <Button
             android:id="@+id/userImage"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/liniar"
             android:hint="@string/take_a_photo"
             android:textColorHint="@color/black"
             android:backgroundTint="@color/orange"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidthFocused="2dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
             app:hintTextColor="@color/black"
             android:layout_marginTop="5dp"
-            app:startIconDrawable="@drawable/cam_icon"
             app:startIconTint="@color/black">
         </Button>
 

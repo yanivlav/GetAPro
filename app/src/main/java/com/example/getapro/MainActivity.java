@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
                 if (user != null) {//logon
 
-                    messaging.unsubscribeFromTopic(user.getUid());
-                    messaging.subscribeToTopic(user.getUid());
+//                    messaging.unsubscribeFromTopic(user.getUid());
+//                    messaging.subscribeToTopic(user.getUid());
                     path = user.getEmail()+".jpg";
 
 
@@ -215,8 +215,12 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                             if(dataSnapshot.exists()) {
                                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                     Spetz spetz = snapshot.getValue(Spetz.class);
-                                    if (spetz.getOccupation() != null)
+                                    if (spetz.getOccupation() != null){
+                                        messaging.unsubscribeFromTopic(user.getUid());
+                                        messaging.subscribeToTopic(user.getUid());
                                         navigationView.getMenu().findItem(R.id.item_myRequests).setVisible(true);
+                                    }
+
                                 }
                             }
                         }

@@ -88,6 +88,7 @@ public class ClientDashboard extends Fragment{
     DrawerLayout drawerLayout;
 
     String result;
+    Spetz spetz;
 
     //check if user is a spetz
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -164,17 +165,6 @@ public class ClientDashboard extends Fragment{
         messageTV = view.findViewById(R.id.message_tv);
         logoIv = view.findViewById(R.id.logo);
 
-        IntentFilter filter = new IntentFilter("il.org.syntax.sms_received");
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String message = intent.getStringExtra("message");
-                if (message!=null)
-                    messageTV.setText(message);
-            }
-        };
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
-
 //        if (getArguments() != null) {
 //            message = getArguments().getString("message");
 //            if (message!=null)
@@ -189,7 +179,7 @@ public class ClientDashboard extends Fragment{
                     users_local.clear();
                     if(dataSnapshot.exists()) {
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Spetz spetz = snapshot.getValue(Spetz.class);
+                            spetz = snapshot.getValue(Spetz.class);
                             if (spetz.getOccupation() != null) {
                                 requestsBtn.setVisibility(View.VISIBLE);
                                 messageTV.setText("Here you'll get new descriptions from new clients");
@@ -208,6 +198,18 @@ public class ClientDashboard extends Fragment{
             inquiriesBtn.setVisibility(View.INVISIBLE);
             messageTV.setText("since 1792");
         }
+
+        IntentFilter filter = new IntentFilter("il.org.syntax.sms_received");
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String message = intent.getStringExtra("message");
+                if (message!=null && spetz.getOccupation() != null)
+                    messageTV.setText(message);
+            }
+        };
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver,filter);
+
         //check  if this is the right on
 //        messageTV.setText(message);
 
